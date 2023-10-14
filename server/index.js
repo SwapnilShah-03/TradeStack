@@ -124,7 +124,7 @@ app.get("/portfolio/info", async (req, res) => {
       }
     });
   } else {
-    consol.log("JWT Cookie not found");
+    console.log("JWT Cookie not found");
   }
   const portfolio = await Portfolio.find({ userName: username });
   // const stocks = [
@@ -290,7 +290,7 @@ app.get("/transactions", async (req, res) => {
       }
     });
   } else {
-    consol.log("JWT Cookie not found");
+    console.log("JWT Cookie not found");
   }
   const response = await Transaction.find({ userName: username });
   res.json(response[0].trades);
