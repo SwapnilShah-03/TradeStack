@@ -3,6 +3,7 @@ import axios from "axios";
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import puppeteer from "puppeteer";
 // import posts from "./routes/stock.js";
 import Stock from "./models/Stock.js";
 import Portfolio from "./models/Portfolio.js";
@@ -296,48 +297,27 @@ app.get("/transactions", async (req, res) => {
   res.json(response[0].trades);
 });
 
-// app.post("/register", async (req, res) => {
-//   try {
-//     mongoose.connect(process.env.MONGO_URL);
-//     const {
-//       userName,
-//       email,
-//       password,
-//       address,
-//       age,
-//       gender,
-//       nationality,
-//       phoneNumber,
-//     } = req.body;
+app.get("/news", async (req, res) => {
+  const url = "https://www.moneycontrol.com/news/business/stocks/";
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(url);
 
-//     const user = await User.create({
-//       userName,
-//       email,
-//       password,
-//       address,
-//       age,
-//       gender,
-//       nationality,
-//       phoneNumber,
-//     });
+  // const anchorTags = await page.evaluate(() => {
+  //   const anchors = Array.from(document.querySelectorAll("a"));
+  //   return anchors.map((anchor) => ({
+  //     href: anchor.getAttribute("href"),
+  //     title: anchor.getAttribute("title"),
+  //   }));
+  // });
 
-//     const portfolio = await Portfolio.create({
-//       userName,
-//       stocks: [],
-//       investment: 0,
-//       balance: 2000000,
-//     });
+  // console.log(anchorTags);
 
-//     const transactions = await Transaction.create({
-//       userName,
-//       trades: [],
-//     });
-//     res.status(200).json("User Created");
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500);
-//   }
-// });
+  const news = await page.$x('//*[@id="newslist-0"]');
+  for (let story of news) {
+    console.log(story);
+  }
+});
 
 app.listen(4000);
 
