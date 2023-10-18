@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import Portfolio from "../models/Portfolio.js";
 import Transaction from "../models/Transaction.js";
+
 const test = (req, res) => {
   res.json("Test is working!");
 };
@@ -107,4 +108,5 @@ const logoutUser = async (req, res) => {
   console.log("Cookie deleted");
   res.json({ message: "Logged out", status: true });
 };
+
 export { test, registerUser, loginUser, getProfile, logoutUser };

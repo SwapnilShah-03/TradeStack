@@ -1,16 +1,27 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../userContext";
 import axios from "axios";
+import {
+  Navbar,
+  Collapse,
+  Typography,
+  Button,
+  IconButton,
+  Card,
+} from "@material-tailwind/react";
 
-export default function Navbar() {
+export default function Header() {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
-  const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+  const [openNav, setOpenNav] = useState(false);
 
-  const toggleHamburgerMenu = () => {
-    setIsHamburgerOpen(!isHamburgerOpen);
-  };
+  useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setOpenNav(false)
+    );
+  }, []);
 
   const logoutHandler = async () => {
     try {
@@ -24,173 +35,180 @@ export default function Navbar() {
     }
   };
 
+  const navList = (
+    <ul className="my-4 flex flex-col gap-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-10 justify-center">
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <Link to="/" className="flex items-center">
+          Dashboard
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <Link to="/market" className="flex items-center">
+          Market
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <Link to="/portfolio" className="flex items-center">
+          Portfolio
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <Link to="/transactions" className="flex items-center">
+          Transactions
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <Link to="/news" className="flex items-center">
+          News
+        </Link>
+      </Typography>
+    </ul>
+  );
+
   return (
-    <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-gray-200 dark:border-gray-600">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" className="flex items-center">
-          <span className="self-center text-2xl font-bold whitespace-nowrap dark:text-white">
-            TradeStack
-          </span>
-        </a>
-        <div className="flex md:order-2">
-          {!!user ? (
-            <>
-              <Link
-                to="/profile"
-                className="text-white hover:text-blue-700 font-bold rounded-lg text-sm pe-4 py-2 text-center my-auto md:mr-0"
-              >
-                {user.username || user.given_name}
-              </Link>
-              <button
-                onClick={logoutHandler}
-                className="text-white bg-blue-700 hover:bg-blue-800 font-bold rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-700 dark:hover:bg-blue-800"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/register"
-                className="text-white hover:text-blue-700 font-bold rounded-lg text-sm pe-4 py-2 text-center md:mr-0"
-              >
-                Register
-              </Link>
-              <Link
-                to="/login"
-                className="text-white bg-blue-700 hover:bg-blue-800 font-bold rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-700 dark:hover:bg-blue-800"
-              >
-                Login
-              </Link>
-            </>
-          )}
-          <button
-            data-collapse-toggle="navbar-sticky"
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
-            aria-controls="navbar-sticky"
-            aria-expanded={isHamburgerOpen}
-            onClick={toggleHamburgerMenu}
+    <>
+      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
+        <div className="flex items-center justify-between text-blue-gray-900">
+          <Typography
+            as="a"
+            href="/"
+            className="mr-[1.4rem] cursor-pointer py-1.5 font-medium"
           >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
+            TradeStack
+          </Typography>
+          <div className="ml-10 hidden lg:block">{navList}</div>
+          <div className="flex items-center gap-4">
+            {!!user ? (
+              <>
+                <Typography className="cursor-pointer py-1.5 font-medium">
+                  <Link to="/profile">{user.username || user.given_name}</Link>
+                </Typography>
+                <Button
+                  variant="gradient"
+                  className="normal-case text-sm px-4 py-[0.6rem]"
+                  ripple={true}
+                  onClick={logoutHandler}
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Typography className="cursor-pointer py-1.5 font-medium">
+                  <Link to="/register">Register</Link>
+                </Typography>
+                <Button
+                  variant="gradient"
+                  className="normal-case text-sm px-4 py-[0.6rem]"
+                  ripple={true}
+                >
+                  <Link to="/login">Login</Link>
+                </Button>
+              </>
+            )}
+            {/* <Typography className="cursor-pointer py-1.5 font-medium">
+              <Link to="/register">Register</Link>
+            </Typography>
+            <Button
+              variant="gradient"
+              className="normal-case text-sm px-4 py-[0.6rem]"
+              ripple={true}
             >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button>
+              <Link to="/login">Login</Link>
+            </Button> */}
+            <IconButton
+              variant="text"
+              className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+              ripple={false}
+              onClick={() => setOpenNav(!openNav)}
+            >
+              {openNav ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  className="h-6 w-6"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
+            </IconButton>
+          </div>
         </div>
-        <div
-          className={`items-center justify-between w-full ${
-            isHamburgerOpen
-              ? "md:flex md:w-auto md:order-1"
-              : "hidden md:flex md:w-auto md:order-1"
-          }`}
-          id="navbar-sticky"
-        >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li className="mr-8">
-              <a
-                href="/dashboard"
-                className="block my-1 py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                aria-current="page"
-              >
-                Dashboard
-              </a>
-            </li>
-            <li className="mr-8">
-              <a
-                href="/market"
-                className="block my-1 py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-500 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Market
-              </a>
-            </li>
-            <li className="mr-8">
-              <a
-                href="/portfolio"
-                className="block my-1 py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-500 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Portfolio
-              </a>
-            </li>
-            <li className="mr-8">
-              <a
-                href="/transactions"
-                className="block my-1 py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-500 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Transactions
-              </a>
-            </li>
-            <li>
-              <a
-                href="/news"
-                className="block my-1 py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-500 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                News
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div
-          className={`hidden w-full ${isHamburgerOpen ? "block" : ""}`}
-          id="navbar-hamburger"
-        >
-          <ul className="flex flex-col mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-            <li>
-              <a
-                href="/dashboard"
-                className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded dark:bg-blue-700"
-                aria-current="page"
-              >
-                Dashboard
-              </a>
-            </li>
-            <li>
-              <a
-                href="/market"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                Market
-              </a>
-            </li>
-            <li>
-              <a
-                href="/portfolio"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                Portfolio
-              </a>
-            </li>
-            <li>
-              <a
-                href="/transactions"
-                className="block py-4 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                Transactions
-              </a>
-            </li>
-            <li>
-              <a
-                href="/news"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                News
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+        <Collapse open={openNav}>{navList}</Collapse>
+      </Navbar>
+      {/* <div className="mx-auto max-w-screen-md py-12">
+        <Card className="mb-12 overflow-hidden">
+          <img
+            alt="nature"
+            className="h-[32rem] w-full object-cover object-center"
+            src="https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2717&q=80"
+          />
+        </Card>
+        <Typography variant="h2" color="blue-gray" className="mb-2">
+          What is Material Tailwind
+        </Typography>
+        <Typography color="gray" className="font-normal">
+          Can you help me out? you will get a lot of free exposure doing this
+          can my website be in english?. There is too much white space do less
+          with more, so that will be a conversation piece can you rework to make
+          the pizza look more delicious other agencies charge much lesser can
+          you make the blue bluer?. I think we need to start from scratch can my
+          website be in english?, yet make it sexy i&apos;ll pay you in a week
+          we don&apos;t need to pay upfront i hope you understand can you make
+          it stand out more?. Make the font bigger can you help me out? you will
+          get a lot of free exposure doing this that&apos;s going to be a chunk
+          of change other agencies charge much lesser. Are you busy this
+          weekend? I have a new project with a tight deadline that&apos;s going
+          to be a chunk of change. There are more projects lined up charge extra
+          the next time.
+        </Typography>
+      </div> */}
+    </>
   );
 }

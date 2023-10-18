@@ -4,8 +4,7 @@ import axios from "axios";
 import { useGoogleLogin } from "@react-oauth/google";
 import { toast } from "react-hot-toast";
 import { UserContext } from "../userContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { Button } from "@material-tailwind/react";
 
 const fixedInputClass =
   "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm";
@@ -76,8 +75,8 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-full h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full items-center mt-10">
+    <div className="h-full mt-16 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full items-center">
         <div className="mb-10">
           <div className="flex justify-center">
             <img
@@ -142,16 +141,23 @@ export default function Login() {
           >
             Login
           </button>
-          <button
+          <Button
+            size="md"
+            variant="outlined"
+            color="blue-gray"
+            className="w-full flex justify-center items-center gap-3 normal-case text-sm"
             onClick={() => {
               setGoogleLogin(true);
               login();
             }}
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#DB4437] hover:bg-[#AE2B1F]"
           >
-            <FontAwesomeIcon icon={faGoogle} className="py-1 pe-3" />
-            Google Login
-          </button>
+            <img
+              src="../../src/assets/images/search.png"
+              alt="metamask"
+              className="h-5 w-5 mr-2"
+            />
+            Continue with Google
+          </Button>
         </form>
       </div>
     </div>

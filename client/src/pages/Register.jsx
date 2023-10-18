@@ -116,8 +116,8 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-full h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full pb-10 mt-[35rem] items-center">
+    <div className="h-full my-16 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full items-center">
         <div className="mb-10">
           <div className="flex justify-center">
             <img
