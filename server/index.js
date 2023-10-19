@@ -298,24 +298,44 @@ app.get("/transactions", async (req, res) => {
 });
 
 app.get("/news", async (req, res) => {
+  const news = [];
   const url = "https://www.moneycontrol.com/news/business/stocks/";
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto(url);
 
-  // const anchorTags = await page.evaluate(() => {
-  //   const anchors = Array.from(document.querySelectorAll("a"));
-  //   return anchors.map((anchor) => ({
-  //     href: anchor.getAttribute("href"),
-  //     title: anchor.getAttribute("title"),
-  //   }));
-  // });
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
 
-  // console.log(anchorTags);
+    await page.goto(url);
 
-  const news = await page.$x('//*[@id="newslist-0"]');
-  for (let story of news) {
-    console.log(story);
+    const container = await page.$x('//*[@id="cagetory"]');
+    const liTags = await container[0].$$(".clearfix");
+
+    for (let liTag of liTags) {
+      const anchorTag = await liTag.$("h2 a");
+      const spanTag = await liTag.$("span");
+      const pTag = await liTag.$$("p");
+      const anchorTitle = await anchorTag.evaluate((anchor) => anchor.title);
+      const anchorHref = await anchorTag.evaluate((anchor) => anchor.href);
+      const pText = await pTag[0].evaluate((p) => p.textContent);
+      const spanText = await spanTag.evaluate((span) => span.textContent);
+
+      news.push({
+        title: anchorTitle,
+        description: pText,
+        href: anchorHref,
+        date: spanText,
+      });
+    }
+
+    console.log(news);
+    res.json(news);
+
+    await browser.close();
+  } catch (error) {
+    console.error("An error occurred:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while scraping the data." });
   }
 });
 

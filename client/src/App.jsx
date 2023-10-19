@@ -7,12 +7,12 @@ import { Stock, loader as StockLoader } from "./pages/Stock";
 import { Market, loader as MarketLoader } from "./pages/Market";
 import { Purchase, loader as PurchaseLoader } from "./pages/Purchase";
 import { Portfolio, loader as PortfolioLoader } from "./pages/Portfolio";
-import News from "./pages/News";
+import { News, loader as NewsLoader } from "./pages/News";
 import {
   Transactions,
   loader as TransactionsLoader,
 } from "./pages/Transactions";
-import Home from "./pages/Home"
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -58,6 +58,7 @@ const router = createBrowserRouter([
       {
         path: "news",
         element: <News />,
+        loader: NewsLoader,
       },
       {
         path: "transactions",
