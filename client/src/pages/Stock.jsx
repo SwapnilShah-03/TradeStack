@@ -11,7 +11,7 @@ export function Stock({ params }) {
   console.log(dps);
   const options = {
     title: {
-      text: `React StockChart of ${symbol}`,
+      text: `Stock Chart of ${symbol}`,
     },
     theme: "light2",
     subtitles: [
@@ -44,7 +44,7 @@ export function Stock({ params }) {
           {
             name: "Price (in INR)",
             type: "splineArea",
-            color: "#1b6e55",
+            color: "#064199",
             yValueFormatString: "₹#,###.##",
             xValueFormatString: "MMM DD YYYY",
             dataPoints: dps,

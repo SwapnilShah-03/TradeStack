@@ -1,14 +1,30 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 export function Market(params) {
   const response = useLoaderData();
-  console.log(response);
+  const [stocks, setStocks] = useState(response);
+  useEffect(() => {
+    async function check() {
+      try {
+        const result = await axios.get("/market");
+        setStocks(result.data); // Update the state with the data
+        console.log("Stocks updated");
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    const interval = setInterval(check, 60000); // Set up periodic fetching
+    // Clear the interval on component unmount to prevent memory leaks
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-full h-screen w-full flex justify-center ">
       <div className="mt-[5rem] w-full grid self-stretch">
-        {response.map((stock) => (
+        {stocks.map((stock) => (
           <>
             <Link to={`/stock/${stock.symbol}`}>
               <div className="grid gap-2 self-stretch">
@@ -30,7 +46,7 @@ export function Market(params) {
                       color: stock.changePercent >= 0 ? "seagreen" : "red",
                     }}
                   >
-                    {stock.changePercent.toFixed(2)}
+                    {stock.changePercent.toFixed(2)}%
                   </div>
                 </div>
               </div>

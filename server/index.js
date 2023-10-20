@@ -45,7 +45,7 @@ app.post("/stock", async (req, res) => {
         `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?period1=0&period2=9999999999&interval=1d` // Update with your API endpoint
       );
       const prices = await axios.get(
-        `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?&interval=30m`
+        `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?&interval=5m`
       );
 
       const histData = response.data;
@@ -62,7 +62,7 @@ app.post("/stock", async (req, res) => {
     }
   } else {
     const prices = await axios.get(
-      `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?&interval=30m`
+      `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?&interval=5m`
     );
     const results = prices.data.chart.result[0];
     const closePrices = results.indicators.quote[0].close;
@@ -84,7 +84,7 @@ app.get("/market", async (req, res) => {
 
     for (let i = 0; i < data.length; ++i) {
       const prices = await axios.get(
-        `https://query1.finance.yahoo.com/v8/finance/chart/${data[i].symbol}?&interval=30m`
+        `https://query1.finance.yahoo.com/v8/finance/chart/${data[i].symbol}?&interval=5m`
       );
       const results = prices.data.chart.result[0];
       const closePrices = results.indicators.quote[0].close;
@@ -211,7 +211,7 @@ app.post("/portfolio/prices", async (req, res) => {
 
   for (let i = 0; i < stocks.length; ++i) {
     const price = await axios.get(
-      `https://query1.finance.yahoo.com/v8/finance/chart/${stocks[i].symbol}?&interval=30m`
+      `https://query1.finance.yahoo.com/v8/finance/chart/${stocks[i].symbol}?&interval=5m`
     );
     const results = price.data.chart.result[0];
     const closePrices = results.indicators.quote[0].close;

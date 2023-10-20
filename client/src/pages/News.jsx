@@ -11,7 +11,7 @@ export function News() {
         <>
           <Link to={news.href}></Link>
           <h2>{news.title}</h2>
-          <div>{news.dat}e</div>
+          <div>{news.date}</div>
           <div>{news.description}</div>
         </>
       ))}
