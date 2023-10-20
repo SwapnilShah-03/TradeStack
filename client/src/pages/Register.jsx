@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 const fixedInputClass =
-  "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-sm";
+  "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-md";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -116,7 +116,7 @@ export default function Register() {
   };
 
   return (
-    <div className="h-full my-16 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div className="h-full my-16 flex items-center justify-center px-4 sm:px-6 lg:px-8 font-Outfit">
       <div className="max-w-md w-full items-center">
         <div className="mb-10">
           <div className="flex justify-center">
@@ -129,11 +129,11 @@ export default function Register() {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Signup to create an account
           </h2>
-          <p className="mt-5 text-center text-sm text-gray-600 ">
+          <p className="mt-5 text-center text-md text-gray-600 ">
             Already have an account?{" "}
             <Link
               to="/login"
-              className="font-medium text-blue-700 hover:text-blue-600"
+              className="font-medium text-blue-700 hover:text-blue-800"
             >
               Login
             </Link>
@@ -143,7 +143,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="username"
-              className="block text-sm font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-gray-900 mb-1"
             >
               Username
             </label>
@@ -161,7 +161,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-gray-900 mb-1"
             >
               Email
             </label>
@@ -180,7 +180,7 @@ export default function Register() {
             <div className="my-0">
               <label
                 htmlFor="age"
-                className="block text-sm font-medium leading-6 text-gray-900 mb-1"
+                className="block text-md font-medium leading-6 text-gray-900 mb-1"
               >
                 Age
               </label>
@@ -198,7 +198,7 @@ export default function Register() {
             <div className="my-0">
               <label
                 htmlFor="gender"
-                className="block text-sm font-medium leading-6 text-gray-900 mb-1"
+                className="block text-md font-medium leading-6 text-gray-900 mb-1"
               >
                 Gender
               </label>
@@ -222,7 +222,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="nationality"
-              className="block text-sm font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-gray-900 mb-1"
             >
               Nationality
             </label>
@@ -240,7 +240,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="address"
-              className="block text-sm font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-gray-900 mb-1"
             >
               Address
             </label>
@@ -259,7 +259,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="phone"
-              className="block text-sm font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-gray-900 mb-1"
             >
               Phone Number
             </label>
@@ -277,7 +277,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="password"
-              className="block text-sm font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-gray-900 mb-1"
             >
               Password
             </label>
@@ -294,7 +294,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="confirmPassword"
-              className="block text-sm font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-gray-900 mb-1"
             >
               Confirm Password
             </label>
@@ -310,7 +310,7 @@ export default function Register() {
           </div>
           <button
             type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800"
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800"
           >
             Register
           </button>
