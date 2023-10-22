@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="mx-auto px-8">
         <div className="flex w-full flex-col items-center justify-center py-4 md:flex-row md:justify-between">
           <Typography
-            variant="small"
+            variant="medium"
             className="mb-4 text-center font-normal text-[#eceff1] md:mb-0 font-Poppins text-opacity-70"
           >
             &copy; {currentYear}{" "}

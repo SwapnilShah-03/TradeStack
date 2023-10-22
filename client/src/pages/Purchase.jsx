@@ -42,28 +42,9 @@ export function Purchase() {
   }
 
   return (
-    <div className="my-16 flex justify-center">
-      {/* <form className="max-w-md mx-auto" onSubmit={updatePortfolio}>
-        <div className="mt-4 grow flex items-center justify-around">
-          <div classname="mb-64 flex">
-            <h4 className="text-3xl text-center mb-6">Buying of Shares</h4>
-            <p>Stock Symbol : {symbol}</p>
-            <p>Stock latest Price : ₹{price.toFixed(2)}</p>
-            <p>Account Balance : ₹{balance.toFixed(2)}</p>
-            <label>Quantity : </label>
-            <input type="number" value={quantity} onChange={change} />
-            <p> Amount : ₹{amount.toFixed(2)}</p>
-            <button className="primary  self-center bg-blue-900 border-emerald-200 rounded-xl px-5 py-3 my-5 text-center text-lg shadow-inherit">
-              Confirm
-            </button>
-          </div>
-        </div>
-      </form> */}
-      <form onSubmit={updatePortfolio}>
-        <Card
-          variant="gradient"
-          className="flex-row h-auto bg-[#263238] p-4"
-        >
+    <div className="bg-purchase bg-no-repeat bg-cover bg-center h-[89.5vh] flex justify-center">
+      <form onSubmit={updatePortfolio} className="my-auto">
+        <Card variant="gradient" className="flex-row h-auto bg-[#263238] py-4 px-5 shadow-2xl">
           <CardBody>
             <Typography className="mb-7 text-[#eceff1] font-Outfit font-medium text-3xl">
               Buying of Shares
