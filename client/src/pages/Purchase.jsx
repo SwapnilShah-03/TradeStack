@@ -2,7 +2,10 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Navigate, useLoaderData } from "react-router-dom";
 import { UserContext } from "../userContext";
-import cookieParser from "cookie-parser";
+import { Card, CardBody, Typography, Button } from "@material-tailwind/react";
+
+const fixedInputClass =
+  "mt-2 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-md";
 
 export function Purchase() {
   const [quantity, setQuantity] = useState(0);
@@ -39,11 +42,11 @@ export function Purchase() {
   }
 
   return (
-    <div className="my-20 flex ">
-      <form className="max-w-md mx-auto" onSubmit={updatePortfolio}>
+    <div className="my-16 flex justify-center">
+      {/* <form className="max-w-md mx-auto" onSubmit={updatePortfolio}>
         <div className="mt-4 grow flex items-center justify-around">
           <div classname="mb-64 flex">
-            <h4 className="text-3xl text-center mb-4">Buying of Shares</h4>
+            <h4 className="text-3xl text-center mb-6">Buying of Shares</h4>
             <p>Stock Symbol : {symbol}</p>
             <p>Stock latest Price : ₹{price.toFixed(2)}</p>
             <p>Account Balance : ₹{balance.toFixed(2)}</p>
@@ -55,6 +58,48 @@ export function Purchase() {
             </button>
           </div>
         </div>
+      </form> */}
+      <form onSubmit={updatePortfolio}>
+        <Card
+          variant="gradient"
+          className="flex-row h-auto bg-[#263238] p-4"
+        >
+          <CardBody>
+            <Typography className="mb-7 text-[#eceff1] font-Outfit font-medium text-3xl">
+              Buying of Shares
+            </Typography>
+            <Typography className="mb-6 text-[#eceff1] text-opacity-50 font-Outfit font-normal text-xl">
+              Stock Symbol : {symbol}
+            </Typography>
+            <Typography className="mb-6 text-[#eceff1] text-opacity-50 font-Outfit font-normal text-xl">
+              Latest Price : ₹{price.toFixed(2)}
+            </Typography>
+            <Typography className="mb-6 text-[#eceff1] text-opacity-50 font-Outfit font-normal text-xl">
+              Account Balance : ₹{balance.toFixed(2)}
+            </Typography>
+            <label
+              htmlFor="quantity"
+              className="text-[#eceff1] text-opacity-50 font-Outfit font-normal text-xl"
+            >
+              Quantity:
+            </label>
+            <input
+              type="number"
+              onChange={change}
+              id="quantity"
+              name="quantity"
+              value={quantity}
+              className={`mb-6 text-black text-opacity-100 font-Outfit font-normal text-md ${fixedInputClass}`}
+              autoComplete="off"
+            />
+            <Typography className="mb-6 text-[#eceff1] text-opacity-50 font-Outfit font-normal text-xl">
+              Amount : ₹{amount.toFixed(2)}
+            </Typography>
+            <button class="bg-blue-700 hover:bg-blue-900 text-[#eceff1] py-[0.4rem] px-4 rounded shadow text-xl font-medium font-Outfit">
+              Buy
+            </button>
+          </CardBody>
+        </Card>
       </form>
     </div>
   );

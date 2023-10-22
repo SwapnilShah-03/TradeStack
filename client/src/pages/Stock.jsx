@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom";
 import CanvasJSReact from "@canvasjs/react-stockcharts";
-import { Button } from "@mui/material";
 export function Stock({ params }) {
   // var CanvasJS = CanvasJSReact.CanvasJS;
   var CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
@@ -65,12 +64,14 @@ export function Stock({ params }) {
     margin: "auto",
   };
   return (
-    <div>
+    <div className="p-[3.2rem]">
       <div>
         <CanvasJSStockChart containerProps={containerProps} options={options} />
       </div>
-      <Link to={`/purchase/${symbol}`}>
-        <Button>Buy</Button>
+      <Link to={`/purchase/${symbol}`} className="flex justify-center mt-6">
+        <button class="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
+          Buy
+        </button>
       </Link>
     </div>
   );
