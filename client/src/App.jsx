@@ -16,8 +16,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
-axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;
+
 const router = createBrowserRouter([
   {
     path: "/",

@@ -1,3 +1,4 @@
+//If you get a duplicate key error, delete the index of the collection in MongoDB Atlas
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";

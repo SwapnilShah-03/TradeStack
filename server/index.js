@@ -24,7 +24,9 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(
+  cors({ credentials: true, origin: "http://localhost:5173" })
+);
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 // app.use("/", require("./routes/authRoutes.js"));
@@ -339,7 +341,7 @@ app.get("/news", async (req, res) => {
   }
 });
 
-app.listen(4000);
+app.listen(process.env.PORT);
 
 // Alpha vantage Api key:DRVJFKCLK82Z4BOZ.
 // Email is of Tradestack for the above

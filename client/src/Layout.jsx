@@ -7,7 +7,11 @@ export default function Layout() {
   return (
     <div>
       <Header />
-      <Toaster position="bottom-right" toastOptions={{ duration: 4000 }} />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{ duration: 4000 }}
+        containerClassName="font-Poppins"
+      />
       <Outlet />
     </div>
   );
