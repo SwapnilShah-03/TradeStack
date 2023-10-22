@@ -36,16 +36,16 @@ export default function Header() {
   };
 
   const underline =
-    "relative w-fit text-base font-Poppins after:block after:content-[''] after:absolute after:h-[1.5px] after:bg-blue-gray-900 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center";
+    "relative w-fit text-base font-Poppins after:block after:content-[''] after:absolute after:h-[1.5px] after:bg-gray-900 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center";
 
   const buttonHover =
-    "relative -top-1 -left-1 font-Poppins bg-blue-gray-900 py-2 px-3.5 text-white transition-all before:absolute before:top-1 before:left-1 before:-z-[1] before:h-full before:w-full before:border-2 before:border-gray-700 before:transition-all before:content-[''] hover:top-0 hover:left-0 before:hover:top-0 before:hover:left-0";
+    "relative -top-1 -left-1 font-Poppins bg-gray-900 py-2 px-3.5 text-white transition-all before:absolute before:top-1 before:left-1 before:-z-[1] before:h-full before:w-full before:border-2 before:border-gray-700 before:transition-all before:content-[''] hover:top-0 hover:left-0 before:hover:top-0 before:hover:left-0";
 
   const navList = (
     <ul className="my-4 flex flex-col gap-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-10 justify-center">
       <Typography
         as="li"
-        color="blue-gray"
+        color="gray-900"
         className="p-1 font-normal"
       >
         <Link to="/" className={underline}>
@@ -54,7 +54,7 @@ export default function Header() {
       </Typography>
       <Typography
         as="li"
-        color="blue-gray"
+        color="gray-900"
         className="p-1 font-normal"
       >
         <Link to="/market" className={underline}>
@@ -63,7 +63,7 @@ export default function Header() {
       </Typography>
       <Typography
         as="li"
-        color="blue-gray"
+        color="gray-900"
         className="p-1 font-normal"
       >
         <Link to="/portfolio" className={underline}>
@@ -72,7 +72,7 @@ export default function Header() {
       </Typography>
       <Typography
         as="li"
-        color="blue-gray"
+        color="gray-900"
         className="p-1 font-normal"
       >
         <Link to="/transactions" className={underline}>
@@ -81,7 +81,7 @@ export default function Header() {
       </Typography>
       <Typography
         as="li"
-        color="blue-gray"
+        color="gray-900"
         className="p-1 font-normal"
       >
         <Link to="/news" className={underline}>
@@ -94,7 +94,7 @@ export default function Header() {
   return (
     <>
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
-        <div className="flex items-center justify-between text-blue-gray-900">
+        <div className="flex items-center justify-between text-gray-900">
           <a
             href="/"
             className="mr-4 cursor-pointer py-1.5 text-xl font-bold font-Poppins" 

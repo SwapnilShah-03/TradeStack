@@ -9,6 +9,9 @@ module.exports = withMT({
         'Outfit': ['Outfit', "sans-serif"],
         'Poppins': ['Poppins', "sans-serif"]
       },
+      backgroundImage: {
+        'home': "url('../src/assets/images/background.jpg')",
+      },
     },
   },
   plugins: [],

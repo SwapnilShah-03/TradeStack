@@ -31,7 +31,7 @@ export function News() {
                 {news.title}
               </Typography>
               <Typography className="text-[#eceff1] text-opacity-60 font-Outfit font-medium">
-                {news.description.slice(0, 200)}
+                {news.description.slice(0, 200)}...
               </Typography>
             </CardBody>
             {/* <CardHeader
