@@ -1,8 +1,20 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useLoaderData } from "react-router-dom";
-import { Grid, Button, Modal, Box } from "@mui/material";
+// import { Grid, Button, Modal, Box } from "@mui/material";
+import { toast } from "react-hot-toast";
 import { UserContext } from "../userContext";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+  Typography,
+} from "@material-tailwind/react";
 
 const style = {
   position: "absolute",
@@ -15,6 +27,9 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+const fixedInputClass =
+  "mt-2 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-md";
 
 export function Portfolio() {
   const [open, setOpen] = useState(false);
@@ -48,7 +63,7 @@ export function Portfolio() {
   async function updatePortfolio(ev) {
     ev.preventDefault();
     if (quantity > totalQuantity || quantity < 1) {
-      alert("Invalid Sale");
+      toast.error("Invalid Sale");
       handleClose();
     } else {
       const profits = quantity * profit;
@@ -61,8 +76,8 @@ export function Portfolio() {
         amount,
         profit: profits,
       });
-      alert("Sale was successful");
       setRedirect(true);
+      toast.success("Successfully sold shares!");
     }
   }
 
@@ -87,8 +102,8 @@ export function Portfolio() {
   }
 
   return (
-    <div>
-      <Modal
+    <div className="h-screen">
+      {/* <Modal
         open={open}
         onClose={handleClose}
         // aria-labelledby="modal-modal-title"
@@ -135,90 +150,157 @@ export function Portfolio() {
             </form>
           </div>
         </Box>
-      </Modal>
-
-      <div>
-        <div className="flex flex-row my-20">
-          <div className=" bg-slate-500 rounded-lg ">
-            <h3>Investment : ₹{portfolio.investment.toFixed(2)}</h3>
-          </div>
-          <div className=" bg-slate-500 rounded-lg ">
-            <h3>Account Balance : ₹{portfolio.balance.toFixed(2)}</h3>
-          </div>
-          <div className=" bg-slate-500 rounded-lg ">
-            <h3>
-              <span style={{ color: "green" }}>Profit</span>/
-              <span style={{ color: "red" }}>Loss</span>:
-              <span style={{ color: pl >= 0 ? "green" : "red" }}>
-                ₹{pl.toFixed(2)}
-              </span>
-            </h3>
-          </div>
-        </div>
-        <div className="my-20">
-          <Grid
-            container
-            direction="column"
-            justifyContent="space-evenly"
-            // alignItems={"flex-start"}
-            className="text-lg px-9"
-          >
-            {stocks.map((stock) => (
-              <Grid
-                container
-                className=" bg-slate-700"
-                alignSelf={"center"}
-                textAlign={"left"}
+      </Modal> */}
+      <Dialog
+        open={open}
+        handler={handleOpen}
+        size="xs"
+        className="flex justify-center py-10"
+      >
+        <DialogBody variant="gradient" className="flex-row h-auto">
+          <form onSubmit={updatePortfolio} className="w-64">
+            <Typography className="mb-8 text-gray-900 font-Outfit font-medium text-3xl">
+              Selling of Shares
+            </Typography>
+            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+              Stock Symbol: {symbol}
+            </Typography>
+            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+              Latest Price: ₹{price.toFixed(2)}
+            </Typography>
+            <label
+              htmlFor="quantity"
+              className="text-gray-900 text-opacity-70 font-Outfit font-normal text-xl"
+            >
+              Quantity:
+            </label>
+            <input
+              type="number"
+              onChange={change}
+              id="quantity"
+              name="quantity"
+              value={quantity}
+              className={`mb-6 text-black text-opacity-100 font-Outfit font-normal text-md ${fixedInputClass}`}
+              autoComplete="off"
+            />
+            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+              Amount: ₹{amount.toFixed(2)}
+            </Typography>
+            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+              Profit/Loss:{" "}
+              <span
+                style={{
+                  color: profit * quantity >= 0 ? "green" : "red",
+                }}
               >
-                {/* <Grid item xs={3} className="">
-                {stock.name}
-              </Grid> */}
-                {/* <Link to={`/stock/${stock.symbol}`}> */}
-                <Grid item xs={5}>
+                ₹{(profit * quantity).toFixed(2)}
+              </span>
+            </Typography>
+            <div className="flex justify-center gap-6">
+              <button
+                onClick={handleClose}
+                className="bg-transparent hover:bg-red-700 text-red-700 hover:text-white py-2 px-4 border border-red-700 hover:border-transparent text-xl font-medium font-Outfit"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={updatePortfolio}
+                className="bg-transparent hover:bg-green-700 text-green-700 hover:text-white py-2 px-4 border border-green-700 hover:border-transparent text-xl font-medium font-Outfit"
+              >
+                Confirm
+              </button>
+            </div>
+          </form>
+        </DialogBody>
+      </Dialog>
+      <div className="flex justify-center mt-10">
+        <div className="grid grid-cols-3 gap-16">
+          <Card
+            variant="gradient"
+            className="w-80 text-center bg-blue-gray-900"
+          >
+            <CardBody>
+              <Typography
+                variant="h5"
+                className="text-blue-gray-50 font-Outfit font-normal"
+              >
+                Investment: ₹{portfolio.investment.toFixed(2)}
+              </Typography>
+            </CardBody>
+          </Card>
+          <Card className="w-80 text-center bg-blue-gray-900">
+            <CardBody>
+              <Typography
+                variant="h5"
+                className="text-blue-gray-50 font-Outfit font-normal"
+              >
+                Account Balance: ₹{portfolio.balance.toFixed(2)}
+              </Typography>
+            </CardBody>
+          </Card>
+          <Card className="w-80 text-center bg-blue-gray-900">
+            <CardBody>
+              <Typography
+                variant="h5"
+                className="text-blue-gray-50 font-Outfit font-normal"
+              >
+                <span style={{ color: "green" }}>Profit</span>/
+                <span style={{ color: "red" }}>Loss</span>:{" "}
+                <span style={{ color: pl >= 0 ? "green" : "red" }}>
+                  ₹{pl.toFixed(2)}
+                </span>
+              </Typography>
+            </CardBody>
+          </Card>
+        </div>
+      </div>
+      <div className="my-10 mx-10">
+        <Card>
+          <CardBody className="grid grid-cols-10 gap-4 items-center">
+            {stocks.map((stock) => (
+              <>
+                <Typography
+                  variant="h5"
+                  className="text-blue-gray-900 font-Outfit font-normal col-span-3"
+                >
                   {stock.symbol}
-                </Grid>
-
-                <Grid item xs={1.5}>
+                </Typography>
+                <Typography
+                  variant="h5"
+                  className="text-blue-gray-900 font-Outfit font-normal col-span-2"
+                >
                   {stock.currentPrice.toFixed(2)}
-                </Grid>
-                <Grid item xs={1.5}>
+                </Typography>
+                <Typography
+                  variant="h5"
+                  className="text-blue-gray-900 font-Outfit font-normal col-span-2"
+                >
                   {stock.quantity}
-                </Grid>
-                <Grid
-                  item
-                  xs={1.5}
+                </Typography>
+                <Typography
+                  variant="h5"
+                  className="text-blue-gray-900 font-Outfit font-normal col-span-2"
                   style={{ color: stock.profitLoss >= 0 ? "green" : "red" }}
                 >
                   {stock.profitLoss.toFixed(2)}
-                </Grid>
-
-                {/* <Grid
-                  item
-                  xs={1.5}
-                  style={{ color: stock.changePercent > 0 ? "green" : "red" }}
-                  className=""
+                </Typography>
+                <button
+                  onClick={() =>
+                    handleOpen(
+                      stock.symbol,
+                      stock.currentPrice,
+                      stock.profitLoss,
+                      stock.quantity
+                    )
+                  }
+                  className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit col-span-1"
                 >
-                  {stock.changePercent.toFixed(2)}
-                </Grid> */}
-                {/* </Link> */}
-                <Grid item xs={1.5}>
-                  <Button
-                    onClick={() =>
-                      handleOpen(
-                        stock.symbol,
-                        stock.currentPrice,
-                        stock.profitLoss,
-                        stock.quantity
-                      )
-                    }
-                  >
-                    Sell
-                  </Button>
-                </Grid>
-              </Grid>
+                  Sell
+                </button>
+              </>
             ))}
-          </Grid>
-        </div>
+          </CardBody>
+        </Card>
       </div>
     </div>
   );

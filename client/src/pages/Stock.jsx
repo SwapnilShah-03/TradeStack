@@ -69,7 +69,7 @@ export function Stock({ params }) {
         <CanvasJSStockChart containerProps={containerProps} options={options} />
       </div>
       <Link to={`/purchase/${symbol}`} className="flex justify-center mt-6">
-        <button class="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
+        <button className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
           Buy
         </button>
       </Link>
