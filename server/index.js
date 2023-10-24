@@ -8,6 +8,7 @@ import puppeteer from "puppeteer";
 import Stock from "./models/Stock.js";
 import Portfolio from "./models/Portfolio.js";
 import Transaction from "./models/Transaction.js";
+import Indices from "./models/Indices.js";
 import User from "./models/User.js";
 import cookieParser from "cookie-parser";
 import bcrypt from "bcrypt";
@@ -24,9 +25,7 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(
-  cors({ credentials: true, origin: "http://localhost:5173" })
-);
+app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 // app.use("/", require("./routes/authRoutes.js"));
@@ -338,6 +337,38 @@ app.get("/news", async (req, res) => {
     res
       .status(500)
       .json({ error: "An error occurred while scraping the data." });
+  }
+});
+
+app.get("/indices", async (req, res) => {
+  try {
+    mongoose.connect(process.env.MONGO_URL);
+    const data = await Indices.find({});
+    const info = [];
+
+    for (let i = 0; i < data.length; ++i) {
+      const prices = await axios.get(
+        `https://query1.finance.yahoo.com/v8/finance/chart/${data[i].symbol}?&interval=5m`
+      );
+      const results = prices.data.chart.result[0];
+      const closePrices = results.indicators.quote[0].close;
+      const l = closePrices.length;
+      const prevClose = results.meta.previousClose;
+      const change = closePrices[l - 1] - prevClose;
+      const changePercent = (change * 100) / prevClose;
+      info.push({
+        name: String(data[i].name),
+        symbol: String(data[i].symbol),
+        currentPrice: Number(closePrices[l - 1]),
+        change: Number(change),
+        changePercent: Number(changePercent),
+      });
+    }
+    console.log(info);
+    res.json(info);
+  } catch (error) {
+    console.log(error);
+    res.status(500);
   }
 });
 

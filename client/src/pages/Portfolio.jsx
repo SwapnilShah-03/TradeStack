@@ -103,54 +103,6 @@ export function Portfolio() {
 
   return (
     <div className="h-screen">
-      {/* <Modal
-        open={open}
-        onClose={handleClose}
-        // aria-labelledby="modal-modal-title"
-        // aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <div className="flex ">
-            <form className="max-w-md mx-auto">
-              <div className="mt-4 grow flex items-center justify-around">
-                <div classname="mb-64 flex">
-                  <h4 className="text-3xl text-center mb-4">
-                    Selling of Shares
-                  </h4>
-                  <p>Stock Symbol : {symbol}</p>
-                  <p>Stock latest Price : ₹{price.toFixed(2)}</p>
-                  <p></p>
-                  <label>Quantity : </label>
-                  <input type="number" value={quantity} onChange={change} />
-                  <p> Amount : ₹{amount.toFixed(2)}</p>
-                  <p>
-                    Profit/Loss :
-                    <span
-                      style={{
-                        color: profit * quantity >= 0 ? "green" : "red",
-                      }}
-                    >
-                      ₹{(profit * quantity).toFixed(2)}
-                    </span>
-                  </p>
-                  <button
-                    className="primary  self-center bg-blue-900 border-emerald-200 rounded-xl px-5 py-3 my-5 text-center text-lg shadow-inherit mx-5"
-                    onClick={handleClose}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="primary  self-center bg-blue-900 border-emerald-200 rounded-xl px-5 py-3 my-5 text-center text-lg shadow-inherit mx-5"
-                    onClick={updatePortfolio}
-                  >
-                    Confirm
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </Box>
-      </Modal> */}
       <Dialog
         open={open}
         handler={handleOpen}

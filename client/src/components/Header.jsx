@@ -43,47 +43,27 @@ export default function Header() {
 
   const navList = (
     <ul className="my-4 flex flex-col gap-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-10 justify-center">
-      <Typography
-        as="li"
-        color="gray-900"
-        className="p-1 font-normal"
-      >
-        <Link to="/" className={underline}>
+      <Typography as="li" color="gray-900" className="p-1 font-normal">
+        <Link to="/dashboard" className={underline}>
           Dashboard
         </Link>
       </Typography>
-      <Typography
-        as="li"
-        color="gray-900"
-        className="p-1 font-normal"
-      >
+      <Typography as="li" color="gray-900" className="p-1 font-normal">
         <Link to="/market" className={underline}>
           Market
         </Link>
       </Typography>
-      <Typography
-        as="li"
-        color="gray-900"
-        className="p-1 font-normal"
-      >
+      <Typography as="li" color="gray-900" className="p-1 font-normal">
         <Link to="/portfolio" className={underline}>
           Portfolio
         </Link>
       </Typography>
-      <Typography
-        as="li"
-        color="gray-900"
-        className="p-1 font-normal"
-      >
+      <Typography as="li" color="gray-900" className="p-1 font-normal">
         <Link to="/transactions" className={underline}>
           Transactions
         </Link>
       </Typography>
-      <Typography
-        as="li"
-        color="gray-900"
-        className="p-1 font-normal"
-      >
+      <Typography as="li" color="gray-900" className="p-1 font-normal">
         <Link to="/news" className={underline}>
           News
         </Link>
@@ -97,7 +77,7 @@ export default function Header() {
         <div className="flex items-center justify-between text-gray-900">
           <a
             href="/"
-            className="mr-4 cursor-pointer py-1.5 text-xl font-bold font-Poppins" 
+            className="mr-4 cursor-pointer py-1.5 text-xl font-bold font-Poppins"
           >
             TradeStack
           </a>

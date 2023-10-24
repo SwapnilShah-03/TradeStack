@@ -7,6 +7,7 @@ import { Market, loader as MarketLoader } from "./pages/Market";
 import { Purchase, loader as PurchaseLoader } from "./pages/Purchase";
 import { Portfolio, loader as PortfolioLoader } from "./pages/Portfolio";
 import { News, loader as NewsLoader } from "./pages/News";
+import Dashboard from "./pages/Dashboard";
 import {
   Transactions,
   loader as TransactionsLoader,
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
         path: "transactions",
         element: <Transactions />,
         loader: TransactionsLoader,
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
       },
     ],
   },
