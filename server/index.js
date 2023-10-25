@@ -304,12 +304,14 @@ app.get("/news", async (req, res) => {
       const anchorHref = await anchorTag.evaluate((anchor) => anchor.href);
       const pText = await pTag[0].evaluate((p) => p.textContent);
       const spanText = await spanTag.evaluate((span) => span.textContent);
-
+      // const imgTag = await liTag.$("a img");
+      // const imgSrc = await imgTag.evaluate((img) => img.getAttribute("src"));
       news.push({
         title: anchorTitle,
         description: pText,
         href: anchorHref,
         date: spanText,
+        // img: imgSrc,
       });
     }
 
@@ -364,23 +366,7 @@ app.post("/stock/data", async (req, res) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(url);
-    // const container = await page.$x(
-    //   '  //*[@id="js-category-content"]/div[2]/div/section/div[2]/div[2]'
-    // );
-    // const data = await container[0].$$(".container-lQwbiR8R");
-    // for (let stat of data) {
-    //   const divTag = await stat.$$("div");
-    //   console.log(divTag[0].evaluate((div) => div.className));
-    //   console.log(divTag[1].evaluate((div) => div.className));
-    //   const nameTag = await divTag[0].$("div");
-    //   const dataTag = await divTag[1].$("div");
-    //   const nameText = await nameTag.evaluate((div) => div.textContent);
-    //   const dataText = await dataTag.evaluate((div) => div.textContent);
-    //   statistics.push({
-    //     quote: nameText,
-    //     data: dataText,
-    //   });
-    // }
+
     const container = await page.$x(
       '//*[@id="js-category-content"]/div[2]/div/section/div[2]/div[2]'
     );
