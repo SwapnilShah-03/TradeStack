@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useLoaderData } from "react-router-dom";
 // import { Grid, Button, Modal, Box } from "@mui/material";
@@ -25,10 +25,10 @@ export function Portfolio() {
   const [redirect, setRedirect] = useState(false);
   const [totalQuantity, setTottalQuantity] = useState(0);
   const { user, setUser } = useContext(UserContext);
-  const { portfolio, prices } = useLoaderData();
-  let pl = 0;
-  const stocks = [];
-
+  const { list, portfolio, data, prolos } = useLoaderData();
+  const [pl, setPl] = useState(prolos);
+  const [stocklist, setStocklist] = useState(list);
+  const [stocks, setStocks] = useState(data);
   const handleOpen = (symbol, currentPrice, profitLoss, totalQuantity) => {
     setOpen(true);
     setPrice(currentPrice);
@@ -71,15 +71,37 @@ export function Portfolio() {
     setAmount(newQuantity * price);
   };
 
-  for (let i = 0; i < prices.length; ++i) {
-    pl = pl + (prices[i] - portfolio.stocks[i].avgPrice);
-    stocks.push({
-      symbol: String(portfolio.stocks[i].symbol),
-      currentPrice: prices[i],
-      profitLoss: prices[i] - portfolio.stocks[i].avgPrice,
-      quantity: portfolio.stocks[i].quantity,
-    });
-  }
+  useEffect(() => {
+    async function check() {
+      try {
+        const response = await axios.get("/portfolio/info");
+        const stocks = response.data.stocks;
+        console.log(response.data.stocks);
+        const res = await axios.post("/portfolio/prices", {
+          stocks,
+        });
+        const prices = res.data;
+        const data = [];
+        let prolos = 0;
+        for (let i = 0; i < prices.length; ++i) {
+          prolos = prolos + (prices[i] - portfolio.stocks[i].avgPrice);
+          data.push({
+            symbol: String(portfolio.stocks[i].symbol),
+            currentPrice: prices[i],
+            profitLoss: prices[i] - portfolio.stocks[i].avgPrice,
+            quantity: portfolio.stocks[i].quantity,
+          });
+        }
+        setStocks(data);
+        setPl(prolos);
+        console.log("Stocks updated");
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    const interval = setInterval(check, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   if (redirect) {
     window.location.reload();
@@ -252,5 +274,16 @@ export async function loader() {
   console.log(res.data);
   const portfolio = response.data;
   const prices = res.data;
-  return { portfolio, prices };
+  const data = [];
+  let prolos = 0;
+  for (let i = 0; i < prices.length; ++i) {
+    prolos = prolos + (prices[i] - portfolio.stocks[i].avgPrice);
+    data.push({
+      symbol: String(portfolio.stocks[i].symbol),
+      currentPrice: prices[i],
+      profitLoss: prices[i] - portfolio.stocks[i].avgPrice,
+      quantity: portfolio.stocks[i].quantity,
+    });
+  }
+  return { stocks, portfolio, data, prolos };
 }
