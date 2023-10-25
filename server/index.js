@@ -128,20 +128,6 @@ app.get("/portfolio/info", async (req, res) => {
     console.log("JWT Cookie not found");
   }
   const portfolio = await Portfolio.find({ userName: username });
-  // const stocks = [
-  //   { symbol: "HDFCBANK.NS", avgPrice: 1425.12, quantity: 300 },
-  //   { symbol: "INFY.NS", avgPrice: 1345.23, quantity: 255 },
-  //   { symbol: "BHEL.NS", avgPrice: 124.25, quantity: 1000 },
-  //   { symbol: "LT.NS", avgPrice: 3386.25, quantity: 200 },
-  // ];
-  // const investment = 1572069.65;
-  // const balance = 145266.24;
-  // const portfolio = await Portfolio.create({
-  //   userName,
-  //   stocks,
-  //   investment,
-  //   balance,
-  // });
   res.json(portfolio[0]);
 });
 

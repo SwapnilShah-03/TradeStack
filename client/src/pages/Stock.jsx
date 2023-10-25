@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom";
 import CanvasJSReact from "@canvasjs/react-stockcharts";
@@ -6,9 +6,34 @@ export function Stock({ params }) {
   // var CanvasJS = CanvasJSReact.CanvasJS;
   var CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
   // Use the correct server URL
-  const { dps, symbol, lastprice, change, changePercent, metaData } =
-    useLoaderData();
+  const { dps, symbol, lp, c, cp, metaData } = useLoaderData();
+  const [change, setChange] = useState(c);
+  const [changePercent, setChangePercent] = useState(cp);
+  const [lastprice, setLastprice] = useState(lp);
   console.log(metaData);
+
+  useEffect(() => {
+    async function check() {
+      try {
+        console.log(symbol);
+        const hist = true;
+        const response = await axios.post("/stock", {
+          symbol,
+          hist,
+        });
+        setLastprice(response.data.lastprice);
+        setChange(response.data.change);
+        setChangePercent(response.data.changePercent);
+
+        console.log("Stocks updated");
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    const interval = setInterval(check, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   const options = {
     title: {
       text: `Stock Chart of ${symbol}`,
@@ -136,5 +161,8 @@ export async function loader({ params }) {
   }
   const metaDataResponse = await axios.post("/stock/data", { symbol });
   const metaData = metaDataResponse.data;
-  return { dps, symbol, lastprice, change, changePercent, metaData };
+  const c = change;
+  const cp = changePercent;
+  const lp = lastprice;
+  return { dps, symbol, lp, c, cp, metaData };
 }
