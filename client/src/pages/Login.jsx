@@ -75,14 +75,14 @@ export default function Login() {
   };
 
   return (
-    <div className="h-full my-16 flex items-center justify-center px-4 sm:px-6 lg:px-8 font-Outfit">
+    <div className="h-full my-[3.7rem] flex items-center justify-center px-4 sm:px-6 lg:px-8 font-Outfit">
       <div className="max-w-md w-full items-center">
         <div className="mb-10">
           <div className="flex justify-center">
             <img
-              alt=""
-              className="h-14 w-14"
-              src="https://ik.imagekit.io/pibjyepn7p9/Lilac_Navy_Simple_Line_Business_Logo_CGktk8RHK.png?ik-sdk-version=javascript-1.4.3&updatedAt=1649962071315"
+              alt="logo"
+              className="h-[4rem] w-[4rem]"
+              src="../../src/assets/images/logo.png"
             />
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

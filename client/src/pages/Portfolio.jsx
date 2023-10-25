@@ -175,7 +175,7 @@ export function Portfolio() {
         <div className="grid grid-cols-3 gap-16">
           <Card
             variant="gradient"
-            className="w-80 text-center bg-blue-gray-900"
+            className="w-80 text-center bg-blue-gray-900/80"
           >
             <CardBody>
               <Typography
@@ -186,7 +186,7 @@ export function Portfolio() {
               </Typography>
             </CardBody>
           </Card>
-          <Card className="w-80 text-center bg-blue-gray-900">
+          <Card className="w-80 text-center bg-blue-gray-900/80">
             <CardBody>
               <Typography
                 variant="h5"
@@ -196,7 +196,7 @@ export function Portfolio() {
               </Typography>
             </CardBody>
           </Card>
-          <Card className="w-80 text-center bg-blue-gray-900">
+          <Card className="w-80 text-center bg-blue-gray-900/80">
             <CardBody>
               <Typography
                 variant="h5"
@@ -213,13 +213,27 @@ export function Portfolio() {
         </div>
       </div>
       <div className="my-10 mx-10">
-        <Card>
-          <CardBody className="grid grid-cols-10 gap-4 items-center">
+        <Card className="bg-opacity-95">
+          <div className="grid grid-cols-9">
+            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl pl-6 pt-6">
+              Symbol
+            </Typography>
+            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl pl-4 pt-6">
+              Current Price
+            </Typography>
+            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl pl-2 pt-6">
+              Quantity
+            </Typography>
+            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl pt-6">
+              Profit/Loss
+            </Typography>
+          </div>
+          <CardBody className="grid grid-cols-9 gap-4 items-center">
             {stocks.map((stock) => (
               <>
                 <Typography
                   variant="h5"
-                  className="text-blue-gray-900 font-Outfit font-normal col-span-3"
+                  className="text-blue-gray-900 font-Outfit font-normal col-span-2"
                 >
                   {stock.symbol}
                 </Typography>
