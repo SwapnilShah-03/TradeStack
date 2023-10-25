@@ -6,8 +6,9 @@ export function Stock({ params }) {
   // var CanvasJS = CanvasJSReact.CanvasJS;
   var CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
   // Use the correct server URL
-  const { dps, symbol, lastprice, change, changePercent } = useLoaderData();
-  console.log(dps);
+  const { dps, symbol, lastprice, change, changePercent, metaData } =
+    useLoaderData();
+  console.log(metaData);
   const options = {
     title: {
       text: `Stock Chart of ${symbol}`,
@@ -65,8 +66,34 @@ export function Stock({ params }) {
   };
   return (
     <div className="p-[3.2rem]">
+      <div className="priceInfo">
+        <h2>{lastprice.toFixed(2)}</h2>
+        <p
+          style={{
+            color: change >= 0 ? "seagreen" : "red",
+          }}
+        >
+          {change.toFixed(2)}
+        </p>
+        <p
+          style={{
+            color: changePercent >= 0 ? "seagreen" : "red",
+          }}
+        >
+          {changePercent.toFixed(2)}%
+        </p>
+      </div>
+
       <div>
         <CanvasJSStockChart containerProps={containerProps} options={options} />
+      </div>
+      <div className="metaData">
+        {metaData.map((quote) => (
+          <div>
+            <h3>{quote.label}</h3>
+            <p>{quote.value}</p>
+          </div>
+        ))}
       </div>
       <Link to={`/purchase/${symbol}`} className="flex justify-center mt-6">
         <button className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
@@ -107,5 +134,7 @@ export async function loader({ params }) {
   } else {
     console.error("No historical histData found for the symbol:");
   }
-  return { dps, symbol, lastprice, change, changePercent };
+  const metaDataResponse = await axios.post("/stock/data", { symbol });
+  const metaData = metaDataResponse.data;
+  return { dps, symbol, lastprice, change, changePercent, metaData };
 }

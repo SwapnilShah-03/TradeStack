@@ -372,37 +372,52 @@ app.get("/indices", async (req, res) => {
 app.post("/stock/data", async (req, res) => {
   const s = req.body.symbol;
   const symbol = s.slice(0, -3);
-  console.log(symbol);
+  const statistics = [];
   const url = `https://in.tradingview.com/symbols/NSE-${symbol}/`;
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-
     await page.goto(url);
+    // const container = await page.$x(
+    //   '  //*[@id="js-category-content"]/div[2]/div/section/div[2]/div[2]'
+    // );
+    // const data = await container[0].$$(".container-lQwbiR8R");
+    // for (let stat of data) {
+    //   const divTag = await stat.$$("div");
+    //   console.log(divTag[0].evaluate((div) => div.className));
+    //   console.log(divTag[1].evaluate((div) => div.className));
+    //   const nameTag = await divTag[0].$("div");
+    //   const dataTag = await divTag[1].$("div");
+    //   const nameText = await nameTag.evaluate((div) => div.textContent);
+    //   const dataText = await dataTag.evaluate((div) => div.textContent);
+    //   statistics.push({
+    //     quote: nameText,
+    //     data: dataText,
+    //   });
+    // }
+    const container = await page.$x(
+      '//*[@id="js-category-content"]/div[2]/div/section/div[2]/div[2]'
+    );
+    const data = await container[0].$$(".container-lQwbiR8R");
 
-    const container = await page.$x('//*[@id="cagetory"]');
-    const liTags = await container[0].$$(".clearfix");
+    const statistics = [];
 
-    for (let liTag of liTags) {
-      const anchorTag = await liTag.$("h2 a");
-      const spanTag = await liTag.$("span");
-      const pTag = await liTag.$$("p");
-      const anchorTitle = await anchorTag.evaluate((anchor) => anchor.title);
-      const anchorHref = await anchorTag.evaluate((anchor) => anchor.href);
-      const pText = await pTag[0].evaluate((p) => p.textContent);
-      const spanText = await spanTag.evaluate((span) => span.textContent);
-
-      news.push({
-        title: anchorTitle,
-        description: pText,
-        href: anchorHref,
-        date: spanText,
+    for (let stat of data) {
+      const divTags1 = await stat.$(".labelWrapper-GgmpMpKr");
+      const nameTag = await divTags1.$(".label-GgmpMpKr");
+      const divTags2 = await stat.$(".wrapper-GgmpMpKr");
+      const dataTag = await divTags2.$(".value-GgmpMpKr");
+      const label = await nameTag.evaluate((div) => div.textContent);
+      const dataText = await dataTag.evaluate((div) => div.textContent);
+      const value = dataText.trim();
+      statistics.push({
+        label: label,
+        value: value,
       });
     }
 
-    console.log(news);
-    res.json(news);
-
+    console.log(statistics);
+    res.json(statistics);
     await browser.close();
   } catch (error) {
     console.error("An error occurred:", error);
