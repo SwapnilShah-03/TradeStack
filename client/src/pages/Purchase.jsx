@@ -25,7 +25,7 @@ export function Purchase() {
     ev.preventDefault();
     console.log(symbol, price, quantity, amount);
     if (amount > balance || quantity < 1) {
-      alert("Invalid Purchase");
+      toast.error("Invalid purchase!");
     } else {
       await axios.post("/portfolio/buyUpdate", {
         name: user.username,
