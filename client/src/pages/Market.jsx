@@ -5,20 +5,24 @@ import axios from "axios";
 import { List, ListItem, Card } from "@material-tailwind/react";
 
 export function Market(params) {
-  const response = useLoaderData();
-  const [stocks, setStocks] = useState(response);
+  const { indicesData, marketData } = useLoaderData();
+  console.log(indicesData);
+  console.log(marketData);
+  const [stocks, setStocks] = useState(marketData);
+  const [indices, setIndices] = useState(indicesData);
   useEffect(() => {
     async function check() {
       try {
         const result = await axios.get("/market");
-        setStocks(result.data); // Update the state with the data
+        const indices = await axios.get("/indices");
+        setIndices(indices.data);
+        setStocks(result.data);
         console.log("Stocks updated");
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
-    const interval = setInterval(check, 60000); // Set up periodic fetching
-    // Clear the interval on component unmount to prevent memory leaks
+    const interval = setInterval(check, 60000);
     return () => clearInterval(interval);
   }, []);
 
@@ -28,6 +32,29 @@ export function Market(params) {
   return (
     <>
       <div className="min-h-full h-auto w-full flex justify-center pt-5">
+        <div className="Indices">
+          {indices.map((index) => (
+            <div className="grid gap-2">
+              <div className="col-span-4">{index.name}</div>
+              <div className="col-span-3 text-base">{index.symbol}</div>
+              <div className="col-span-1">{index.currentPrice.toFixed(2)}</div>
+              <div
+                className="col-span-2 text-right"
+                style={{ color: index.change >= 0 ? "green" : "red" }}
+              >
+                {index.change.toFixed(2)}
+              </div>
+              <div
+                className="col-span-2 text-right"
+                style={{
+                  color: index.changePercent >= 0 ? "seagreen" : "red",
+                }}
+              >
+                {index.changePercent.toFixed(2)}%
+              </div>
+            </div>
+          ))}
+        </div>
         <Card
           variant="gradient"
           className="bg-[#263238] w-full rounded-xl rounded-b-none"
@@ -71,6 +98,8 @@ export function Market(params) {
 
 export async function loader() {
   const response = await axios.get("/market");
-  console.log(response.data);
-  return response.data;
+  const res = await axios.get("/indices");
+  const indicesData = res.data;
+  const marketData = response.data;
+  return { indicesData, marketData };
 }

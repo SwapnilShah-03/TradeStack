@@ -101,7 +101,6 @@ app.get("/market", async (req, res) => {
         changePercent: Number(changePercent),
       });
     }
-    console.log(info);
     res.json(info);
   } catch (error) {
     console.log(error);
@@ -345,7 +344,6 @@ app.get("/indices", async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const data = await Indices.find({});
     const info = [];
-
     for (let i = 0; i < data.length; ++i) {
       const prices = await axios.get(
         `https://query1.finance.yahoo.com/v8/finance/chart/${data[i].symbol}?&interval=5m`
@@ -364,11 +362,53 @@ app.get("/indices", async (req, res) => {
         changePercent: Number(changePercent),
       });
     }
-    console.log(info);
     res.json(info);
   } catch (error) {
     console.log(error);
     res.status(500);
+  }
+});
+
+app.post("/stock/data", async (req, res) => {
+  const s = req.body.symbol;
+  const symbol = s.slice(0, -3);
+  console.log(symbol);
+  const url = `https://in.tradingview.com/symbols/NSE-${symbol}/`;
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+
+    await page.goto(url);
+
+    const container = await page.$x('//*[@id="cagetory"]');
+    const liTags = await container[0].$$(".clearfix");
+
+    for (let liTag of liTags) {
+      const anchorTag = await liTag.$("h2 a");
+      const spanTag = await liTag.$("span");
+      const pTag = await liTag.$$("p");
+      const anchorTitle = await anchorTag.evaluate((anchor) => anchor.title);
+      const anchorHref = await anchorTag.evaluate((anchor) => anchor.href);
+      const pText = await pTag[0].evaluate((p) => p.textContent);
+      const spanText = await spanTag.evaluate((span) => span.textContent);
+
+      news.push({
+        title: anchorTitle,
+        description: pText,
+        href: anchorHref,
+        date: spanText,
+      });
+    }
+
+    console.log(news);
+    res.json(news);
+
+    await browser.close();
+  } catch (error) {
+    console.error("An error occurred:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while scraping the data." });
   }
 });
 
