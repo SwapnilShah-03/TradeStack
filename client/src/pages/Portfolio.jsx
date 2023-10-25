@@ -5,28 +5,12 @@ import { useLoaderData } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { UserContext } from "../userContext";
 import {
-  Button,
   Card,
   CardBody,
-  CardFooter,
   Dialog,
-  DialogHeader,
   DialogBody,
-  DialogFooter,
   Typography,
 } from "@material-tailwind/react";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 
 const fixedInputClass =
   "mt-2 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-md";
@@ -102,7 +86,7 @@ export function Portfolio() {
   }
 
   return (
-    <div className="h-screen">
+    <div className="h-screen bg-portfolio bg-no-repeat bg-cover bg-center">
       <Dialog
         open={open}
         handler={handleOpen}
@@ -165,7 +149,7 @@ export function Portfolio() {
           </form>
         </DialogBody>
       </Dialog>
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center pt-10">
         <div className="grid grid-cols-3 gap-16">
           <Card
             variant="gradient"

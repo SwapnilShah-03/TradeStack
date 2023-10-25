@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom";
 import CanvasJSReact from "@canvasjs/react-stockcharts";
+
 export function Stock({ params }) {
   // var CanvasJS = CanvasJSReact.CanvasJS;
   var CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
@@ -65,24 +66,23 @@ export function Stock({ params }) {
     margin: "auto",
   };
   return (
-    <div className="p-[3.2rem]">
-      <div className="priceInfo">
-        <h2>{lastprice.toFixed(2)}</h2>
-        <p
-          style={{
-            color: change >= 0 ? "seagreen" : "red",
-          }}
-        >
-          {change.toFixed(2)}
-        </p>
-        <p
-          style={{
-            color: changePercent >= 0 ? "seagreen" : "red",
-          }}
-        >
-          {changePercent.toFixed(2)}%
-        </p>
-      </div>
+    <div className="p-10">
+      <h2>{lastprice.toFixed(2)}</h2>
+      
+      <p
+        style={{
+          color: change >= 0 ? "seagreen" : "red",
+        }}
+      >
+        {change.toFixed(2)}
+      </p>
+      <p
+        style={{
+          color: changePercent >= 0 ? "seagreen" : "red",
+        }}
+      >
+        {changePercent.toFixed(2)}%
+      </p>
 
       <div>
         <CanvasJSStockChart containerProps={containerProps} options={options} />

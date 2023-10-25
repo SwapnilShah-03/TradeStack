@@ -12,6 +12,7 @@ module.exports = withMT({
       backgroundImage: {
         'home': "url('../src/assets/images/background.jpg')",
         'purchase': "url('../src/assets/images/purchase.jpg')",
+        'portfolio': "url('../src/assets/images/portfolio.jpg')",
       },
     },
   },

@@ -16,7 +16,7 @@ export function News() {
     <div className="grid grid-cols-3 gap-8 p-10">
       {data.map((news) => (
         <Link to={news.href}>
-          <Card variant="gradient" className="flex-row h-auto bg-[#263238] hover:shadow-lg hover:shadow-[#546e7a] ease-in transition duration-150">
+          <Card variant="gradient" className="flex-row h-[17.5rem] bg-[#263238] hover:shadow-lg hover:shadow-[#546e7a] ease-in transition duration-150">
             <CardBody>
               <Typography
                 variant="h6"

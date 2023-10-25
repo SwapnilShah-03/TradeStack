@@ -2,7 +2,13 @@ import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { List, ListItem, Card } from "@material-tailwind/react";
+import {
+  List,
+  ListItem,
+  Card,
+  CardBody,
+  Typography,
+} from "@material-tailwind/react";
 
 export function Market(params) {
   const { indicesData, marketData } = useLoaderData();
@@ -31,30 +37,41 @@ export function Market(params) {
 
   return (
     <>
-      <div className="min-h-full h-auto w-full flex justify-center pt-5">
-        <div className="Indices">
+      <div className="flex justify-center mt-10">
+        <div className="grid grid-cols-3 gap-16">
           {indices.map((index) => (
-            <div className="grid gap-2">
-              <div className="col-span-4">{index.name}</div>
-              <div className="col-span-3 text-base">{index.symbol}</div>
-              <div className="col-span-1">{index.currentPrice.toFixed(2)}</div>
-              <div
-                className="col-span-2 text-right"
-                style={{ color: index.change >= 0 ? "green" : "red" }}
-              >
-                {index.change.toFixed(2)}
-              </div>
-              <div
-                className="col-span-2 text-right"
-                style={{
-                  color: index.changePercent >= 0 ? "seagreen" : "red",
-                }}
-              >
-                {index.changePercent.toFixed(2)}%
-              </div>
-            </div>
+            <Card
+              variant="gradient"
+              className="w-80 text-center bg-blue-gray-900"
+            >
+              <CardBody>
+                <Typography
+                  variant="h5"
+                  className="text-blue-gray-50 font-Outfit font-normal"
+                >
+                  {index.name} ({index.symbol})
+                </Typography>
+                <Typography className="text-blue-gray-50/70 font-Outfit font-normal mt-3">{index.currentPrice.toFixed(2)}</Typography>
+                <Typography
+                className="font-Outfit font-normal"
+                  style={{ color: index.change >= 0 ? "green" : "red" }}
+                >
+                  {index.change.toFixed(2)}
+                </Typography>
+                <Typography
+                className="font-Outfit font-normal"
+                  style={{
+                    color: index.changePercent >= 0 ? "green" : "red",
+                  }}
+                >
+                  {index.changePercent.toFixed(2)}%
+                </Typography>
+              </CardBody>
+            </Card>
           ))}
         </div>
+      </div>
+      <div className="h-auto w-full flex justify-center pt-10">
         <Card
           variant="gradient"
           className="bg-[#263238] w-full rounded-xl rounded-b-none"
@@ -64,23 +81,23 @@ export function Market(params) {
               <Link to={`/stock/${stock.symbol}`}>
                 <div className="grid gap-2">
                   <ListItem
-                    className={`grid grid-cols-12 items-center ${listItemStyle}`}
+                    className={`grid grid-cols-11 items-center ${listItemStyle}`}
                   >
-                    <div className="col-span-4">{stock.name}</div>
-                    <div className="col-span-3 text-base">{stock.symbol}</div>
-                    <div className="col-span-1">
+                    <div className="col-span-3">{stock.name}</div>
+                    <div className="col-span-2 text-base pl-6">{stock.symbol}</div>
+                    <div className="col-span-2 text-center pl-6">
                       {stock.currentPrice.toFixed(2)}
                     </div>
                     <div
-                      className="col-span-2 text-right"
+                      className="col-span-2 text-center pl-32"
                       style={{ color: stock.change >= 0 ? "green" : "red" }}
                     >
                       {stock.change.toFixed(2)}
                     </div>
                     <div
-                      className="col-span-2 text-right"
+                      className="col-span-2 text-center pl-48"
                       style={{
-                        color: stock.changePercent >= 0 ? "seagreen" : "red",
+                        color: stock.changePercent >= 0 ? "green" : "red",
                       }}
                     >
                       {stock.changePercent.toFixed(2)}%
