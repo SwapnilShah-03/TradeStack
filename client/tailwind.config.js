@@ -13,6 +13,7 @@ module.exports = withMT({
         'home': "url('../src/assets/images/background.jpg')",
         'purchase': "url('../src/assets/images/purchase.jpg')",
         'portfolio': "url('../src/assets/images/portfolio.jpg')",
+        'market': "url('../src/assets/images/market.jpg')",
       },
     },
   },

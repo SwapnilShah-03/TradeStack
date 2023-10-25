@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom";
 import CanvasJSReact from "@canvasjs/react-stockcharts";
+import { Card, CardBody, Typography, Button } from "@material-tailwind/react";
 
 export function Stock({ params }) {
   // var CanvasJS = CanvasJSReact.CanvasJS;
@@ -36,9 +37,6 @@ export function Stock({ params }) {
   }, []);
 
   const options = {
-    title: {
-      text: `Stock Chart of ${symbol}`,
-    },
     theme: "light2",
     subtitles: [
       {
@@ -92,37 +90,49 @@ export function Stock({ params }) {
   };
   return (
     <div className="p-10">
-      <h2>{lastprice.toFixed(2)}</h2>
-      
-      <p
-        style={{
-          color: change >= 0 ? "seagreen" : "red",
-        }}
-      >
-        {change.toFixed(2)}
-      </p>
-      <p
-        style={{
-          color: changePercent >= 0 ? "seagreen" : "red",
-        }}
-      >
-        {changePercent.toFixed(2)}%
-      </p>
-
-      <div>
+      <Typography className="mb-6 text-gray-900 font-Outfit font-semibold text-4xl">
+        ₹{lastprice.toFixed(2)}
+        <span
+          className="text-lg font-medium ml-3"
+          style={{
+            color: change >= 0 ? "green" : "red",
+          }}
+        >
+          {change.toFixed(2)}
+        </span>
+        <span
+          className="text-lg font-medium ml-3"
+          style={{
+            color: changePercent >= 0 ? "green" : "red",
+          }}
+        >
+          {changePercent.toFixed(2)}%
+        </span>
+      </Typography>
+      <div className="my-10">
+      <Typography className="mb-10 text-gray-900 font-Outfit font-semibold text-3xl">{symbol} Chart</Typography>
         <CanvasJSStockChart containerProps={containerProps} options={options} />
       </div>
-      <div className="metaData">
-        {metaData.map((quote) => (
-          <div>
-            <h3>{quote.label}</h3>
-            <p>{quote.value}</p>
-          </div>
-        ))}
+      <Typography className="mb-2 text-gray-900 font-Outfit font-semibold text-4xl">
+        Key Stats
+      </Typography>
+      <div className="flex py-5">
+        <div className="grid grid-cols-4 gap-8">
+          {metaData.map((quote) => (
+            <Card variant="gradient" className="p-4">
+              <Typography className="text-gray-900 font-Outfit font-medium text-xl">
+                {quote.label}
+              </Typography>
+              <Typography className="text-gray-900/70 font-Outfit font-medium text-base">
+                {quote.value}
+              </Typography>
+            </Card>
+          ))}
+        </div>
       </div>
-      <Link to={`/purchase/${symbol}`} className="flex justify-center mt-6">
+      <Link to={`/purchase/${symbol}`} className="flex justify-center mt-5">
         <button className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
-          Buy
+          Buy {symbol}
         </button>
       </Link>
     </div>
