@@ -418,7 +418,6 @@ app.get("/watchlist/info", async (req, res) => {
     } else {
       console.log("JWT Cookie not found");
     }
-    const stoc = [{}];
     const response = await Watchlist.find({ user: username });
     // await Watchlist.insertMany({
     //   user: username,
@@ -455,6 +454,64 @@ app.get("/watchlist/info", async (req, res) => {
     console.log(error);
     res.status(500);
   }
+});
+
+app.post("/watchlist/add", async (req, res) => {
+  mongoose.connect(process.env.MONGO_URL);
+  const cookie = req.cookies.token;
+  console.log(cookie);
+  let username = "";
+  if (cookie) {
+    // Verify and decode the JWT
+    jwt.verify(cookie, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        console.log("Fuckk");
+      } else {
+        // Successfully decoded JWT
+        console.log(decoded);
+        username = decoded.username;
+      }
+    });
+  } else {
+    console.log("JWT Cookie not found");
+  }
+  const scriptSymbol = req.body.symbol;
+  const response = await Stock.find({ symbol: scriptSymbol });
+  const scriptName = response[0].name;
+  const res = await Watchlist.find({ user: username });
+  const watchlist = res[0].stocks;
+  watchlist.push[{ name: scriptName, symbol: scriptSymbol }];
+  const update = await Watchlist.updateOne(
+    { user: username },
+    { $set: { stocks: watchlist } }
+  );
+  res.status(200);
+});
+
+app.post("/watchlist/delete", async (req, res) => {
+  mongoose.connect(process.env.MONGO_URL);
+  const scriptSymbol = req.body.symbol;
+  const cookie = req.cookies.token;
+  console.log(cookie);
+  let username = "";
+  if (cookie) {
+    // Verify and decode the JWT
+    jwt.verify(cookie, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        console.log("Fuckk");
+      } else {
+        // Successfully decoded JWT
+        console.log(decoded);
+        username = decoded.username;
+      }
+    });
+  } else {
+    console.log("JWT Cookie not found");
+  }
+  const res = await Watchlist.find({ user: username });
+  let watchlist = res[0].stocks;
+  watchlist = watchlist.filter((stock) => stock.symbol !== scriptSymbol);
+  res.status(200);
 });
 
 app.listen(process.env.PORT);
