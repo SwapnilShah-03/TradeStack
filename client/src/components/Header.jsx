@@ -49,6 +49,11 @@ export default function Header() {
         </Link>
       </Typography>
       <Typography as="li" color="gray-900" className="p-1 font-normal">
+        <Link to="/watchlist" className={underline}>
+          Watchlist
+        </Link>
+      </Typography>
+      <Typography as="li" color="gray-900" className="p-1 font-normal">
         <Link to="/market" className={underline}>
           Market
         </Link>

@@ -10,6 +10,7 @@ import Portfolio from "./models/Portfolio.js";
 import Transaction from "./models/Transaction.js";
 import Indices from "./models/Indices.js";
 import User from "./models/User.js";
+import Watchlist from "./models/Watchlist.js";
 import cookieParser from "cookie-parser";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -394,6 +395,65 @@ app.post("/stock/data", async (req, res) => {
     res
       .status(500)
       .json({ error: "An error occurred while scraping the data." });
+  }
+});
+
+app.get("/watchlist/info", async (req, res) => {
+  try {
+    mongoose.connect(process.env.MONGO_URL);
+    const cookie = req.cookies.token;
+    console.log(cookie);
+    let username = "";
+    if (cookie) {
+      // Verify and decode the JWT
+      jwt.verify(cookie, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+          console.log("Fuckk");
+        } else {
+          // Successfully decoded JWT
+          console.log(decoded);
+          username = decoded.username;
+        }
+      });
+    } else {
+      console.log("JWT Cookie not found");
+    }
+    const stoc = [{}];
+    const response = await Watchlist.find({ user: username });
+    // await Watchlist.insertMany({
+    //   user: username,
+    //   stocks: [
+    //     { name: "Reliance Industries", symbol: "RELIANCE.NS" },
+    //     { name: "Larsen and Tubro", symbol: "LT.NS" },
+    //   ],
+    // });
+    const data = response[0].stocks;
+    console.log(response[0].stocks);
+    const info = [];
+
+    for (let i = 0; i < data.length; ++i) {
+      const prices = await axios.get(
+        `https://query1.finance.yahoo.com/v8/finance/chart/${data[i].symbol}?&interval=5m`
+      );
+      const results = prices.data.chart.result[0];
+      const closePrices = results.indicators.quote[0].close;
+      const l = closePrices.length;
+      const prevClose = results.meta.previousClose;
+      const change = closePrices[l - 1] - prevClose;
+      const changePercent = (change * 100) / prevClose;
+      info.push({
+        name: String(data[i].name),
+        symbol: String(data[i].symbol),
+        currentPrice: Number(closePrices[l - 1]),
+        change: Number(change),
+        changePercent: Number(changePercent),
+      });
+    }
+    console.log("Hello");
+    res.json(info);
+  } catch (error) {
+    console.log(error);
+    res.status(500);
   }
 });
 

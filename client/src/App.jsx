@@ -8,6 +8,7 @@ import { Purchase, loader as PurchaseLoader } from "./pages/Purchase";
 import { Portfolio, loader as PortfolioLoader } from "./pages/Portfolio";
 import { News, loader as NewsLoader } from "./pages/News";
 import { Dashboard, loader as DashboardLoader } from "./pages/Dashboard";
+import { Watchlist, loader as WatchlistLoader } from "./pages/Watchlist";
 import Error from "./pages/Error";
 import {
   Transactions,
@@ -72,6 +73,11 @@ const router = createBrowserRouter([
         path: "dashboard",
         element: <Dashboard />,
         loader: DashboardLoader,
+      },
+      {
+        path: "watchlist",
+        element: <Watchlist />,
+        loader: WatchlistLoader,
       },
     ],
   },
