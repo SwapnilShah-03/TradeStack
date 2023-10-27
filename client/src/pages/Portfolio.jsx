@@ -64,6 +64,7 @@ export function Portfolio() {
       {
         setTimeout(() => {
           toast.success("Successfully sold shares!");
+          setRedirect(true);
         }, 1000);
       }
     }
@@ -235,6 +236,7 @@ export function Portfolio() {
               Profit/Loss
             </Typography>
           </div>
+          <hr className="mx-5 mt-3 text-blue-gray-900" />
           <CardBody className="grid grid-cols-9 gap-4 items-center">
             {stocks.map((stock) => (
               <>
