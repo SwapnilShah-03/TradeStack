@@ -19,7 +19,6 @@ function hotlist(market) {
 
 export function Dashboard() {
   const { indicesData, portfolio, transactions, marketData } = useLoaderData();
-
   const [stocks, setStocks] = useState(marketData);
   const [indices, setIndices] = useState(indicesData);
   const last5Trades = transactions.slice(-5);
@@ -53,59 +52,75 @@ export function Dashboard() {
   }, [portfolio]);
 
   const options = {
-    title: "Investment",
+    fontSize: 16,
+    fontName: "Outfit",
     is3D: true,
     backgroundColor: "#B2B2B2B2",
+    height: 400,
+    legend: {
+      alignment: "center",
+    },
   };
+
   const listItemStyle =
     "text-[#eceff1] text-opacity-50 hover:bg-blue-gray-700 ease-in transition duration-150 hover:text-[#eceff1] hover:text-opacity-100 font-Outfit font-normal text-lg";
+
   return (
-    <div className="bg-home bg-no-repeat bg-cover bg-center  flex items-center justify-center px-4 sm:px-6 lg:px-8 text-white flex-col">
-      <div className="grid grid-cols-3 gap-16">
-        {indices.map((index) => (
-          <Card
-            variant="gradient"
-            className="w-80 text-center bg-blue-gray-900"
-          >
-            <CardBody>
-              <Typography
-                variant="h5"
-                className="text-blue-gray-50 font-Outfit font-normal"
-              >
-                {index.name} ({index.symbol})
-              </Typography>
-              <Typography className="text-blue-gray-50/70 font-Outfit font-normal mt-3">
-                {index.currentPrice.toFixed(2)}
-              </Typography>
-              <Typography
-                className="font-Outfit font-normal"
-                style={{ color: index.change >= 0 ? "green" : "red" }}
-              >
-                {index.change.toFixed(2)}
-              </Typography>
-              <Typography
-                className="font-Outfit font-normal"
-                style={{
-                  color: index.changePercent >= 0 ? "green" : "red",
-                }}
-              >
-                {index.changePercent.toFixed(2)}%
-              </Typography>
-            </CardBody>
-          </Card>
-        ))}
+    <div className="bg-home bg-no-repeat bg-cover bg-center p-10">
+      <div className="flex justify-center">
+        <div className="grid grid-cols-3 gap-16">
+          {indices.map((index) => (
+            <Card
+              variant="gradient"
+              className="w-80 text-center bg-blue-gray-900"
+            >
+              <CardBody>
+                <Typography
+                  variant="h5"
+                  className="text-blue-gray-50 font-Outfit font-normal text-xl"
+                >
+                  {index.name} ({index.symbol})
+                </Typography>
+                <Typography className="text-blue-gray-50/70 font-Outfit font-normal mt-3 text-xl">
+                  {index.currentPrice.toFixed(2)}
+                </Typography>
+                <Typography
+                  className="font-Outfit font-normal text-xl"
+                  style={{ color: index.change >= 0 ? "green" : "red" }}
+                >
+                  {index.change.toFixed(2)}
+                </Typography>
+                <Typography
+                  className="font-Outfit font-normal text-xl"
+                  style={{
+                    color: index.changePercent >= 0 ? "green" : "red",
+                  }}
+                >
+                  {index.changePercent.toFixed(2)}%
+                </Typography>
+              </CardBody>
+            </Card>
+          ))}
+        </div>
       </div>
-      <br />
-      <div>
-        <Chart
-          chartType="PieChart"
-          data={chartData}
-          options={options}
-          graph_id="PieChart"
-          width={"400px"}
-          height={"300px"}
-          legend_toggle
-        />
+      <div className="grid grid-cols-12 mt-10">
+        <div className="col-span-6">
+        <Typography className="text-[#eceff1] text-center text-5xl font-medium font-Outfit">
+          Investment
+        </Typography>
+          <Chart
+            chartType="PieChart"
+            data={chartData}
+            options={options}
+            graph_id="PieChart"
+            legend_toggle
+          />
+        </div>
+        <div className="col-span-6 self-center">
+          <Typography className="text-[#eceff1] text-center text-7xl font-medium font-Outfit">
+            Top Performers and Worst Performers
+          </Typography>
+        </div>
       </div>
       <List>
         {last5Trades.map((trade) => (
