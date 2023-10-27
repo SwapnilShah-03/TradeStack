@@ -86,7 +86,9 @@ export default function Header() {
             {!!user ? (
               <>
                 <Typography className="cursor-pointer py-1.5 font-medium font-Poppins">
-                  <Link to="/profile">{user.username || user.given_name}</Link>
+                  <Link to="/dashboard">
+                    {user.username || user.given_name}
+                  </Link>
                 </Typography>
                 <button className={buttonHover} onClick={logoutHandler}>
                   Logout

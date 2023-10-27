@@ -304,8 +304,6 @@ app.get("/news", async (req, res) => {
       const anchorHref = await anchorTag.evaluate((anchor) => anchor.href);
       const pText = await pTag[0].evaluate((p) => p.textContent);
       const spanText = await spanTag.evaluate((span) => span.textContent);
-      // const imgTag = await liTag.$("a img");
-      // const imgSrc = await imgTag.evaluate((img) => img.getAttribute("src"));
       news.push({
         title: anchorTitle,
         description: pText,

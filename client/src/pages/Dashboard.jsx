@@ -10,11 +10,16 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
-function hotlist(market) {
+function hotlist(market, choice) {
   market.sort((a, b) => b.changePercent - a.changePercent);
-  const top5 = market.slice(0, 5);
-  const bottom5 = market.slice(-5);
-  return { top5, bottom5 };
+  if (choice == "market") {
+    const top2 = market.slice(0, 2);
+    const bottom2 = market.slice(-2);
+    return { top2, bottom2 };
+  } else {
+    const top = market[0];
+    const bottom = market[-1];
+  }
 }
 
 export function Dashboard() {
@@ -22,14 +27,15 @@ export function Dashboard() {
   const [stocks, setStocks] = useState(marketData);
   const [indices, setIndices] = useState(indicesData);
   const last5Trades = transactions.slice(-5);
-  const { top5, bottom5 } = hotlist(marketData);
+  // const { top2, bottom2 } = hotlist(marketData, "market");
+  // const { top, bottom } = hotlist(portfolio.stocks, "stocks");
   useEffect(() => {
     async function check() {
       try {
-        const result = await axios.get("/market");
+        // const result = await axios.get("/market");
         const indices = await axios.get("/indices");
         setIndices(indices.data);
-        setStocks(result.data);
+        // setStocks(result.data);
         console.log("Stocks updated");
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -105,9 +111,9 @@ export function Dashboard() {
       </div>
       <div className="grid grid-cols-12 mt-10">
         <div className="col-span-6">
-        <Typography className="text-[#eceff1] text-center text-5xl font-medium font-Outfit">
-          Investment
-        </Typography>
+          <Typography className="text-[#eceff1] text-center text-5xl font-medium font-Outfit">
+            Investment
+          </Typography>
           <Chart
             chartType="PieChart"
             data={chartData}
@@ -118,7 +124,15 @@ export function Dashboard() {
         </div>
         <div className="col-span-6 self-center">
           <Typography className="text-[#eceff1] text-center text-7xl font-medium font-Outfit">
-            Top Performers and Worst Performers
+            {/* <div>
+              {top2.map((stock) => (
+                <p>{stock.symbol}</p>
+              ))}
+            </div>{" "}
+            <div>
+              <h2>My top performers</h2>
+              <p>{top}</p> <p>{bottom}</p>
+            </div> */}
           </Typography>
         </div>
       </div>
