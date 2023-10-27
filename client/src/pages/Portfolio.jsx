@@ -84,7 +84,10 @@ export function Portfolio() {
         const data = [];
         let prolos = 0;
         for (let i = 0; i < prices.length; ++i) {
-          prolos = prolos + (prices[i] - portfolio.stocks[i].avgPrice);
+          prolos =
+            prolos +
+            (prices[i] - portfolio.stocks[i].avgPrice) *
+              portfolio.stocks[i].quantity;
           data.push({
             symbol: String(portfolio.stocks[i].symbol),
             currentPrice: prices[i],
@@ -291,7 +294,9 @@ export async function loader() {
   const data = [];
   let prolos = 0;
   for (let i = 0; i < prices.length; ++i) {
-    prolos = prolos + (prices[i] - portfolio.stocks[i].avgPrice);
+    prolos =
+      prolos +
+      (prices[i] - portfolio.stocks[i].avgPrice) * portfolio.stocks[i].quantity;
     data.push({
       symbol: String(portfolio.stocks[i].symbol),
       currentPrice: prices[i],

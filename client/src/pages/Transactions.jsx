@@ -50,7 +50,9 @@ export function Transactions() {
                 >
                   {trade.profitLoss.toFixed(2)}
                 </div>
-                <div className="col-span-1 pl-12">{trade.balance.toFixed(2)}</div>
+                <div className="col-span-1 pl-12">
+                  {trade.balance.toFixed(2)}
+                </div>
               </ListItem>
             </div>
           ))}
@@ -62,5 +64,7 @@ export function Transactions() {
 
 export async function loader() {
   const response = await axios.get("/transactions");
-  return response.data;
+  const data = response.data;
+  const rev = data.reverse();
+  return rev;
 }
