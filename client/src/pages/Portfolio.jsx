@@ -60,8 +60,12 @@ export function Portfolio() {
         amount,
         profit: profits,
       });
-      setRedirect(true);
-      toast.success("Successfully sold shares!");
+      handleClose();
+      {
+        setTimeout(() => {
+          toast.success("Successfully sold shares!");
+        }, 1000);
+      }
     }
   }
 
