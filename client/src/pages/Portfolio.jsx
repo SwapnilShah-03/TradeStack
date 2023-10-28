@@ -64,8 +64,10 @@ export function Portfolio() {
       {
         setTimeout(() => {
           toast.success("Successfully sold shares!");
-          setRedirect(true);
         }, 1000);
+        setTimeout(() => {
+          setRedirect(true);
+        }, 1400);
       }
     }
   }
