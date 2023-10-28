@@ -448,7 +448,6 @@ app.get("/watchlist/info", async (req, res) => {
         changePercent: Number(changePercent),
       });
     }
-    console.log("Hello");
     res.json(info);
   } catch (error) {
     console.log(error);
@@ -478,14 +477,15 @@ app.post("/watchlist/add", async (req, res) => {
   const scriptSymbol = req.body.symbol;
   const response = await Stock.find({ symbol: scriptSymbol });
   const scriptName = response[0].name;
-  const res = await Watchlist.find({ user: username });
-  const watchlist = res[0].stocks;
-  watchlist.push[{ name: scriptName, symbol: scriptSymbol }];
+  const r = await Watchlist.find({ user: username });
+  const watchlist = r[0].stocks;
+  watchlist.push({ name: scriptName, symbol: scriptSymbol });
+  console.log(watchlist);
   const update = await Watchlist.updateOne(
     { user: username },
     { $set: { stocks: watchlist } }
   );
-  res.status(200);
+  res.status(200).send("Stocks added to watchlist");
 });
 
 app.post("/watchlist/delete", async (req, res) => {
@@ -508,8 +508,8 @@ app.post("/watchlist/delete", async (req, res) => {
   } else {
     console.log("JWT Cookie not found");
   }
-  const res = await Watchlist.find({ user: username });
-  let watchlist = res[0].stocks;
+  const r = await Watchlist.find({ user: username });
+  let watchlist = r[0].stocks;
   watchlist = watchlist.filter((stock) => stock.symbol !== scriptSymbol);
   res.status(200);
 });

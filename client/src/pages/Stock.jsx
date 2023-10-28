@@ -8,10 +8,12 @@ export function Stock({ params }) {
   // var CanvasJS = CanvasJSReact.CanvasJS;
   var CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
   // Use the correct server URL
-  const { dps, symbol, lp, c, cp, metaData } = useLoaderData();
+  const { dps, symbol, lp, c, cp, metaData, watchlistPresent } =
+    useLoaderData();
   const [change, setChange] = useState(c);
   const [changePercent, setChangePercent] = useState(cp);
   const [lastprice, setLastprice] = useState(lp);
+  const [watchlistPre, setWatchlistPre] = useState(watchlistPresent);
   console.log(metaData);
 
   useEffect(() => {
@@ -88,6 +90,14 @@ export function Stock({ params }) {
     height: "450px",
     margin: "auto",
   };
+
+  async function watchlistAdded() {
+    console.log("sdasda");
+    const res = await axios.post("/watchlist/add", {
+      symbol,
+    });
+    setWatchlistPre(true);
+  }
   return (
     <div className="p-10">
       <Typography className="mb-6 text-gray-900 font-Outfit font-semibold text-4xl">
@@ -109,8 +119,15 @@ export function Stock({ params }) {
           {changePercent.toFixed(2)}%
         </span>
       </Typography>
+      {!watchlistPre ? (
+        <Button onClick={watchlistAdded}>Add to Watchlist</Button>
+      ) : (
+        <p>Added to watchlist</p>
+      )}
       <div className="my-10">
-      <Typography className="mb-10 text-gray-900 font-Outfit font-semibold text-3xl">{symbol} Chart</Typography>
+        <Typography className="mb-10 text-gray-900 font-Outfit font-semibold text-3xl">
+          {symbol} Chart
+        </Typography>
         <CanvasJSStockChart containerProps={containerProps} options={options} />
       </div>
       <Typography className="mb-2 text-gray-900 font-Outfit font-semibold text-4xl">
@@ -174,5 +191,15 @@ export async function loader({ params }) {
   const c = change;
   const cp = changePercent;
   const lp = lastprice;
-  return { dps, symbol, lp, c, cp, metaData };
+
+  const res = await axios.get("/watchlist/info");
+  const watchlist = res.data;
+  let watchlistPresent = false;
+  for (let i = 0; i < watchlist.length; i++) {
+    if (watchlist[i].symbol === symbol) {
+      watchlistPresent = true;
+      break;
+    }
+  }
+  return { dps, symbol, lp, c, cp, metaData, watchlistPresent };
 }

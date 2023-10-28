@@ -19,6 +19,7 @@ export function Watchlist(params) {
   console.log(marketData);
   const [stocks, setStocks] = useState(marketData);
   const [indices, setIndices] = useState(indicesData);
+  const [redirect, setRedirect] = useState(false);
   useEffect(() => {
     async function check() {
       try {
@@ -34,6 +35,21 @@ export function Watchlist(params) {
     const interval = setInterval(check, 60000);
     return () => clearInterval(interval);
   }, []);
+
+  async function watchlistDelete(symbol) {
+    const response = await axios.post("/watchlist/delete", {
+      symbol,
+    });
+    console.log("ASDasda");
+    setRedirect(true);
+    return;
+  }
+
+  useEffect(() => {
+    if (redirect) {
+      window.location.reload();
+    }
+  }, [redirect]);
 
   const listItemStyle =
     "text-[#eceff1] text-opacity-50 hover:bg-blue-gray-700 ease-in transition duration-150 hover:text-[#eceff1] hover:text-opacity-100 font-Outfit font-normal text-lg";
@@ -101,35 +117,43 @@ export function Watchlist(params) {
             </div>
             <List>
               {stocks.map((stock) => (
-                <Link to={`/stock/${stock.symbol}`}>
-                  <div className="grid gap-2">
-                    <ListItem
-                      className={`grid grid-cols-11 items-center ${listItemStyle}`}
-                    >
-                      <div className="col-span-3">{stock.name}</div>
-                      <div className="col-span-2 text-base pl-6">
-                        {stock.symbol}
-                      </div>
-                      <div className="col-span-2 pl-20">
-                        {stock.currentPrice.toFixed(2)}
-                      </div>
-                      <div
-                        className="col-span-2 pl-[8rem]"
-                        style={{ color: stock.change >= 0 ? "green" : "red" }}
+                <>
+                  <Link to={`/stock/${stock.symbol}`}>
+                    <div className="grid gap-2">
+                      <ListItem
+                        className={`grid grid-cols-11 items-center ${listItemStyle}`}
                       >
-                        {stock.change.toFixed(2)}
-                      </div>
-                      <div
-                        className="col-span-2 pl-[10rem]"
-                        style={{
-                          color: stock.changePercent >= 0 ? "green" : "red",
-                        }}
-                      >
-                        {stock.changePercent.toFixed(2)}%
-                      </div>
-                    </ListItem>
-                  </div>
-                </Link>
+                        <div className="col-span-3">{stock.name}</div>
+                        <div className="col-span-2 text-base pl-6">
+                          {stock.symbol}
+                        </div>
+                        <div className="col-span-2 pl-20">
+                          {stock.currentPrice.toFixed(2)}
+                        </div>
+                        <div
+                          className="col-span-2 pl-[8rem]"
+                          style={{ color: stock.change >= 0 ? "green" : "red" }}
+                        >
+                          {stock.change.toFixed(2)}
+                        </div>
+                        <div
+                          className="col-span-2 pl-[10rem]"
+                          style={{
+                            color: stock.changePercent >= 0 ? "green" : "red",
+                          }}
+                        >
+                          {stock.changePercent.toFixed(2)}%
+                        </div>
+                      </ListItem>
+                    </div>
+                  </Link>
+                  <button
+                    onClick={() => watchlistDelete(stock.symbol)}
+                    className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit col-span-1"
+                  >
+                    Delete
+                  </button>
+                </>
               ))}
             </List>
           </CardBody>
