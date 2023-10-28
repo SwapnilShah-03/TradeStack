@@ -25,7 +25,7 @@ export default function Layout() {
         >
           <div className="flex flex-col items-center justify-center gap-3 text-xs sm:text-base">
             <CircularProgress color="inherit" />
-            Have patience, we are loading your data...
+            Please wait, the page is loading your data...
           </div>
         </Backdrop>
       ) : (

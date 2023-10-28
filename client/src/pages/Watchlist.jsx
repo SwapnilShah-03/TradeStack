@@ -39,7 +39,7 @@ export function Watchlist(params) {
     "text-[#eceff1] text-opacity-50 hover:bg-blue-gray-700 ease-in transition duration-150 hover:text-[#eceff1] hover:text-opacity-100 font-Outfit font-normal text-lg";
 
   return (
-    <div className="bg-market bg-no-repeat bg-cover bg-center">
+    <div className="bg-market bg-no-repeat bg-cover bg-center min-h-screen">
       <div className="flex justify-center pt-10">
         <div className="grid grid-cols-3 gap-16">
           {indices.map((index) => (
@@ -79,48 +79,48 @@ export function Watchlist(params) {
       <div className="h-auto w-full flex justify-center py-10">
         <Card
           variant="gradient"
-          className="bg-blue-gray-900 bg-opacity-70 w-full rounded-xl mx-10"
+          className="bg-blue-gray-900 bg-opacity-70 w-full rounded-xl mx-10 p-2"
         >
-          <CardBody>
-            <div className="grid grid-cols-11">
-              <Typography className="col-span-3 text-[#eceff1] font-Outfit font-normal text-xl pl-5 pt-2 pb-5">
+            <div className="grid grid-cols-5 items-center mx-5 mt-6 mb-2">
+              <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-left">
                 Stock Name
               </Typography>
-              <Typography className="col-span-2 text-[#eceff1] font-Outfit font-normal text-xl pl-8 pt-2 pb-5">
+              <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-right">
                 Symbol
               </Typography>
-              <Typography className="col-span-2 text-[#eceff1] font-Outfit font-normal text-xl pl-20 pt-2 pb-5">
+              <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-right">
                 Current Price
               </Typography>
-              <Typography className="col-span-2 text-[#eceff1] font-Outfit font-normal text-xl pl-[7.6rem] pt-2 pb-5">
+              <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-right">
                 Change
               </Typography>
-              <Typography className="col-span-2 text-[#eceff1] font-Outfit font-normal text-xl pl-36 pt-2 pb-5">
+              <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-right">
                 Change %
               </Typography>
             </div>
+            <hr className="mx-5 mt-3" />
             <List>
               {stocks.map((stock) => (
                 <Link to={`/stock/${stock.symbol}`}>
                   <div className="grid gap-2">
                     <ListItem
-                      className={`grid grid-cols-11 items-center ${listItemStyle}`}
+                      className={`grid grid-cols-5 items-center ${listItemStyle}`}
                     >
-                      <div className="col-span-3">{stock.name}</div>
-                      <div className="col-span-2 text-base pl-6">
+                      <div className="col-span-1 text-left">{stock.name}</div>
+                      <div className="col-span-1 text-base text-right">
                         {stock.symbol}
                       </div>
-                      <div className="col-span-2 pl-20">
+                      <div className="col-span-1 text-right">
                         {stock.currentPrice.toFixed(2)}
                       </div>
                       <div
-                        className="col-span-2 pl-[8rem]"
+                        className="col-span- text-right"
                         style={{ color: stock.change >= 0 ? "green" : "red" }}
                       >
                         {stock.change.toFixed(2)}
                       </div>
                       <div
-                        className="col-span-2 pl-[10rem]"
+                        className="col-span-1 text-right"
                         style={{
                           color: stock.changePercent >= 0 ? "green" : "red",
                         }}
@@ -132,7 +132,6 @@ export function Watchlist(params) {
                 </Link>
               ))}
             </List>
-          </CardBody>
         </Card>
       </div>
     </div>

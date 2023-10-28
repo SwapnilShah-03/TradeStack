@@ -4,7 +4,7 @@ import axios from "axios";
 import { useGoogleLogin } from "@react-oauth/google";
 import { toast } from "react-hot-toast";
 import { UserContext } from "../userContext";
-import { Button } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 
 const fixedInputClass =
   "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-md";
@@ -75,8 +75,8 @@ export default function Login() {
   };
 
   return (
-    <div className="h-full my-[3.7rem] flex items-center justify-center px-4 sm:px-6 lg:px-8 font-Outfit">
-      <div className="max-w-md w-full items-center">
+    <div className="h-full flex justify-center px-4 sm:px-6 lg:px-8 font-Outfit">
+      <div className="max-w-md w-full my-12 items-center">
         <div className="mb-10">
           <div className="flex justify-center">
             <img
@@ -85,7 +85,7 @@ export default function Login() {
               src="../../src/assets/images/logo.png"
             />
           </div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-5 text-center text-3xl font-extrabold text-gray-900">
             Login to your account
           </h2>
           <p className="mt-5 text-center text-md text-gray-600 ">
@@ -141,11 +141,15 @@ export default function Login() {
           >
             Login
           </button>
+          <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-blue-gray-600 after:mt-0.5 after:flex-1 after:border-t after:border-blue-gray-600">
+            <p className="mx-4 mb-0 text-center font-normal text-blue-gray-600">
+              OR
+            </p>
+          </div>
           <Button
             size="md"
             variant="outlined"
-            color="blue-gray"
-            className="w-full flex justify-center items-center gap-3 normal-case text-md font-medium font-Outfit"
+            className="w-full flex justify-center items-center gap-3 normal-case text-md font-medium font-Outfit text-blue-gray-900"
             onClick={() => {
               setGoogleLogin(true);
               login();

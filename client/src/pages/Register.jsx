@@ -117,8 +117,8 @@ export default function Register() {
   };
 
   return (
-    <div className="h-full my-[3.7rem] flex items-center justify-center px-4 sm:px-6 lg:px-8 font-Outfit">
-      <div className="max-w-md w-full items-center">
+    <div className="h-full flex items-center justify-center px-4 sm:px-6 lg:px-8 font-Outfit">
+      <div className="max-w-md w-full my-12 items-center">
         <div className="mb-10">
           <div className="flex justify-center">
             <img
@@ -127,7 +127,7 @@ export default function Register() {
               src="../../src/assets/images/logo.png"
             />
           </div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-5 text-center text-3xl font-extrabold text-gray-900">
             Signup to create an account
           </h2>
           <p className="mt-5 text-center text-md text-gray-600 ">

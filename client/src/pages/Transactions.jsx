@@ -31,7 +31,7 @@ export function Transactions() {
       <div className="w-full flex justify-center py-10">
         <Card
           variant="gradient"
-          className="bg-blue-gray-900 h-auto w-full rounded-xl mx-10"
+          className="bg-blue-gray-900 h-auto w-full rounded-xl mx-10 p-2"
         >
           <div className="grid grid-cols-9 items-center mx-5 mt-6 mb-2">
             <Typography className="col-span-2 text-[#eceff1] font-Outfit font-normal text-xl">

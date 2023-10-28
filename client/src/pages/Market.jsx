@@ -77,7 +77,7 @@ export function Market(params) {
       <div className="h-auto w-full flex justify-center py-10">
         <Card
           variant="gradient"
-          className="bg-blue-gray-900 bg-opacity-70 w-full rounded-xl mx-10"
+          className="bg-blue-gray-900 bg-opacity-70 w-full rounded-xl mx-10 p-2"
         >
           <div className="grid grid-cols-5 items-center mx-5 mt-6 mb-2">
             <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-left">

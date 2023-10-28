@@ -188,9 +188,12 @@ export function Portfolio() {
             <CardBody>
               <Typography
                 variant="h5"
-                className="text-blue-gray-50 font-Outfit font-normal"
+                className="text-blue-gray-50 font-Outfit font-normal text-2xl"
               >
-                Investment: ₹{portfolio.investment.toFixed(2)}
+                Investment:
+                <Typography className="font-Outfit font-normal text-xl">
+                  ₹{portfolio.investment.toFixed(2)}
+                </Typography>
               </Typography>
             </CardBody>
           </Card>
@@ -198,9 +201,10 @@ export function Portfolio() {
             <CardBody>
               <Typography
                 variant="h5"
-                className="text-blue-gray-50 font-Outfit font-normal"
+                className="text-blue-gray-50 font-Outfit font-normal text-2xl"
               >
-                Account Balance: ₹{portfolio.balance.toFixed(2)}
+                Account Balance:
+                <Typography className="font-Outfit font-normal text-xl">₹{portfolio.balance.toFixed(2)}</Typography>
               </Typography>
             </CardBody>
           </Card>
@@ -208,35 +212,38 @@ export function Portfolio() {
             <CardBody>
               <Typography
                 variant="h5"
-                className="text-blue-gray-50 font-Outfit font-normal"
+                className="text-blue-gray-50 font-Outfit font-normal text-2xl"
               >
                 <span style={{ color: "green" }}>Profit</span>/
                 <span style={{ color: "red" }}>Loss</span>:{" "}
-                <span style={{ color: pl >= 0 ? "green" : "red" }}>
+                <Typography
+                  style={{ color: pl >= 0 ? "green" : "red" }}
+                  className="font-Outfit font-normal text-xl"
+                >
                   ₹{pl.toFixed(2)}
-                </span>
+                </Typography>
               </Typography>
             </CardBody>
           </Card>
         </div>
       </div>
       <div className="my-10 mx-10">
-        <Card className="bg-opacity-95">
-          <div className="grid grid-cols-9">
-            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl pl-6 pt-6">
+        <Card className="bg-opacity-80 p-2">
+          <div className="grid grid-cols-9 pt-6 mx-6 gap-4">
+            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
               Symbol
             </Typography>
-            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl pl-4 pt-6">
+            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
               Current Price
             </Typography>
-            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl pl-2 pt-6">
+            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
               Quantity
             </Typography>
-            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl pt-6">
+            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
               Profit/Loss
             </Typography>
           </div>
-          <hr className="mx-5 mt-3 text-blue-gray-900" />
+          <hr className="mx-6 mt-5 border-1 border-blue-gray-900" />
           <CardBody className="grid grid-cols-9 gap-4 items-center">
             {stocks.map((stock) => (
               <>
