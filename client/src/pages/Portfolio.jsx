@@ -13,7 +13,7 @@ import {
 } from "@material-tailwind/react";
 
 const fixedInputClass =
-  "mt-2 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-md";
+  "mt-2 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-blue-gray-900 sm:text-md";
 
 export function Portfolio() {
   const [open, setOpen] = useState(false);
@@ -47,7 +47,9 @@ export function Portfolio() {
   async function updatePortfolio(ev) {
     ev.preventDefault();
     if (quantity > totalQuantity || quantity < 1) {
-      toast.error("Invalid Sale");
+      setTimeout(() => {
+        toast.error("Invalid Sale");
+      }, 1000);
       handleClose();
     } else {
       const profits = quantity * profit;
@@ -60,15 +62,15 @@ export function Portfolio() {
         amount,
         profit: profits,
       });
+      setTimeout(() => {
+        toast.success("Successfully sold shares!");
+      }, 1000);
       handleClose();
-      {
-        setTimeout(() => {
-          toast.success("Successfully sold shares!");
-        }, 1000);
-        setTimeout(() => {
-          setRedirect(true);
-        }, 1400);
-      }
+      setTimeout(() => {
+        setRedirect(true);
+      }, 2000);
+      // setTimeout(() => {
+      // }, 1400);
     }
   }
 
@@ -127,18 +129,18 @@ export function Portfolio() {
       >
         <DialogBody variant="gradient" className="flex-row h-auto">
           <form onSubmit={updatePortfolio} className="w-64">
-            <Typography className="mb-8 text-gray-900 font-Outfit font-medium text-3xl">
+            <Typography className="mb-8 text-blue-gray-900 font-Outfit font-medium text-3xl">
               Selling of Shares
             </Typography>
-            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+            <Typography className="mb-6 text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
               Stock Symbol: {symbol}
             </Typography>
-            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+            <Typography className="mb-6 text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
               Latest Price: ₹{price.toFixed(2)}
             </Typography>
             <label
               htmlFor="quantity"
-              className="text-gray-900 text-opacity-70 font-Outfit font-normal text-xl"
+              className="text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl"
             >
               Quantity:
             </label>
@@ -148,13 +150,13 @@ export function Portfolio() {
               id="quantity"
               name="quantity"
               value={quantity}
-              className={`mb-6 text-black text-opacity-100 font-Outfit font-normal text-md ${fixedInputClass}`}
+              className={`mb-6 text-blue-gray-900 text-opacity-100 font-Outfit font-normal text-md ${fixedInputClass}`}
               autoComplete="off"
             />
-            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+            <Typography className="mb-6 text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
               Amount: ₹{amount.toFixed(2)}
             </Typography>
-            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+            <Typography className="mb-6 text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
               Profit/Loss:{" "}
               <span
                 style={{
@@ -206,7 +208,9 @@ export function Portfolio() {
                 className="text-blue-gray-50 font-Outfit font-normal text-2xl"
               >
                 Account Balance:
-                <Typography className="font-Outfit font-normal text-xl">₹{portfolio.balance.toFixed(2)}</Typography>
+                <Typography className="font-Outfit font-normal text-xl">
+                  ₹{portfolio.balance.toFixed(2)}
+                </Typography>
               </Typography>
             </CardBody>
           </Card>

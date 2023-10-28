@@ -90,7 +90,7 @@ export function Stock({ params }) {
   };
   return (
     <div className="p-10">
-      <Typography className="mb-6 text-gray-900 font-Outfit font-semibold text-4xl">
+      <Typography className="mb-6 text-blue-gray-900 font-Outfit font-semibold text-4xl">
         ₹{lastprice.toFixed(2)}
         <span
           className="text-lg font-medium ml-3"
@@ -110,20 +110,20 @@ export function Stock({ params }) {
         </span>
       </Typography>
       <div className="my-10">
-      <Typography className="mb-10 text-gray-900 font-Outfit font-semibold text-3xl">{symbol} Chart</Typography>
+      <Typography className="mb-10 text-blue-gray-900 font-Outfit font-semibold text-3xl">{symbol} Chart</Typography>
         <CanvasJSStockChart containerProps={containerProps} options={options} />
       </div>
-      <Typography className="mb-2 text-gray-900 font-Outfit font-semibold text-4xl">
+      <Typography className="mb-2 text-blue-gray-900 font-Outfit font-semibold text-4xl">
         Key Stats
       </Typography>
       <div className="flex py-5">
         <div className="grid grid-cols-4 gap-8">
           {metaData.map((quote) => (
             <Card variant="gradient" className="p-4">
-              <Typography className="text-gray-900 font-Outfit font-medium text-xl">
+              <Typography className="text-blue-gray-900 font-Outfit font-medium text-xl">
                 {quote.label}
               </Typography>
-              <Typography className="text-gray-900/70 font-Outfit font-medium text-base">
+              <Typography className="text-blue-gray-900/70 font-Outfit font-medium text-base">
                 {quote.value}
               </Typography>
             </Card>

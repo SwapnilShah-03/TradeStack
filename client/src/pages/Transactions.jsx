@@ -24,7 +24,7 @@ export function Transactions() {
   console.log(trades);
 
   const listItemStyle =
-    "text-[#eceff1] text-opacity-50 hover:bg-blue-gray-700 ease-in transition duration-150 hover:text-[#eceff1] hover:text-opacity-100 font-Outfit font-normal text-lg";
+    "text-blue-gray-50 text-opacity-50 hover:bg-blue-gray-700 ease-in transition duration-150 hover:text-blue-gray-50 hover:text-opacity-100 font-Outfit font-normal text-lg";
 
   return (
     <div className="min-h-screen">
@@ -34,28 +34,28 @@ export function Transactions() {
           className="bg-blue-gray-900 h-auto w-full rounded-xl mx-10 p-2"
         >
           <div className="grid grid-cols-9 items-center mx-5 mt-6 mb-2">
-            <Typography className="col-span-2 text-[#eceff1] font-Outfit font-normal text-xl">
+            <Typography className="col-span-2 text-blue-gray-50 font-Outfit font-normal text-xl">
               Date
             </Typography>
-            <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
               Trade Type
             </Typography>
-            <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
               Symbol
             </Typography>
-            <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
               Price
             </Typography>
-            <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
               Quantity
             </Typography>
-            <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
               Amount
             </Typography>
-            <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
               Profit/Loss
             </Typography>
-            <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
               Balance
             </Typography>
           </div>

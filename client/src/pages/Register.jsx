@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 const fixedInputClass =
-  "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-md";
+  "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-blue-gray-900 sm:text-md";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -127,7 +127,7 @@ export default function Register() {
               src="../../src/assets/images/logo.png"
             />
           </div>
-          <h2 className="mt-5 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-5 text-center text-3xl font-extrabold text-blue-gray-900">
             Signup to create an account
           </h2>
           <p className="mt-5 text-center text-md text-gray-600 ">
@@ -144,7 +144,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="username"
-              className="block text-md font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-blue-gray-900 mb-1"
             >
               Username
             </label>
@@ -162,7 +162,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="email"
-              className="block text-md font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-blue-gray-900 mb-1"
             >
               Email
             </label>
@@ -181,7 +181,7 @@ export default function Register() {
             <div className="my-0">
               <label
                 htmlFor="age"
-                className="block text-md font-medium leading-6 text-gray-900 mb-1"
+                className="block text-md font-medium leading-6 text-blue-gray-900 mb-1"
               >
                 Age
               </label>
@@ -199,7 +199,7 @@ export default function Register() {
             <div className="my-0">
               <label
                 htmlFor="gender"
-                className="block text-md font-medium leading-6 text-gray-900 mb-1"
+                className="block text-md font-medium leading-6 text-blue-gray-900 mb-1"
               >
                 Gender
               </label>
@@ -223,7 +223,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="nationality"
-              className="block text-md font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-blue-gray-900 mb-1"
             >
               Nationality
             </label>
@@ -241,7 +241,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="address"
-              className="block text-md font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-blue-gray-900 mb-1"
             >
               Address
             </label>
@@ -260,7 +260,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="phone"
-              className="block text-md font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-blue-gray-900 mb-1"
             >
               Phone Number
             </label>
@@ -278,7 +278,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="password"
-              className="block text-md font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-blue-gray-900 mb-1"
             >
               Password
             </label>
@@ -295,7 +295,7 @@ export default function Register() {
           <div className="my-5">
             <label
               htmlFor="confirmPassword"
-              className="block text-md font-medium leading-6 text-gray-900 mb-1"
+              className="block text-md font-medium leading-6 text-blue-gray-900 mb-1"
             >
               Confirm Password
             </label>

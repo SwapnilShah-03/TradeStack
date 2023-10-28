@@ -34,7 +34,7 @@ export function Market(params) {
   }, []);
 
   const listItemStyle =
-    "text-[#eceff1] text-opacity-50 hover:bg-blue-gray-700 ease-in transition duration-150 hover:text-[#eceff1] hover:text-opacity-100 font-Outfit font-normal text-lg";
+    "text-blue-gray-50 text-opacity-50 hover:bg-blue-gray-700 ease-in transition duration-150 hover:text-blue-gray-50 hover:text-opacity-100 font-Outfit font-normal text-lg";
 
   return (
     <div className="bg-market bg-no-repeat bg-cover bg-center">
@@ -80,19 +80,19 @@ export function Market(params) {
           className="bg-blue-gray-900 bg-opacity-70 w-full rounded-xl mx-10 p-2"
         >
           <div className="grid grid-cols-5 items-center mx-5 mt-6 mb-2">
-            <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-left">
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-left">
               Stock Name
             </Typography>
-            <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-right">
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
               Symbol
             </Typography>
-            <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-right">
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
               Current Price
             </Typography>
-            <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-right">
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
               Change
             </Typography>
-            <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-right">
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
               Change %
             </Typography>
           </div>

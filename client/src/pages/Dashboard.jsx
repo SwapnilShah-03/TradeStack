@@ -69,10 +69,10 @@ export function Dashboard() {
   };
 
   const listItemStyle =
-    "text-[#eceff1] text-opacity-50 hover:bg-blue-gray-700 ease-in transition duration-150 hover:text-[#eceff1] hover:text-opacity-100 font-Outfit font-normal text-lg";
+    "text-blue-gray-50 text-opacity-50 hover:bg-blue-gray-700 ease-in transition duration-150 hover:text-blue-gray-50 hover:text-opacity-100 font-Outfit font-normal text-lg";
 
   return (
-    <div className="bg-home bg-no-repeat bg-cover bg-center p-10">
+    <div className="bg-dashboard bg-no-repeat bg-cover bg-center p-10">
       <div className="flex justify-center">
         <div className="grid grid-cols-3 gap-16">
           {indices.map((index) => (
@@ -111,7 +111,7 @@ export function Dashboard() {
       </div>
       <div className="grid grid-cols-12 mt-10">
         <div className="col-span-6">
-          <Typography className="text-[#eceff1] text-center text-5xl font-medium font-Outfit">
+          <Typography className="text-blue-gray-900 text-center text-4xl font-medium font-Outfit">
             Investment
           </Typography>
           <Chart
@@ -123,7 +123,7 @@ export function Dashboard() {
           />
         </div>
         <div className="col-span-6 self-center">
-          <Typography className="text-[#eceff1] text-center text-7xl font-medium font-Outfit">
+          <Typography className="text-blue-gray-50 text-center text-7xl font-medium font-Outfit">
             {/* <div>
               {top2.map((stock) => (
                 <p>{stock.symbol}</p>
@@ -141,28 +141,28 @@ export function Dashboard() {
         className="bg-blue-gray-900 h-auto w-full rounded-xl mt-10 p-2"
       >
         <div className="grid grid-cols-9 items-center mx-5 mt-6 mb-2">
-          <Typography className="col-span-2 text-[#eceff1] font-Outfit font-normal text-xl">
+          <Typography className="col-span-2 text-blue-gray-50 font-Outfit font-normal text-xl">
             Date
           </Typography>
-          <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+          <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
             Trade Type
           </Typography>
-          <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+          <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
             Symbol
           </Typography>
-          <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+          <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
             Price
           </Typography>
-          <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+          <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
             Quantity
           </Typography>
-          <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+          <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
             Amount
           </Typography>
-          <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+          <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
             Profit/Loss
           </Typography>
-          <Typography className="col-span-1 text-[#eceff1] font-Outfit font-normal text-xl text-center">
+          <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
             Balance
           </Typography>
         </div>

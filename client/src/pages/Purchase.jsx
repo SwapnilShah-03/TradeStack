@@ -6,7 +6,7 @@ import { UserContext } from "../userContext";
 import { Card, CardBody, Typography, Button } from "@material-tailwind/react";
 
 const fixedInputClass =
-  "mt-2 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-md";
+  "mt-2 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-blue-gray-900 sm:text-md";
 
 export function Purchase() {
   const [quantity, setQuantity] = useState(0);
@@ -47,21 +47,21 @@ export function Purchase() {
           className="flex-row h-auto bg-white bg-opacity-95 py-4 px-8 shadow-2xl"
         >
           <CardBody>
-            <Typography className="mb-8 text-gray-900 font-Outfit font-medium text-3xl">
+            <Typography className="mb-8 text-blue-gray-900 font-Outfit font-medium text-3xl">
               Buying of Shares
             </Typography>
-            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+            <Typography className="mb-6 text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
               Stock Symbol: {symbol}
             </Typography>
-            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+            <Typography className="mb-6 text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
               Latest Price: ₹{price.toFixed(2)}
             </Typography>
-            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+            <Typography className="mb-6 text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
               Account Balance: ₹{balance.toFixed(2)}
             </Typography>
             <label
               htmlFor="quantity"
-              className="text-gray-900 text-opacity-70 font-Outfit font-normal text-xl"
+              className="text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl"
             >
               Quantity:
             </label>
@@ -74,7 +74,7 @@ export function Purchase() {
               className={`mb-6 text-black text-opacity-100 font-Outfit font-normal text-md ${fixedInputClass}`}
               autoComplete="off"
             />
-            <Typography className="mb-8 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+            <Typography className="mb-8 text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
               Amount: ₹{amount.toFixed(2)}
             </Typography>
             <div className="flex justify-center">

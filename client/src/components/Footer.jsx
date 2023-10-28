@@ -11,9 +11,7 @@ export default function Footer() {
             variant="medium"
             className="mb-4 text-center font-normal text-[#eceff1] md:mb-0 font-Poppins text-opacity-70"
           >
-            &copy; {currentYear}{" "}
-            <a href="https://material-tailwind.com/">TradeStack</a>. All Rights
-            Reserved.
+            &copy; {currentYear} TradeStack. All Rights Reserved.
           </Typography>
           <div className="flex gap-4 text-[#eceff1] sm:justify-center">
             <Typography

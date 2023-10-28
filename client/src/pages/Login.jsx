@@ -7,7 +7,7 @@ import { UserContext } from "../userContext";
 import { Button, Typography } from "@material-tailwind/react";
 
 const fixedInputClass =
-  "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-md";
+  "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-blue-gray-900 sm:text-md";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -85,7 +85,7 @@ export default function Login() {
               src="../../src/assets/images/logo.png"
             />
           </div>
-          <h2 className="mt-5 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-5 text-center text-3xl font-extrabold text-blue-gray-900">
             Login to your account
           </h2>
           <p className="mt-5 text-center text-md text-gray-600 ">
@@ -103,7 +103,7 @@ export default function Login() {
             <div className="my-5">
               <label
                 htmlFor="username"
-                className="block text-md font-medium leading-6 text-gray-900 mb-1"
+                className="block text-md font-medium leading-6 text-blue-gray-900 mb-1"
               >
                 Username
               </label>
@@ -120,7 +120,7 @@ export default function Login() {
             <div className="my-5">
               <label
                 htmlFor="username"
-                className="block text-md font-medium leading-6 text-gray-900 mb-1"
+                className="block text-md font-medium leading-6 text-blue-gray-900 mb-1"
               >
                 Password
               </label>
