@@ -117,35 +117,43 @@ export function Watchlist(params) {
             </div>
             <List>
               {stocks.map((stock) => (
-                <Link to={`/stock/${stock.symbol}`}>
-                  <div className="grid gap-2">
-                    <ListItem
-                      className={`grid grid-cols-5 items-center ${listItemStyle}`}
-                    >
-                      <div className="col-span-1 text-left">{stock.name}</div>
-                      <div className="col-span-1 text-base text-right">
-                        {stock.symbol}
-                      </div>
-                      <div className="col-span-1 text-right">
-                        {stock.currentPrice.toFixed(2)}
-                      </div>
-                      <div
-                        className="col-span- text-right"
-                        style={{ color: stock.change >= 0 ? "green" : "red" }}
+                <>
+                  <Link to={`/stock/${stock.symbol}`}>
+                    <div className="grid gap-2">
+                      <ListItem
+                        className={`grid grid-cols-5 items-center ${listItemStyle}`}
                       >
-                        {stock.change.toFixed(2)}
-                      </div>
-                      <div
-                        className="col-span-1 text-right"
-                        style={{
-                          color: stock.changePercent >= 0 ? "green" : "red",
-                        }}
-                      >
-                        {stock.changePercent.toFixed(2)}%
-                      </div>
-                    </ListItem>
-                  </div>
-                </Link>
+                        <div className="col-span-1 text-left">{stock.name}</div>
+                        <div className="col-span-1 text-base text-right">
+                          {stock.symbol}
+                        </div>
+                        <div className="col-span-1 text-right">
+                          {stock.currentPrice.toFixed(2)}
+                        </div>
+                        <div
+                          className="col-span- text-right"
+                          style={{ color: stock.change >= 0 ? "green" : "red" }}
+                        >
+                          {stock.change.toFixed(2)}
+                        </div>
+                        <div
+                          className="col-span-1 text-right"
+                          style={{
+                            color: stock.changePercent >= 0 ? "green" : "red",
+                          }}
+                        >
+                          {stock.changePercent.toFixed(2)}%
+                        </div>
+                      </ListItem>
+                    </div>
+                  </Link>
+                  <button
+                    onClick={() => watchlistDelete(stock.symbol)}
+                    className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit col-span-1"
+                  >
+                    Delete
+                  </button>
+                </>
               ))}
             </List>
           </CardBody>

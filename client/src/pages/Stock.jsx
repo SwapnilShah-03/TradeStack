@@ -96,6 +96,7 @@ export function Stock({ params }) {
     const res = await axios.post("/watchlist/add", {
       symbol,
     });
+    console.log(res.status);
     setWatchlistPre(true);
   }
   return (

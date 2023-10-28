@@ -68,7 +68,7 @@ export function Portfolio() {
       handleClose();
       setTimeout(() => {
         setRedirect(true);
-      }, 2000);
+      }, 1400);
       // setTimeout(() => {
       // }, 1400);
     }

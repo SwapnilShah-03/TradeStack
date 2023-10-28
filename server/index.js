@@ -474,17 +474,23 @@ app.post("/watchlist/add", async (req, res) => {
   } else {
     console.log("JWT Cookie not found");
   }
-  const scriptSymbol = req.body.symbol;
-  const response = await Stock.find({ symbol: scriptSymbol });
-  const scriptName = response[0].name;
-  const list = await Watchlist.find({ user: username });
-  const watchlist = list[0].stocks;
-  watchlist.push[{ name: scriptName, symbol: scriptSymbol }];
-  const update = await Watchlist.updateOne(
-    { user: username },
-    { $set: { stocks: watchlist } }
-  );
-  res.status(200).send("Stocks added to watchlist");
+  try {
+    const scriptSymbol = req.body.symbol;
+    const response = await Stock.find({ symbol: scriptSymbol });
+    const scriptName = response[0].name;
+    const list = await Watchlist.find({ user: username });
+    const watchlist = list[0].stocks;
+    watchlist.push({ name: scriptName, symbol: scriptSymbol });
+    console.log(watchlist + "ZXsad");
+    const update = await Watchlist.updateOne(
+      { user: username },
+      { $set: { stocks: watchlist } }
+    );
+
+    res.status(200).send("Stocks added to watchlist");
+  } catch {
+    res.status(300).console.error();
+  }
 });
 
 app.post("/watchlist/delete", async (req, res) => {
@@ -507,10 +513,14 @@ app.post("/watchlist/delete", async (req, res) => {
   } else {
     console.log("JWT Cookie not found");
   }
-  const res = await Watchlist.find({ user: username });
-  let watchlist = res[0].stocks;
+  const r = await Watchlist.find({ user: username });
+  let watchlist = r[0].stocks;
   watchlist = watchlist.filter((stock) => stock.symbol !== scriptSymbol);
-  res.status(200);
+  const update = await Watchlist.updateOne(
+    { user: username },
+    { $set: { stocks: watchlist } }
+  );
+  res.status(200).send("Stocks deleted from the watchlist");
 });
 
 app.listen(process.env.PORT);
