@@ -13,7 +13,7 @@ import {
 } from "@material-tailwind/react";
 
 const fixedInputClass =
-  "mt-2 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 sm:text-md";
+  "mt-2 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-blue-gray-900 sm:text-md";
 
 export function Portfolio() {
   const [open, setOpen] = useState(false);
@@ -47,7 +47,9 @@ export function Portfolio() {
   async function updatePortfolio(ev) {
     ev.preventDefault();
     if (quantity > totalQuantity || quantity < 1) {
-      toast.error("Invalid Sale");
+      setTimeout(() => {
+        toast.error("Invalid Sale");
+      }, 1000);
       handleClose();
     } else {
       const profits = quantity * profit;
@@ -60,15 +62,15 @@ export function Portfolio() {
         amount,
         profit: profits,
       });
+      setTimeout(() => {
+        toast.success("Successfully sold shares!");
+      }, 1000);
       handleClose();
-      {
-        setTimeout(() => {
-          toast.success("Successfully sold shares!");
-        }, 1000);
-        setTimeout(() => {
-          setRedirect(true);
-        }, 1400);
-      }
+      setTimeout(() => {
+        setRedirect(true);
+      }, 2000);
+      // setTimeout(() => {
+      // }, 1400);
     }
   }
 
@@ -127,18 +129,18 @@ export function Portfolio() {
       >
         <DialogBody variant="gradient" className="flex-row h-auto">
           <form onSubmit={updatePortfolio} className="w-64">
-            <Typography className="mb-8 text-gray-900 font-Outfit font-medium text-3xl">
+            <Typography className="mb-8 text-blue-gray-900 font-Outfit font-medium text-3xl">
               Selling of Shares
             </Typography>
-            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+            <Typography className="mb-6 text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
               Stock Symbol: {symbol}
             </Typography>
-            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+            <Typography className="mb-6 text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
               Latest Price: ₹{price.toFixed(2)}
             </Typography>
             <label
               htmlFor="quantity"
-              className="text-gray-900 text-opacity-70 font-Outfit font-normal text-xl"
+              className="text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl"
             >
               Quantity:
             </label>
@@ -148,13 +150,13 @@ export function Portfolio() {
               id="quantity"
               name="quantity"
               value={quantity}
-              className={`mb-6 text-black text-opacity-100 font-Outfit font-normal text-md ${fixedInputClass}`}
+              className={`mb-6 text-blue-gray-900 text-opacity-100 font-Outfit font-normal text-md ${fixedInputClass}`}
               autoComplete="off"
             />
-            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+            <Typography className="mb-6 text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
               Amount: ₹{amount.toFixed(2)}
             </Typography>
-            <Typography className="mb-6 text-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
+            <Typography className="mb-6 text-blue-gray-900 text-opacity-70 font-Outfit font-normal text-xl">
               Profit/Loss:{" "}
               <span
                 style={{
@@ -190,9 +192,12 @@ export function Portfolio() {
             <CardBody>
               <Typography
                 variant="h5"
-                className="text-blue-gray-50 font-Outfit font-normal"
+                className="text-blue-gray-50 font-Outfit font-normal text-2xl"
               >
-                Investment: ₹{portfolio.investment.toFixed(2)}
+                Investment:
+                <Typography className="font-Outfit font-normal text-xl">
+                  ₹{portfolio.investment.toFixed(2)}
+                </Typography>
               </Typography>
             </CardBody>
           </Card>
@@ -200,9 +205,12 @@ export function Portfolio() {
             <CardBody>
               <Typography
                 variant="h5"
-                className="text-blue-gray-50 font-Outfit font-normal"
+                className="text-blue-gray-50 font-Outfit font-normal text-2xl"
               >
-                Account Balance: ₹{portfolio.balance.toFixed(2)}
+                Account Balance:
+                <Typography className="font-Outfit font-normal text-xl">
+                  ₹{portfolio.balance.toFixed(2)}
+                </Typography>
               </Typography>
             </CardBody>
           </Card>
@@ -210,35 +218,38 @@ export function Portfolio() {
             <CardBody>
               <Typography
                 variant="h5"
-                className="text-blue-gray-50 font-Outfit font-normal"
+                className="text-blue-gray-50 font-Outfit font-normal text-2xl"
               >
                 <span style={{ color: "green" }}>Profit</span>/
                 <span style={{ color: "red" }}>Loss</span>:{" "}
-                <span style={{ color: pl >= 0 ? "green" : "red" }}>
+                <Typography
+                  style={{ color: pl >= 0 ? "green" : "red" }}
+                  className="font-Outfit font-normal text-xl"
+                >
                   ₹{pl.toFixed(2)}
-                </span>
+                </Typography>
               </Typography>
             </CardBody>
           </Card>
         </div>
       </div>
       <div className="my-10 mx-10">
-        <Card className="bg-opacity-95">
-          <div className="grid grid-cols-9">
-            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl pl-6 pt-6">
+        <Card className="bg-opacity-80 p-2">
+          <div className="grid grid-cols-9 pt-6 mx-6 gap-4">
+            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
               Symbol
             </Typography>
-            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl pl-4 pt-6">
+            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
               Current Price
             </Typography>
-            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl pl-2 pt-6">
+            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
               Quantity
             </Typography>
-            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl pt-6">
+            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
               Profit/Loss
             </Typography>
           </div>
-          <hr className="mx-5 mt-3 text-blue-gray-900" />
+          <hr className="mx-6 mt-5 border-1 border-blue-gray-900" />
           <CardBody className="grid grid-cols-9 gap-4 items-center">
             {stocks.map((stock) => (
               <>

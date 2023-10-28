@@ -18,22 +18,22 @@ export function News() {
         <Link to={news.href}>
           <Card
             variant="gradient"
-            className="flex-row h-[20rem] bg-[#263238] hover:shadow-lg hover:shadow-[#546e7a] ease-in transition duration-150"
+            className="flex-row min-h-auto bg-blue-gray-900 hover:shadow-lg hover:shadow-blue-gray-600 ease-in transition duration-150"
           >
             <CardBody>
               <Typography
                 variant="h6"
-                className="mb-4 text-[#eceff1] text-opacity-40 font-Outfit font-normal"
+                className="mb-4 text-blue-gray-50 text-opacity-40 font-Outfit font-normal"
               >
                 {news.date}
               </Typography>
               <Typography
                 variant="h4"
-                className="mb-4 text-[#eceff1] font-Outfit font-medium"
+                className="mb-4 text-blue-gray-50 font-Outfit font-medium"
               >
                 {news.title}
               </Typography>
-              <Typography className="text-[#eceff1] text-opacity-60 font-Outfit font-medium">
+              <Typography className="text-blue-gray-50 text-opacity-60 font-Outfit font-medium">
                 {news.description.slice(0, 200)}...
               </Typography>
             </CardBody>

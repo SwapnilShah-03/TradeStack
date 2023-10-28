@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useNavigation } from "react-router-dom";
+import { Typography } from "@material-tailwind/react";
 
 export default function Layout() {
   const navigation = useNavigation();
@@ -23,9 +24,11 @@ export default function Layout() {
           }}
           open={true}
         >
-          <div className="flex flex-col items-center justify-center gap-3 text-xs sm:text-base">
+          <div className="flex flex-col items-center justify-center gap-3">
             <CircularProgress color="inherit" />
-            Have patience, we are loading your data...
+            <Typography className="text-lg font-normal font-Poppins">
+              Please wait, the page is loading your data...
+            </Typography>
           </div>
         </Backdrop>
       ) : (
