@@ -37,7 +37,7 @@ export function Market(params) {
     "text-blue-gray-50 text-opacity-50 hover:bg-blue-gray-700 ease-in transition duration-150 hover:text-blue-gray-50 hover:text-opacity-100 font-Outfit font-normal text-lg";
 
   return (
-    <div className="bg-market bg-no-repeat bg-cover bg-center">
+    <div className="bg-market bg-no-repeat bg-fixed bg-center min-h-screen">
       <div className="flex justify-center pt-10">
         <div className="grid grid-cols-3 gap-16">
           {indices.map((index) => (
@@ -79,7 +79,11 @@ export function Market(params) {
           variant="gradient"
           className="bg-blue-gray-900 bg-opacity-70 w-full rounded-xl mx-10 p-2"
         >
-          <div className="grid grid-cols-5 items-center mx-5 mt-6 mb-2">
+          {/* <div className="grid grid-cols-5 items-center mx-5 mt-6 mb-2"> */}
+          <CardHeader
+            floated={false}
+            className="grid grid-cols-5 items-cente bg-transparent shadow-none mx-5"
+          >
             <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-left">
               Stock Name
             </Typography>
@@ -95,7 +99,8 @@ export function Market(params) {
             <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
               Change %
             </Typography>
-          </div>
+          </CardHeader>
+          {/* </div> */}
           <hr className="mx-5 mt-3" />
           <List>
             {stocks.map((stock) => (

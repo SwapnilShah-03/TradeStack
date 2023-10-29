@@ -11,7 +11,8 @@ import {
   CardHeader,
   Button,
 } from "@material-tailwind/react";
-import { BottomNavigation } from "@mui/material";
+import { IconButton } from "@material-tailwind/react";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export function Watchlist(params) {
   const { indicesData, marketData } = useLoaderData();
@@ -97,66 +98,88 @@ export function Watchlist(params) {
           variant="gradient"
           className="bg-blue-gray-900 bg-opacity-70 w-full rounded-xl mx-10 p-2"
         >
-          <CardBody>
-            <div className="grid grid-cols-11">
-              <Typography className="col-span-3 text-[#eceff1] font-Outfit font-normal text-xl pl-5 pt-2 pb-5">
-                Stock Name
-              </Typography>
-              <Typography className="col-span-2 text-[#eceff1] font-Outfit font-normal text-xl pl-8 pt-2 pb-5">
-                Symbol
-              </Typography>
-              <Typography className="col-span-2 text-[#eceff1] font-Outfit font-normal text-xl pl-20 pt-2 pb-5">
-                Current Price
-              </Typography>
-              <Typography className="col-span-2 text-[#eceff1] font-Outfit font-normal text-xl pl-[7.6rem] pt-2 pb-5">
-                Change
-              </Typography>
-              <Typography className="col-span-2 text-[#eceff1] font-Outfit font-normal text-xl pl-36 pt-2 pb-5">
-                Change %
-              </Typography>
-            </div>
-            <List>
-              {stocks.map((stock) => (
-                <>
+          <CardHeader
+            floated={false}
+            className="grid grid-cols-6 items-center bg-transparent shadow-none mx-5"
+          >
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-left">
+              Stock Name
+            </Typography>
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
+              Symbol
+            </Typography>
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
+              Price
+            </Typography>
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
+              Change
+            </Typography>
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
+              Change %
+            </Typography>
+            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
+              Delete
+            </Typography>
+            {/* <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
+              Delete
+            </Typography> */}
+          </CardHeader>
+          <hr className="mx-5 mt-2" />
+          <List>
+            {stocks.map((stock) => (
+              <>
+                <div className="grid gap-2">
                   <Link to={`/stock/${stock.symbol}`}>
-                    <div className="grid gap-2">
-                      <ListItem
-                        className={`grid grid-cols-5 items-center ${listItemStyle}`}
+                    <ListItem
+                      className={`grid grid-cols-6 grid-flow-col items-center ${listItemStyle}`}
+                    >
+                      <div className="col-span-1 text-left">{stock.name}</div>
+                      <div className="col-span-1 text-base text-right">
+                        {stock.symbol}
+                      </div>
+                      <div className="col-span-1 text-right">
+                        {stock.currentPrice.toFixed(2)}
+                      </div>
+                      <div
+                        className="col-span-1 text-right"
+                        style={{ color: stock.change >= 0 ? "green" : "red" }}
                       >
-                        <div className="col-span-1 text-left">{stock.name}</div>
-                        <div className="col-span-1 text-base text-right">
-                          {stock.symbol}
-                        </div>
-                        <div className="col-span-1 text-right">
-                          {stock.currentPrice.toFixed(2)}
-                        </div>
-                        <div
-                          className="col-span- text-right"
-                          style={{ color: stock.change >= 0 ? "green" : "red" }}
-                        >
-                          {stock.change.toFixed(2)}
-                        </div>
-                        <div
-                          className="col-span-1 text-right"
-                          style={{
-                            color: stock.changePercent >= 0 ? "green" : "red",
-                          }}
-                        >
-                          {stock.changePercent.toFixed(2)}%
-                        </div>
-                      </ListItem>
-                    </div>
+                        {stock.change.toFixed(2)}
+                      </div>
+                      <div
+                        className="col-span-1 text-right"
+                        style={{
+                          color: stock.changePercent >= 0 ? "green" : "red",
+                        }}
+                      >
+                        {stock.changePercent.toFixed(2)}%
+                      </div>
+                      {/* <button
+                      onClick={() => watchlistDelete(stock.symbol)}
+                      className="col-span-1 text-right"
+                    >
+                      <DeleteIcon />
+                    </button> */}
+                      {/* <IconButton
+                      variant="text"
+                      className="rounded-full col-span-1 justify-self-end bg-transparent hover:bg-blue-gray-50"
+                    > */}
+                      {/* </IconButton> */}
+                      <Link
+                        onClick={window.location.reload}
+                        className="justify-self-end"
+                      >
+                        <DeleteIcon
+                          onClick={() => watchlistDelete(stock.symbol)}
+                          className="col-span-1 text-blue-gray-300 hover:text-blue-gray-50"
+                        />
+                      </Link>
+                    </ListItem>
                   </Link>
-                  <button
-                    onClick={() => watchlistDelete(stock.symbol)}
-                    className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit col-span-1"
-                  >
-                    Delete
-                  </button>
-                </>
-              ))}
-            </List>
-          </CardBody>
+                </div>
+              </>
+            ))}
+          </List>
         </Card>
       </div>
     </div>

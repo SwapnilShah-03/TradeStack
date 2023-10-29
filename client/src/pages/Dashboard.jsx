@@ -6,6 +6,7 @@ import {
   List,
   ListItem,
   Card,
+  CardHeader,
   CardBody,
   Typography,
 } from "@material-tailwind/react";
@@ -131,10 +132,13 @@ export function Dashboard() {
     fontSize: 16,
     fontName: "Outfit",
     is3D: true,
-    backgroundColor: "#B2B2B2B2",
+    backgroundColor: "#00FFFFFF",
     height: 400,
     legend: {
       alignment: "center",
+    },
+    chartArea: {
+      backgroundColor: "#00FFFFFF",
     },
   };
 
@@ -179,8 +183,8 @@ export function Dashboard() {
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-12 mt-10">
-        <div className="col-span-6">
+      <div className="grid grid-cols-12 mt-10 gap-10">
+        <div className="col-span-6 bg-white/0 self-center">
           <Typography className="text-blue-gray-900 text-center text-4xl font-medium font-Outfit">
             Investment
           </Typography>
@@ -192,18 +196,23 @@ export function Dashboard() {
             legend_toggle
           />
         </div>
-        <div className="col-span-6 self-center">
-          {/* <hr className="mx-5 mt-3" /> */}
-          <div className="top2stocks">
-            <p>Top gainers</p>
+        <Card
+          variant="gradient"
+          className="col-span-6 bg-blue-gray-900 w-full rounded-xl px-2"
+        >
+          <CardBody>
+            <Typography className="text-blue-gray-50 font-Outfit font-normal text-xl text-left mt-5 mx-2">
+              Top Gainers
+            </Typography>
+            <hr className="mt-2 mx-2" />
             <List>
               {top2stocks.map((stock) => (
                 <Link to={`/stock/${stock.symbol}`}>
                   <div className="grid gap-2">
                     <ListItem
-                      className={`grid grid-cols-5 items-center ${listItemStyle}`}
+                      className={`grid grid-cols-4 items-center ${listItemStyle}`}
                     >
-                      <div className="col-span-1 text-base text-right">
+                      <div className="col-span-1 text-base text-left">
                         {stock.symbol}
                       </div>
                       <div className="col-span-1 text-right">
@@ -228,17 +237,18 @@ export function Dashboard() {
                 </Link>
               ))}
             </List>
-          </div>
-          <div className="worst2stocks">
-            <p>Top Losers</p>
+            <Typography className="text-blue-gray-50 font-Outfit font-normal text-xl text-left mt-5 mx-2">
+              Top Losers
+            </Typography>
+            <hr className="mt-2 mx-2" />
             <List>
               {bottom2stocks.map((stock) => (
                 <Link to={`/stock/${stock.symbol}`}>
                   <div className="grid gap-2">
                     <ListItem
-                      className={`grid grid-cols-5 items-center ${listItemStyle}`}
+                      className={`grid grid-cols-4 items-center ${listItemStyle}`}
                     >
-                      <div className="col-span-1 text-base text-right">
+                      <div className="col-span-1 text-base text-left">
                         {stock.symbol}
                       </div>
                       <div className="col-span-1 text-right">
@@ -263,23 +273,24 @@ export function Dashboard() {
                 </Link>
               ))}
             </List>
-          </div>
-          <div className="topPerformer">
-            <p>Top performer</p>
+            <Typography className="text-blue-gray-50 font-Outfit font-normal text-xl text-left mt-5 mx-2">
+              Top Performer
+            </Typography>
+            <hr className="mt-2 mx-2" />
             <List>
               <Link to={`/stock/${topPerformer.symbol}`}>
                 <div className="grid gap-2">
                   <ListItem
-                    className={`grid grid-cols-5 items-center ${listItemStyle}`}
+                    className={`grid grid-cols-6 items-center ${listItemStyle}`}
                   >
-                    <div className="col-span-1 text-base text-right">
+                    <div className="col-span-2 text-base text-left">
                       {topPerformer.symbol}
                     </div>
                     <div className="col-span-1 text-right">
                       {topPerformer.currentPrice.toFixed(2)}
                     </div>
                     <div
-                      className="col-span- text-right"
+                      className="col-span-1 text-right"
                       style={{
                         color: topPerformer.change >= 0 ? "green" : "red",
                       }}
@@ -307,23 +318,24 @@ export function Dashboard() {
                 </div>
               </Link>
             </List>
-          </div>
-          <div className="worstPerformer">
-            <p>Worst Performer</p>
+            <Typography className="text-blue-gray-50 font-Outfit font-normal text-xl text-left mt-5 mx-2">
+              Worst Performer
+            </Typography>
+            <hr className="mt-2 mx-2" />
             <List>
               <Link to={`/stock/${worstPerformer.symbol}`}>
                 <div className="grid gap-2">
                   <ListItem
-                    className={`grid grid-cols-5 items-center ${listItemStyle}`}
+                    className={`grid grid-cols-6 items-center ${listItemStyle}`}
                   >
-                    <div className="col-span-1 text-base text-right">
+                    <div className="col-span-2 text-base text-left">
                       {worstPerformer.symbol}
                     </div>
                     <div className="col-span-1 text-right">
                       {worstPerformer.currentPrice.toFixed(2)}
                     </div>
                     <div
-                      className="col-span- text-right"
+                      className="col-span-1 text-right"
                       style={{
                         color: worstPerformer.change >= 0 ? "green" : "red",
                       }}
@@ -351,14 +363,17 @@ export function Dashboard() {
                 </div>
               </Link>
             </List>
-          </div>
-        </div>
+          </CardBody>
+        </Card>
       </div>
       <Card
         variant="gradient"
         className="bg-blue-gray-900 h-auto w-full rounded-xl mt-10 p-2"
       >
-        <div className="grid grid-cols-9 items-center mx-5 mt-6 mb-2">
+        <CardHeader
+          floated={false}
+          className="grid grid-cols-9 items-center bg-transparent shadow-none mx-5"
+        >
           <Typography className="col-span-2 text-blue-gray-50 font-Outfit font-normal text-xl">
             Date
           </Typography>
@@ -383,8 +398,8 @@ export function Dashboard() {
           <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
             Balance
           </Typography>
-        </div>
-        <hr className="mx-5 mt-3" />
+        </CardHeader>
+        <hr className="mx-5 mt-2" />
         <List>
           {last5Trades.map((trade) => (
             <div className="grid gap-2">
@@ -415,12 +430,14 @@ export function Dashboard() {
           ))}
         </List>
       </Card>
-      <button className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
-        Deposit Money
-      </button>
-      <button className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
-        Withdraw Money
-      </button>
+      <div className="mt-10 flex justify-center gap-10">
+        <button className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
+          Deposit Money
+        </button>
+        <button className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
+          Withdraw Money
+        </button>
+      </div>
     </div>
   );
 }

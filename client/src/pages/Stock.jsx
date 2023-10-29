@@ -121,9 +121,15 @@ export function Stock({ params }) {
         </span>
       </Typography>
       {!watchlistPre ? (
-        <Button onClick={watchlistAdded}>Add to Watchlist</Button>
+        <button 
+        onClick={watchlistAdded}
+        className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
+          Add to watchlist
+        </button>
       ) : (
-        <p>Added to watchlist</p>
+        <Typography className="mb-2 text-blue-gray-900 font-Outfit font-normal text-xl">
+          Added to watchlist
+        </Typography>
       )}
       <div className="my-10">
         <Typography className="mb-10 text-gray-900 font-Outfit font-semibold text-3xl">
