@@ -129,9 +129,6 @@ export function Stock({ params }) {
         <Typography className="mb-10 text-gray-900 font-Outfit font-semibold text-3xl">
           {symbol} Chart
         </Typography>
-        <Typography className="mb-10 text-blue-gray-900 font-Outfit font-semibold text-3xl">
-          {symbol} Chart
-        </Typography>
         <CanvasJSStockChart containerProps={containerProps} options={options} />
       </div>
       <Typography className="mb-2 text-blue-gray-900 font-Outfit font-semibold text-4xl">

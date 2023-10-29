@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Chart } from "react-google-charts";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import {
   List,
   ListItem,
@@ -10,32 +10,102 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
-function hotlist(market, choice) {
-  market.sort((a, b) => b.changePercent - a.changePercent);
-  if (choice == "market") {
+function hotlist(market, portfolio, choice, script) {
+  if (choice === "market") {
+    market.sort((a, b) => b.changePercent - a.changePercent);
     const top2 = market.slice(0, 2);
-    const bottom2 = market.slice(-2);
+    const losers = market.slice(-2);
+    const bottom2 = losers.reverse();
+
     return { top2, bottom2 };
   } else {
-    const top = market[0];
-    const bottom = market[-1];
+    const profitLoss = [];
+    for (let i = 0; i < portfolio.length; ++i) {
+      profitLoss.push({
+        label: portfolio[i].symbol,
+        prolos: (script[i] - portfolio[i].avgPrice) * portfolio[i].quantity,
+      });
+    }
+    profitLoss.sort((a, b) => b.prolos - a.prolos);
+
+    const best = profitLoss[0];
+    const worst = profitLoss[profitLoss.length - 1];
+
+    // Find the top and bottom stocks in the market
+    const top = market.find((stock) => stock.symbol === best.label);
+    const bottom = market.find((stock) => stock.symbol === worst.label);
+
+    // Create new objects with profit/loss added
+    const topWithProlos = { ...top, prolos: best.prolos };
+    const bottomWithProlos = { ...bottom, prolos: worst.prolos };
+
+    return { top: topWithProlos, bottom: bottomWithProlos };
   }
 }
 
 export function Dashboard() {
-  const { indicesData, portfolio, transactions, marketData } = useLoaderData();
-  const [stocks, setStocks] = useState(marketData);
+  const { indicesData, portfolio, transactions, marketData, scriptData } =
+    useLoaderData();
+  const { top2, bottom2 } = hotlist(marketData, portfolio.stocks, "market", []);
+  const { top, bottom } = hotlist(
+    marketData,
+    portfolio.stocks,
+    "portfolio",
+    scriptData
+  );
+  const [top2stocks, setTop2stocks] = useState(top2);
+  const [bottom2stocks, setBottom2stocks] = useState(bottom2);
+  const [topPerformer, setTopPerformer] = useState(top);
+  const [worstPerformer, setWorstPerformer] = useState(bottom);
   const [indices, setIndices] = useState(indicesData);
   const last5Trades = transactions.slice(-5);
-  // const { top2, bottom2 } = hotlist(marketData, "market");
-  // const { top, bottom } = hotlist(portfolio.stocks, "stocks");
+
   useEffect(() => {
     async function check() {
       try {
-        // const result = await axios.get("/market");
-        const indices = await axios.get("/indices");
-        setIndices(indices.data);
-        // setStocks(result.data);
+        const requestIndices = axios.get("/indices");
+        const requestPortfolio = axios.get("/portfolio/info");
+        const requestTransactions = axios.get("/transactions");
+        const requestMarket = axios.get("/market");
+
+        const [
+          indicesResponse,
+          portfolioResponse,
+          transactionsResponse,
+          marketResponse,
+        ] = await Promise.all([
+          requestIndices,
+          requestPortfolio,
+          requestTransactions,
+          requestMarket,
+        ]);
+
+        const indicesData = indicesResponse.data;
+        const portfolio = portfolioResponse.data;
+        const transactions = transactionsResponse.data;
+        const marketData = marketResponse.data;
+        const stocks = portfolio.stocks;
+        const requestScript = axios.post("/portfolio/prices", { stocks });
+        const scriptData = requestScript.data;
+
+        const { top2, bottom2 } = hotlist(
+          marketData,
+          portfolio.stocks,
+          "market",
+          []
+        );
+        const { top, bottom } = hotlist(
+          marketData,
+          portfolio.stocks,
+          "portfolio",
+          scriptData
+        );
+        setTop2stocks(top2);
+        setBottom2stocks(bottom2);
+        setTopPerformer(top);
+        setWorstPerformer(bottom);
+        setIndices(indicesData);
+
         console.log("Stocks updated");
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -123,17 +193,165 @@ export function Dashboard() {
           />
         </div>
         <div className="col-span-6 self-center">
-          <Typography className="text-blue-gray-50 text-center text-7xl font-medium font-Outfit">
-            {/* <div>
-              {top2.map((stock) => (
-                <p>{stock.symbol}</p>
+          {/* <hr className="mx-5 mt-3" /> */}
+          <div className="top2stocks">
+            <p>Top gainers</p>
+            <List>
+              {top2stocks.map((stock) => (
+                <Link to={`/stock/${stock.symbol}`}>
+                  <div className="grid gap-2">
+                    <ListItem
+                      className={`grid grid-cols-5 items-center ${listItemStyle}`}
+                    >
+                      <div className="col-span-1 text-base text-right">
+                        {stock.symbol}
+                      </div>
+                      <div className="col-span-1 text-right">
+                        {stock.currentPrice.toFixed(2)}
+                      </div>
+                      <div
+                        className="col-span- text-right"
+                        style={{ color: stock.change >= 0 ? "green" : "red" }}
+                      >
+                        {stock.change.toFixed(2)}
+                      </div>
+                      <div
+                        className="col-span-1 text-right"
+                        style={{
+                          color: stock.changePercent >= 0 ? "green" : "red",
+                        }}
+                      >
+                        {stock.changePercent.toFixed(2)}%
+                      </div>
+                    </ListItem>
+                  </div>
+                </Link>
               ))}
-            </div>{" "}
-            <div>
-              <h2>My top performers</h2>
-              <p>{top}</p> <p>{bottom}</p>
-            </div> */}
-          </Typography>
+            </List>
+          </div>
+          <div className="worst2stocks">
+            <p>Top Losers</p>
+            <List>
+              {bottom2stocks.map((stock) => (
+                <Link to={`/stock/${stock.symbol}`}>
+                  <div className="grid gap-2">
+                    <ListItem
+                      className={`grid grid-cols-5 items-center ${listItemStyle}`}
+                    >
+                      <div className="col-span-1 text-base text-right">
+                        {stock.symbol}
+                      </div>
+                      <div className="col-span-1 text-right">
+                        {stock.currentPrice.toFixed(2)}
+                      </div>
+                      <div
+                        className="col-span- text-right"
+                        style={{ color: stock.change >= 0 ? "green" : "red" }}
+                      >
+                        {stock.change.toFixed(2)}
+                      </div>
+                      <div
+                        className="col-span-1 text-right"
+                        style={{
+                          color: stock.changePercent >= 0 ? "green" : "red",
+                        }}
+                      >
+                        {stock.changePercent.toFixed(2)}%
+                      </div>
+                    </ListItem>
+                  </div>
+                </Link>
+              ))}
+            </List>
+          </div>
+          <div className="topPerformer">
+            <p>Top performer</p>
+            <List>
+              <Link to={`/stock/${topPerformer.symbol}`}>
+                <div className="grid gap-2">
+                  <ListItem
+                    className={`grid grid-cols-5 items-center ${listItemStyle}`}
+                  >
+                    <div className="col-span-1 text-base text-right">
+                      {topPerformer.symbol}
+                    </div>
+                    <div className="col-span-1 text-right">
+                      {topPerformer.currentPrice.toFixed(2)}
+                    </div>
+                    <div
+                      className="col-span- text-right"
+                      style={{
+                        color: topPerformer.change >= 0 ? "green" : "red",
+                      }}
+                    >
+                      {topPerformer.change.toFixed(2)}
+                    </div>
+                    <div
+                      className="col-span-1 text-right"
+                      style={{
+                        color:
+                          topPerformer.changePercent >= 0 ? "green" : "red",
+                      }}
+                    >
+                      {topPerformer.changePercent.toFixed(2)}%
+                    </div>
+                    <div
+                      className="col-span-1 text-right"
+                      style={{
+                        color: topPerformer.prolos >= 0 ? "green" : "red",
+                      }}
+                    >
+                      {topPerformer.prolos.toFixed(2)}
+                    </div>
+                  </ListItem>
+                </div>
+              </Link>
+            </List>
+          </div>
+          <div className="worstPerformer">
+            <p>Worst Performer</p>
+            <List>
+              <Link to={`/stock/${worstPerformer.symbol}`}>
+                <div className="grid gap-2">
+                  <ListItem
+                    className={`grid grid-cols-5 items-center ${listItemStyle}`}
+                  >
+                    <div className="col-span-1 text-base text-right">
+                      {worstPerformer.symbol}
+                    </div>
+                    <div className="col-span-1 text-right">
+                      {worstPerformer.currentPrice.toFixed(2)}
+                    </div>
+                    <div
+                      className="col-span- text-right"
+                      style={{
+                        color: worstPerformer.change >= 0 ? "green" : "red",
+                      }}
+                    >
+                      {worstPerformer.change.toFixed(2)}
+                    </div>
+                    <div
+                      className="col-span-1 text-right"
+                      style={{
+                        color:
+                          worstPerformer.changePercent >= 0 ? "green" : "red",
+                      }}
+                    >
+                      {worstPerformer.changePercent.toFixed(2)}%
+                    </div>
+                    <div
+                      className="col-span-1 text-right"
+                      style={{
+                        color: worstPerformer.prolos >= 0 ? "green" : "red",
+                      }}
+                    >
+                      {worstPerformer.prolos.toFixed(2)}
+                    </div>
+                  </ListItem>
+                </div>
+              </Link>
+            </List>
+          </div>
         </div>
       </div>
       <Card
@@ -176,9 +394,13 @@ export function Dashboard() {
                 <div className="col-span-2">{trade.date}</div>
                 <div className="col-span-1 text-center">{trade.tradeType}</div>
                 <div className="col-span-1 text-center">{trade.symbol}</div>
-                <div className="col-span-1 text-center">{trade.price.toFixed(2)}</div>
+                <div className="col-span-1 text-center">
+                  {trade.price.toFixed(2)}
+                </div>
                 <div className="col-span-1 text-center">{trade.quantity}</div>
-                <div className="col-span-1 text-center">{trade.amount.toFixed(2)}</div>
+                <div className="col-span-1 text-center">
+                  {trade.amount.toFixed(2)}
+                </div>
                 <div
                   className="col-span-1 text-center"
                   style={{ color: trade.profitLoss >= 0 ? "green" : "red" }}
@@ -193,6 +415,12 @@ export function Dashboard() {
           ))}
         </List>
       </Card>
+      <button className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
+        Deposit Money
+      </button>
+      <button className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
+        Withdraw Money
+      </button>
     </div>
   );
 }
@@ -220,8 +448,10 @@ export async function loader() {
     const portfolio = portfolioResponse.data;
     const transactions = transactionsResponse.data;
     const marketData = marketResponse.data;
-
-    return { indicesData, portfolio, transactions, marketData };
+    const stocks = portfolio.stocks;
+    const requestScript = await axios.post("/portfolio/prices", { stocks });
+    const scriptData = requestScript.data;
+    return { indicesData, portfolio, transactions, marketData, scriptData };
   } catch (error) {
     console.error("Error loading data:", error);
     throw error; // Re-throw the error to propagate it to the error boundary
