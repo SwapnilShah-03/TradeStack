@@ -358,7 +358,8 @@ app.get("/indices", async (req, res) => {
 
 app.post("/stock/data", async (req, res) => {
   const s = req.body.symbol;
-  const symbol = s.slice(0, -3);
+  const sy = s.slice(0, -3);
+  const symbol = sy.replace(/-/g, "_");
   const statistics = [];
   const url = `https://in.tradingview.com/symbols/NSE-${symbol}/`;
   try {
@@ -523,6 +524,47 @@ app.post("/watchlist/delete", async (req, res) => {
   res.status(200).send("Stocks deleted from the watchlist");
 });
 
+app.post("/payment/withdraw", async (req, res) => {
+  const amount = req.body.amount;
+  const destination = req.body.destination;
+  try {
+    const stripe = require("stripe")(
+      "sk_test_51O7AUtSEVJXp8xkv9fgdGU3UmJuqHPykk7TQhyOxjtaP7xFf6AehuwyS83eM1s136tCqqiPst6t71CDZCRFX8jXP00uvrdCMrp"
+    );
+
+    const payout = await stripe.payouts.create({
+      amount: amount,
+      currency: "inr",
+      destination: destination,
+      method: "instant",
+    });
+    console.log(payout);
+    res.status(200);
+  } catch {
+    res.status(400).send("Error! Transaction is canceled");
+  }
+});
+
+app.post("/payment/deposit", async (req, res) => {
+  const lineItems = {
+    price_data: {
+      currency: "inr",
+      product_data: {},
+      unit_amount: req.body.amount,
+    },
+    quantity: 1,
+  };
+  const stripe = require("stripe")(
+    "sk_test_51O7AUtSEVJXp8xkv9fgdGU3UmJuqHPykk7TQhyOxjtaP7xFf6AehuwyS83eM1s136tCqqiPst6t71CDZCRFX8jXP00uvrdCMrp"
+  );
+
+  const session = await stripe.checkout.sessions.create({
+    success_url: "http://localhost:5173/portfolio",
+    cancel_url: "http://localhost:5173/dashboard",
+    line_items: lineItems,
+    mode: "payment",
+  });
+});
 app.listen(process.env.PORT);
 
 // Alpha vantage Api key:DRVJFKCLK82Z4BOZ.
