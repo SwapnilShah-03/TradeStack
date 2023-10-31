@@ -59,8 +59,8 @@ export function Dashboard() {
   const [topPerformer, setTopPerformer] = useState(top);
   const [worstPerformer, setWorstPerformer] = useState(bottom);
   const [indices, setIndices] = useState(indicesData);
-  const ltransacTrades = transactions.slice(-5);
-  const last5Trades = ltransacTrades.reverse();
+  const transacTrades = transactions.slice(-5);
+  const last5Trades = transacTrades.reverse();
   useEffect(() => {
     async function check() {
       try {
