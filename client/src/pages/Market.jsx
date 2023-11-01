@@ -82,7 +82,7 @@ export function Market(params) {
           {/* <div className="grid grid-cols-5 items-center mx-5 mt-6 mb-2"> */}
           <CardHeader
             floated={false}
-            className="grid grid-cols-5 items-cente bg-transparent shadow-none mx-5"
+            className="grid grid-cols-5 items-center bg-transparent shadow-none mx-5"
           >
             <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-left">
               Stock Name
@@ -101,7 +101,7 @@ export function Market(params) {
             </Typography>
           </CardHeader>
           {/* </div> */}
-          <hr className="mx-5 mt-3" />
+          <hr className="mx-5 mt-2" />
           <List>
             {stocks.map((stock) => (
               <Link to={`/stock/${stock.symbol}`}>

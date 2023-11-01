@@ -84,7 +84,7 @@ export default function Header() {
           TradeStack
         </a>
         <div className="hidden xl:block">{navList}</div>
-        <div className="w-48 xl:w-40 flex items-center gap-4">
+        <div className="w-48 xl:w-40 flex justify-around gap-4">
           {!!user ? (
             <>
               <Typography className="cursor-pointer py-1.5 font-medium font-Poppins">

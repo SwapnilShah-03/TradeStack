@@ -117,12 +117,6 @@ export function Watchlist(params) {
             <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
               Change %
             </Typography>
-            <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
-              Delete
-            </Typography>
-            {/* <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-right">
-              Delete
-            </Typography> */}
           </CardHeader>
           <hr className="mx-5 mt-2" />
           <List>

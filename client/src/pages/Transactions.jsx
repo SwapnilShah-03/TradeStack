@@ -7,7 +7,7 @@ import {
   List,
   ListItem,
   Card,
-  CardBody,
+  CardHeader,
   Typography,
 } from "@material-tailwind/react";
 
@@ -33,7 +33,10 @@ export function Transactions() {
           variant="gradient"
           className="bg-blue-gray-900 h-auto w-full rounded-xl mx-10 p-2"
         >
-          <div className="grid grid-cols-9 items-center mx-5 mt-6 mb-2">
+           <CardHeader
+            floated={false}
+            className="grid grid-cols-9 items-center bg-transparent shadow-none mx-5"
+          >
             <Typography className="col-span-2 text-blue-gray-50 font-Outfit font-normal text-xl">
               Date
             </Typography>
@@ -58,8 +61,8 @@ export function Transactions() {
             <Typography className="col-span-1 text-blue-gray-50 font-Outfit font-normal text-xl text-center">
               Balance
             </Typography>
-          </div>
-          <hr className="mx-5 mt-3" />
+            </CardHeader>
+          <hr className="mx-5 mt-2" />
           <List>
             {trades.map((trade) => (
               <div className="grid gap-2">

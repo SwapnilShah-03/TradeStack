@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 // import { Grid, Button, Modal, Box } from "@mui/material";
 import { toast } from "react-hot-toast";
 import { UserContext } from "../userContext";
 import {
   Card,
+  CardHeader,
   CardBody,
   Dialog,
   DialogBody,
@@ -120,7 +121,7 @@ export function Portfolio() {
   }
 
   return (
-    <div className="h-screen bg-portfolio bg-no-repeat bg-cover bg-center">
+    <div className="min-h-screen bg-portfolio bg-no-repeat bg-cover bg-center p-10">
       <Dialog
         open={open}
         handler={handleOpen}
@@ -183,7 +184,7 @@ export function Portfolio() {
           </form>
         </DialogBody>
       </Dialog>
-      <div className="flex justify-center pt-10">
+      <div className="flex justify-center">
         <div className="grid grid-cols-3 gap-16">
           <Card
             variant="gradient"
@@ -233,9 +234,12 @@ export function Portfolio() {
           </Card>
         </div>
       </div>
-      <div className="my-10 mx-10">
+      <div className="mt-10 mx-10">
         <Card className="bg-opacity-80 p-2">
-          <div className="grid grid-cols-9 pt-6 mx-6 gap-4">
+          <CardHeader
+            floated={false}
+            className="grid grid-cols-10 gap-4 items-center bg-transparent shadow-none mx-6"
+          >
             <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
               Symbol
             </Typography>
@@ -248,9 +252,9 @@ export function Portfolio() {
             <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
               Profit/Loss
             </Typography>
-          </div>
-          <hr className="mx-6 mt-5 border-1 border-blue-gray-900" />
-          <CardBody className="grid grid-cols-9 gap-4 items-center">
+          </CardHeader>
+          <hr className="mx-6 mt-2 border-1 border-blue-gray-900" />
+          <CardBody className="grid grid-cols-10 gap-4 items-center">
             {stocks.map((stock) => (
               <>
                 <Typography
@@ -278,6 +282,12 @@ export function Portfolio() {
                 >
                   {stock.profitLoss.toFixed(2)}
                 </Typography>
+                <Link
+                  to={`/purchase/${stock.symbol}`}
+                  className="flex justify-center bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit col-span-1"
+                >
+                  Buy
+                </Link>
                 <button
                   onClick={() =>
                     handleOpen(
@@ -287,7 +297,7 @@ export function Portfolio() {
                       stock.quantity
                     )
                   }
-                  className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit col-span-1"
+                  className="flex justify-center bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit col-span-1"
                 >
                   Sell
                 </button>
