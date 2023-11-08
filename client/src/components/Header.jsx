@@ -106,7 +106,7 @@ export default function Header() {
           )}
           <IconButton
             variant="text"
-            className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent xl:hidden"
+            className="ml-auto self-center h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent xl:hidden"
             ripple={false}
             onClick={() => setOpenNav(!openNav)}
           >

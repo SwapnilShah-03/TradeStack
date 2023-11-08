@@ -17,13 +17,13 @@ export default function Error() {
             <div className="mx-auto">
               <Typography className="">
                 <div className="mx-auto">
-                  <Typography className="mb-2 text-gray-900 font-Outfit font-semibold text-3xl">
+                  <Typography className="mb-2 text-gray-900 font-Poppins font-medium text-2xl">
                     Oops, something went wrong!{" "}
                     <Link
                       to="/"
                       className="hover:underline hover:underline-offset-4"
                     >
-                      Go back
+                      Go back?
                     </Link>
                   </Typography>
                 </div>
@@ -34,7 +34,7 @@ export default function Error() {
           <>
             <Lottie animationData={loginErrorAnimation} loop={true} />
             <div className="mx-auto">
-              <Typography className="mb-2 text-gray-900 font-Outfit font-semibold text-2xl">
+              <Typography className="mb-2 text-gray-900 font-Poppins font-medium text-xl">
                 Oops, something went wrong!{" "} 
                 <Link
                   to="/login"

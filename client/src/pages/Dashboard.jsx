@@ -17,7 +17,6 @@ function hotlist(market, portfolio, choice, script) {
     const top2 = market.slice(0, 2);
     const losers = market.slice(-2);
     const bottom2 = losers.reverse();
-
     return { top2, bottom2 };
   } else {
     const profitLoss = [];
@@ -32,11 +31,9 @@ function hotlist(market, portfolio, choice, script) {
     const best = profitLoss[0];
     const worst = profitLoss[profitLoss.length - 1];
 
-    // Find the top and bottom stocks in the market
     const top = market.find((stock) => stock.symbol === best.label);
     const bottom = market.find((stock) => stock.symbol === worst.label);
 
-    // Create new objects with profit/loss added
     const topWithProlos = { ...top, prolos: best.prolos };
     const bottomWithProlos = { ...bottom, prolos: worst.prolos };
 
@@ -132,13 +129,13 @@ export function Dashboard() {
     fontSize: 16,
     fontName: "Outfit",
     is3D: true,
-    backgroundColor: "#00FFFFFF",
     height: 400,
     legend: {
       alignment: "center",
     },
-    chartArea: {
-      backgroundColor: "#00FFFFFF",
+    backgroundColor: "transparent",
+    legendTextStyle: {
+      color: "#eceff1",
     },
   };
 
@@ -152,7 +149,7 @@ export function Dashboard() {
           {indices.map((index) => (
             <Card
               variant="gradient"
-              className="w-80 text-center bg-blue-gray-900"
+              className="w-80 text-center bg-blue-gray-900/70"
             >
               <CardBody>
                 <Typography
@@ -185,7 +182,7 @@ export function Dashboard() {
       </div>
       <div className="grid grid-cols-12 mt-10 gap-10">
         <div className="col-span-6 bg-white/0 self-center">
-          <Typography className="text-blue-gray-900 text-center text-4xl font-medium font-Outfit">
+          <Typography className="text-blue-gray-50 text-center text-4xl font-medium font-Outfit">
             Investment
           </Typography>
           <Chart
@@ -198,7 +195,7 @@ export function Dashboard() {
         </div>
         <Card
           variant="gradient"
-          className="col-span-6 bg-blue-gray-900 w-full rounded-xl px-2"
+          className="bg-blue-gray-900/70 col-span-6 w-full rounded-xl px-2"
         >
           <CardBody>
             <Typography className="text-blue-gray-50 font-Outfit font-normal text-xl text-left mt-5 mx-2">
@@ -368,7 +365,7 @@ export function Dashboard() {
       </div>
       <Card
         variant="gradient"
-        className="bg-blue-gray-900 h-auto w-full rounded-xl mt-10 p-2"
+        className="bg-blue-gray-900/70 h-auto w-full rounded-xl mt-10 p-2"
       >
         <CardHeader
           floated={false}
@@ -430,14 +427,14 @@ export function Dashboard() {
           ))}
         </List>
       </Card>
-      <div className="mt-10 flex justify-center gap-10">
+      {/* <div className="mt-10 flex justify-center gap-10">
         <button className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
           Deposit Money
         </button>
         <button className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
           Withdraw Money
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

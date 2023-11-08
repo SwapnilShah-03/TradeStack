@@ -44,7 +44,7 @@ export function Purchase() {
       <form onSubmit={updatePortfolio} className="my-auto">
         <Card
           variant="gradient"
-          className="flex-row h-auto bg-white bg-opacity-95 py-4 px-8 shadow-2xl"
+          className="flex-row h-auto bg-white py-4 px-8 shadow-2xl"
         >
           <CardBody>
             <Typography className="mb-8 text-blue-gray-900 font-Outfit font-medium text-3xl">

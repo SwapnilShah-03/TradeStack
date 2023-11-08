@@ -27,11 +27,11 @@ export function Transactions() {
     "text-blue-gray-50 text-opacity-50 hover:bg-blue-gray-700 ease-in transition duration-150 hover:text-blue-gray-50 hover:text-opacity-100 font-Outfit font-normal text-lg";
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-transactions bg-no-repeat bg-cover bg-center">
       <div className="w-full flex justify-center py-10">
         <Card
           variant="gradient"
-          className="bg-blue-gray-900 h-auto w-full rounded-xl mx-10 p-2"
+          className="bg-blue-gray-900/70 h-auto w-full rounded-xl mx-10 p-2"
         >
            <CardHeader
             floated={false}

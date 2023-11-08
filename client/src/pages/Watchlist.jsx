@@ -56,7 +56,7 @@ export function Watchlist(params) {
     "text-blue-gray-50 text-opacity-50 hover:bg-blue-gray-700 ease-in transition duration-150 hover:text-blue-gray-50 hover:text-opacity-100 font-Outfit font-normal text-lg";
 
   return (
-    <div className="bg-market bg-no-repeat bg-cover bg-center min-h-screen">
+    <div className="bg-watchlist bg-no-repeat bg-cover bg-center min-h-screen">
       <div className="flex justify-center pt-10">
         <div className="grid grid-cols-3 gap-16">
           {indices.map((index) => (

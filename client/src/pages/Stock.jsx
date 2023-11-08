@@ -39,7 +39,7 @@ export function Stock({ params }) {
   }, []);
 
   const options = {
-    theme: "light2",
+    backgroundColor: "white",
     subtitles: [
       {
         text: "",
@@ -100,7 +100,7 @@ export function Stock({ params }) {
     setWatchlistPre(true);
   }
   return (
-    <div className="p-10">
+    <div className="p-10 bg-stock bg-no-repeat bg-cover bg-center">
       <Typography className="mb-6 text-blue-gray-900 font-Outfit font-semibold text-4xl">
         ₹{lastprice.toFixed(2)}
         <span
