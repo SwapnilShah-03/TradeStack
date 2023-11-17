@@ -29,7 +29,10 @@ export default function Login() {
         }
       );
       const userInfo = await userInfoResponse.json();
-      localStorage.setItem("userinfo", JSON.stringify(userInfo));
+      // localStorage.setItem("userinfo", JSON.stringify(userInfo));
+      document.cookie = `userinfo=${JSON.stringify(
+        userInfo
+      )}; expires=${new Date(Date.now() + 1000 * 60 * 60 * 24)}; path=/`;
       setUser(userInfo);
       navigate("/market");
     },

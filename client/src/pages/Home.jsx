@@ -15,9 +15,9 @@ export default function Home() {
       </Typography>
       <Link
         to="/market"
-        className="mt-6 px-6 py-5 rounded-full bg-gray-200 hover:bg-gray-300"
+        className="mt-6 px-6 py-5 rounded-full bg-gray-200/60 hover:bg-gray-300/60 text-blue-gray-900 hover:text-blue-gray-50"
       >
-        <Typography className="text-blue-gray-900 text-center text-2xl font-normal font-Outfit">
+        <Typography className="text-center text-2xl font-normal font-Outfit">
           Explore the market
         </Typography>
       </Link>

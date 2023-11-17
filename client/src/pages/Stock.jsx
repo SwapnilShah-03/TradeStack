@@ -121,9 +121,10 @@ export function Stock({ params }) {
         </span>
       </Typography>
       {!watchlistPre ? (
-        <button 
-        onClick={watchlistAdded}
-        className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit">
+        <button
+          onClick={watchlistAdded}
+          className="bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit"
+        >
           Add to watchlist
         </button>
       ) : (

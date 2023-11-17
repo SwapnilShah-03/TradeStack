@@ -84,7 +84,13 @@ export default function Header() {
           TradeStack
         </a>
         <div className="hidden xl:block">{navList}</div>
-        <div className="w-48 xl:w-40 flex justify-around gap-4">
+        <div
+          className={`flex justify-around gap-4 ${
+            user && user.username && user.username.length > 10
+              ? "flex-wrap"
+              : ""
+          }`}
+        >
           {!!user ? (
             <>
               <Typography className="cursor-pointer py-1.5 font-medium font-Poppins">
@@ -106,7 +112,7 @@ export default function Header() {
           )}
           <IconButton
             variant="text"
-            className="ml-auto self-center h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent xl:hidden"
+            className="self-center h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent xl:hidden"
             ripple={false}
             onClick={() => setOpenNav(!openNav)}
           >

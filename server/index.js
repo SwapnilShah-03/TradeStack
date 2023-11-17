@@ -112,7 +112,7 @@ app.get("/market", async (req, res) => {
 app.get("/portfolio/info", async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const cookie = req.cookies.token;
-  console.log(cookie);
+  const userCookie = req.cookies.userinfo;
   let username = "";
   if (cookie) {
     // Verify and decode the JWT
@@ -125,6 +125,8 @@ app.get("/portfolio/info", async (req, res) => {
         username = decoded.username;
       }
     });
+  } else if (userCookie) {
+    username = userCookie.name;
   } else {
     console.log("JWT Cookie not found");
   }
@@ -264,6 +266,7 @@ app.post("/portfolio/sellUpdate", async (req, res) => {
 app.get("/transactions", async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const cookie = req.cookies.token;
+  const userCookie = req.cookies.userinfo;
   console.log(cookie);
   let username = "";
   if (cookie) {
@@ -277,6 +280,8 @@ app.get("/transactions", async (req, res) => {
         username = decoded.username;
       }
     });
+  } else if (userCookie) {
+    username = userCookie.name;
   } else {
     console.log("JWT Cookie not found");
   }
@@ -403,6 +408,8 @@ app.get("/watchlist/info", async (req, res) => {
   try {
     mongoose.connect(process.env.MONGO_URL);
     const cookie = req.cookies.token;
+    const userCookie = req.cookies.userinfo;
+
     console.log(cookie);
     let username = "";
     if (cookie) {
@@ -416,6 +423,8 @@ app.get("/watchlist/info", async (req, res) => {
           username = decoded.username;
         }
       });
+    } else if (userCookie) {
+      username = userCookie.name;
     } else {
       console.log("JWT Cookie not found");
     }
@@ -459,6 +468,8 @@ app.get("/watchlist/info", async (req, res) => {
 app.post("/watchlist/add", async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const cookie = req.cookies.token;
+  const userCookie = req.cookies.userinfo;
+
   console.log(cookie);
   let username = "";
   if (cookie) {
@@ -472,6 +483,8 @@ app.post("/watchlist/add", async (req, res) => {
         username = decoded.username;
       }
     });
+  } else if (userCookie) {
+    username = userCookie.name;
   } else {
     console.log("JWT Cookie not found");
   }
@@ -498,6 +511,8 @@ app.post("/watchlist/delete", async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const scriptSymbol = req.body.symbol;
   const cookie = req.cookies.token;
+  const userCookie = req.cookies.userinfo;
+
   console.log(cookie);
   let username = "";
   if (cookie) {
@@ -511,6 +526,8 @@ app.post("/watchlist/delete", async (req, res) => {
         username = decoded.username;
       }
     });
+  } else if (userCookie) {
+    username = userCookie.name;
   } else {
     console.log("JWT Cookie not found");
   }
