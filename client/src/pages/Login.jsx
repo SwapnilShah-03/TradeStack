@@ -43,8 +43,7 @@ export default function Login() {
         navigate("/register");
       } else {
         toast.success("Login Successful");
-        const name = verification.data;
-        setUser(name);
+        setUser(verification.data);
         navigate("/market");
       }
     },
