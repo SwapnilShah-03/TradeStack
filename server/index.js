@@ -20,6 +20,7 @@ import {
   loginUser,
   getProfile,
   logoutUser,
+  authUser,
 } from "./controllers/authController.js";
 
 dotenv.config();
@@ -36,6 +37,7 @@ app.post("/register", registerUser);
 app.post("/login", loginUser);
 app.get("/profile", getProfile);
 app.get("/logout", logoutUser);
+app.post("/authLogin", authUser);
 
 app.post("/stock", async (req, res) => {
   console.log(req.body.symbol);
@@ -291,18 +293,54 @@ app.get("/transactions", async (req, res) => {
 
 app.get("/news", async (req, res) => {
   const news = [];
-  const url = "https://www.moneycontrol.com/news/business/stocks/";
+  const url = " https://www.moneycontrol.com/news/business/stocks/";
 
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      timeout: 60000,
+      headless: false,
+    });
+    console.log("NAvigate");
     const page = await browser.newPage();
+    await page.setRequestInterception(true);
 
+    page.on("request", (request) => {
+      const resourceType = request.resourceType();
+
+      // Block unnecessary resource types
+      if (
+        resourceType === "image" ||
+        resourceType === "font" ||
+        resourceType === "media"
+      ) {
+        request.abort();
+      } else {
+        request.continue();
+      }
+    });
+    // await page.evaluateOnNewDocument(() => {
+    //   Object.defineProperty(window, "Notification", {
+    //     value: class MockNotification {
+    //       constructor() {}
+    //     },
+    //     writable: false,
+    //     configurable: false,
+    //     enumerable: true,
+    //   });
+    // });
+
+    console.log("NAvigate");
     await page.goto(url);
 
+    console.log("Load");
     const container = await page.$x('//*[@id="cagetory"]');
     const liTags = await container[0].$$(".clearfix");
-
-    for (let liTag of liTags) {
+    console.log("connect");
+    for (let i = 0; i < liTags.length; i++) {
+      const liTag = liTags[i];
+      if (i === 0) {
+        continue;
+      }
       const anchorTag = await liTag.$("h2 a");
       const spanTag = await liTag.$("span");
       const pTag = await liTag.$$("p");
@@ -315,7 +353,6 @@ app.get("/news", async (req, res) => {
         description: pText,
         href: anchorHref,
         date: spanText,
-        // img: imgSrc,
       });
     }
 

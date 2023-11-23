@@ -49,7 +49,7 @@ export function Stock({ params }) {
       {
         axisX: {
           crosshair: {
-            enabled: true,
+            // enabled: true,
             snapToDataPoint: true,
             valueFormatString: "MMM DD YYYY",
           },
@@ -58,7 +58,7 @@ export function Stock({ params }) {
           title: "Stock Price",
           prefix: "₹",
           crosshair: {
-            enabled: true,
+            // enabled: true,
             snapToDataPoint: true,
             valueFormatString: "₹#,###.##",
           },
@@ -92,7 +92,6 @@ export function Stock({ params }) {
   };
 
   async function watchlistAdded() {
-    console.log("sdasda");
     const res = await axios.post("/watchlist/add", {
       symbol,
     });

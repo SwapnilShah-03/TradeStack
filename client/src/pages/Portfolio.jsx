@@ -169,13 +169,13 @@ export function Portfolio() {
             </Typography>
             <div className="flex justify-center gap-6">
               <button
-                onClick={handleClose}
+                onClick={() => handleClose()}
                 className="bg-transparent hover:bg-red-700 text-red-700 hover:text-white py-2 px-4 border border-red-700 hover:border-transparent text-xl font-medium font-Outfit"
               >
                 Cancel
               </button>
               <button
-                onClick={updatePortfolio}
+                onClick={() => updatePortfolio()}
                 className="bg-transparent hover:bg-green-700 text-green-700 hover:text-white py-2 px-4 border border-green-700 hover:border-transparent text-xl font-medium font-Outfit"
               >
                 Confirm

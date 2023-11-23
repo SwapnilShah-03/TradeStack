@@ -33,6 +33,12 @@ export default function Login() {
       document.cookie = `userinfo=${JSON.stringify(
         userInfo
       )}; expires=${new Date(Date.now() + 1000 * 60 * 60 * 24)}; path=/`;
+
+      console.log(userInfo);
+      const e = userInfo.email;
+      const verification = await axios.post("/authLogin", {
+        e,
+      });
       setUser(userInfo);
       navigate("/market");
     },

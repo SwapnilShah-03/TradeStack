@@ -109,4 +109,14 @@ const logoutUser = async (req, res) => {
   res.json({ message: "Logged out", status: true });
 };
 
-export { test, registerUser, loginUser, getProfile, logoutUser };
+const authUser = async (req, res) => {
+  const email = req.body;
+  const user = await User.findOne({ email });
+  if (user) {
+    res.json("True");
+  } else {
+    res.json("False");
+  }
+};
+
+export { test, registerUser, loginUser, getProfile, logoutUser, authUser };
