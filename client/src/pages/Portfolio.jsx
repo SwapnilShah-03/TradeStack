@@ -11,6 +11,7 @@ import {
   Dialog,
   DialogBody,
   Typography,
+  button,
 } from "@material-tailwind/react";
 
 const fixedInputClass =
@@ -169,6 +170,7 @@ export function Portfolio() {
             </Typography>
             <div className="flex justify-center gap-6">
               <button
+                type="button"
                 onClick={() => handleClose()}
                 className="bg-transparent hover:bg-red-700 text-red-700 hover:text-white py-2 px-4 border border-red-700 hover:border-transparent text-xl font-medium font-Outfit"
               >
