@@ -110,8 +110,9 @@ const logoutUser = async (req, res) => {
 };
 
 const authUser = async (req, res) => {
-  const email = req.body;
+  const { email } = req.body;
   const user = await User.findOne({ email });
+  console.log(user);
   if (user) {
     res.json("True");
   } else {

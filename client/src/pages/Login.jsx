@@ -34,11 +34,16 @@ export default function Login() {
         userInfo
       )}; expires=${new Date(Date.now() + 1000 * 60 * 60 * 24)}; path=/`;
 
-      console.log(userInfo);
       const e = userInfo.email;
-      const verification = await axios.post("/authLogin", {
-        e,
-      });
+      console.log(userInfo.email);
+      const verification = await axios.post("/authLogin", { e });
+      console.log(verification);
+      if (verification.data == "False") {
+        toast.error(verification.data.message);
+        return;
+      } else {
+        toast.success("Login Successful");
+      }
       setUser(userInfo);
       navigate("/market");
     },
