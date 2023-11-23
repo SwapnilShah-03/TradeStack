@@ -41,10 +41,10 @@ export default function Login() {
       const verification = await axios.post("/authLogin", { e });
       console.log(verification);
       if (verification.data == "False") {
-        toast.error("Email is not registered yet!!");
+        toast.error("Email is not registered yet");
         navigate("/register");
       } else {
-        toast.success("Login Successful");
+        toast.success("Logged in successfully!");
         const name = verification.data.user;
         setUser(verification.data.user);
         console.log(name);
@@ -77,8 +77,8 @@ export default function Login() {
             username: "",
             password: "",
           });
+          toast.success("Logged in successfully!");
           setUser(data.user);
-
           navigate("/market");
         } else {
           toast.error(data.message);

@@ -50,7 +50,7 @@ export function Portfolio() {
     ev.preventDefault();
     if (quantity > totalQuantity || quantity < 1) {
       setTimeout(() => {
-        toast.error("Invalid Sale");
+        toast.error("Invalid sale");
       }, 1000);
       handleClose();
     } else {
@@ -195,10 +195,10 @@ export function Portfolio() {
             <CardBody>
               <Typography
                 variant="h5"
-                className="text-blue-gray-50 font-Outfit font-normal text-2xl"
+                className="text-blue-gray-50 font-Outfit font-normal text-xl"
               >
                 Investment:
-                <Typography className="font-Outfit font-normal text-xl">
+                <Typography className="font-Outfit font-normal text-lg">
                   ₹{portfolio.investment.toFixed(2)}
                 </Typography>
               </Typography>
@@ -208,10 +208,10 @@ export function Portfolio() {
             <CardBody>
               <Typography
                 variant="h5"
-                className="text-blue-gray-50 font-Outfit font-normal text-2xl"
+                className="text-blue-gray-50 font-Outfit font-normal text-xl"
               >
                 Account Balance:
-                <Typography className="font-Outfit font-normal text-xl">
+                <Typography className="font-Outfit font-normal text-lg">
                   ₹{portfolio.balance.toFixed(2)}
                 </Typography>
               </Typography>
@@ -221,13 +221,13 @@ export function Portfolio() {
             <CardBody>
               <Typography
                 variant="h5"
-                className="text-blue-gray-50 font-Outfit font-normal text-2xl"
+                className="text-blue-gray-50 font-Outfit font-normal text-xl"
               >
                 <span style={{ color: "green" }}>Profit</span>/
                 <span style={{ color: "red" }}>Loss</span>:{" "}
                 <Typography
                   style={{ color: pl >= 0 ? "green" : "red" }}
-                  className="font-Outfit font-normal text-xl"
+                  className="font-Outfit font-normal text-lg"
                 >
                   ₹{pl.toFixed(2)}
                 </Typography>
@@ -237,56 +237,56 @@ export function Portfolio() {
         </div>
       </div>
       <div className="mt-10 mx-10">
-        <Card className="bg-opacity-80 p-2">
+        <Card className="bg-blue-gray-900/80 p-2">
           <CardHeader
             floated={false}
             className="grid grid-cols-10 gap-4 items-center bg-transparent shadow-none mx-6"
           >
-            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
+            <Typography className="col-span-2 text-blue-gray-50 font-Outfit font-medium text-xl">
               Symbol
             </Typography>
-            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
+            <Typography className="col-span-2 text-blue-gray-50 font-Outfit font-medium text-xl">
               Current Price
             </Typography>
-            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
+            <Typography className="col-span-2 text-blue-gray-50 font-Outfit font-medium text-xl">
               Quantity
             </Typography>
-            <Typography className="col-span-2 text-blue-gray-900 font-Outfit font-medium text-2xl">
+            <Typography className="col-span-2 text-blue-gray-50 font-Outfit font-medium text-xl">
               Profit/Loss
             </Typography>
           </CardHeader>
-          <hr className="mx-6 mt-2 border-1 border-blue-gray-900" />
+          <hr className="mx-6 mt-2 border-1 border-blue-gray-50" />
           <CardBody className="grid grid-cols-10 gap-4 items-center">
             {stocks.map((stock) => (
               <>
                 <Typography
                   variant="h5"
-                  className="text-blue-gray-900 font-Outfit font-normal col-span-2"
+                  className="text-blue-gray-50 text-opacity-50 font-Outfit font-normal text-lg col-span-2"
                 >
                   {stock.symbol}
                 </Typography>
                 <Typography
                   variant="h5"
-                  className="text-blue-gray-900 font-Outfit font-normal col-span-2"
+                  className="text-blue-gray-50 text-opacity-50 font-Outfit font-normal text-lg col-span-2"
                 >
                   {stock.currentPrice.toFixed(2)}
                 </Typography>
                 <Typography
                   variant="h5"
-                  className="text-blue-gray-900 font-Outfit font-normal col-span-2"
+                  className="text-blue-gray-50 text-opacity-50 font-Outfit font-normal text-lg col-span-2"
                 >
                   {stock.quantity}
                 </Typography>
                 <Typography
                   variant="h5"
-                  className="text-blue-gray-900 font-Outfit font-normal col-span-2"
+                  className="text-blue-gray-50 text-opacity-50 font-Outfit font-normal text-lg col-span-2"
                   style={{ color: stock.profitLoss >= 0 ? "green" : "red" }}
                 >
                   {(stock.profitLoss * stock.quantity).toFixed(2)}
                 </Typography>
                 <Link
                   to={`/purchase/${stock.symbol}`}
-                  className="flex justify-center bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit col-span-1"
+                  className="flex justify-center bg-transparent hover:bg-blue-gray-50 text-blue-gray-50 text-opacity-50 hover:text-blue-gray-900 py-2 px-4 border border-blue-gray-50/50 hover:border-transparent text-lg font-medium font-Outfit col-span-1"
                 >
                   Buy
                 </Link>
@@ -299,7 +299,7 @@ export function Portfolio() {
                       stock.quantity
                     )
                   }
-                  className="flex justify-center bg-transparent hover:bg-blue-gray-900 text-blue-gray-900 hover:text-white py-2 px-4 border border-blue-gray-900 hover:border-transparent text-xl font-medium font-Outfit col-span-1"
+                  className="flex justify-center bg-transparent hover:bg-blue-gray-50 text-blue-gray-50 text-opacity-50 hover:text-blue-gray-900 py-2 px-4 border border-blue-gray-50/50 hover:border-transparent text-lg font-medium font-Outfit col-span-1"
                 >
                   Sell
                 </button>
