@@ -134,6 +134,7 @@ const authUser = async (req, res) => {
         }
       );
     } else {
+      console.log("Fail");
       res.json("False");
     }
   } catch (error) {
