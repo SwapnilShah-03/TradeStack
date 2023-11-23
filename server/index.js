@@ -293,72 +293,41 @@ app.get("/transactions", async (req, res) => {
 
 app.get("/news", async (req, res) => {
   const news = [];
-  const url = " https://www.moneycontrol.com/news/business/stocks/";
-
+  const url = " https://in.tradingview.com/news/markets/?category=stock";
   try {
     const browser = await puppeteer.launch({
       timeout: 60000,
-      headless: false,
+      headless: true,
     });
-    console.log("NAvigate");
     const page = await browser.newPage();
-    await page.setRequestInterception(true);
-
-    page.on("request", (request) => {
-      const resourceType = request.resourceType();
-
-      // Block unnecessary resource types
-      if (
-        resourceType === "image" ||
-        resourceType === "font" ||
-        resourceType === "media"
-      ) {
-        request.abort();
-      } else {
-        request.continue();
-      }
-    });
-    // await page.evaluateOnNewDocument(() => {
-    //   Object.defineProperty(window, "Notification", {
-    //     value: class MockNotification {
-    //       constructor() {}
-    //     },
-    //     writable: false,
-    //     configurable: false,
-    //     enumerable: true,
-    //   });
-    // });
-
-    console.log("NAvigate");
     await page.goto(url);
-
-    console.log("Load");
-    const container = await page.$x('//*[@id="cagetory"]');
-    const liTags = await container[0].$$(".clearfix");
+    const container = await page.$x(
+      '//*[@id="tv-content"]/div/div/div/div[2]/div/div[1]'
+    );
+    const aTags = await container[0].$$(".card-rY32JioV");
     console.log("connect");
-    for (let i = 0; i < liTags.length; i++) {
-      const liTag = liTags[i];
-      if (i === 0) {
+    for (const aTag of aTags) {
+      const dTag = await aTag.$$("article div > div:nth-child(2)");
+      const sTag = await aTag.$$(".block-TUPxzdRV span");
+      const title = await dTag[0].evaluate((div) => div.innerHTML);
+      const spanTag = sTag[0];
+      const anchorHref = await aTag.evaluate((anchor) => anchor.href);
+      const spanText = await spanTag.evaluate((span) => span.textContent);
+      if (
+        spanText === "MT Newswires" ||
+        spanText === "Dow Jones Newswires" ||
+        spanText === "TradingView"
+      ) {
         continue;
       }
-      const anchorTag = await liTag.$("h2 a");
-      const spanTag = await liTag.$("span");
-      const pTag = await liTag.$$("p");
-      const anchorTitle = await anchorTag.evaluate((anchor) => anchor.title);
-      const anchorHref = await anchorTag.evaluate((anchor) => anchor.href);
-      const pText = await pTag[0].evaluate((p) => p.textContent);
-      const spanText = await spanTag.evaluate((span) => span.textContent);
       news.push({
-        title: anchorTitle,
-        description: pText,
+        title: title,
+        site: spanText,
         href: anchorHref,
-        date: spanText,
       });
     }
-
     console.log(news);
     res.json(news);
-
     await browser.close();
   } catch (error) {
     console.error("An error occurred:", error);
@@ -619,6 +588,33 @@ app.post("/payment/deposit", async (req, res) => {
     mode: "payment",
   });
 });
+
+app.get("/transactions", async (req, res) => {
+  mongoose.connect(process.env.MONGO_URL);
+  const cookie = req.cookies.token;
+  const userCookie = req.cookies.userinfo;
+  console.log(cookie);
+  let username = "";
+  if (cookie) {
+    // Verify and decode the JWT
+    jwt.verify(cookie, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        console.log("Fuckk");
+      } else {
+        // Successfully decoded JWT
+        console.log(decoded);
+        username = decoded.username;
+      }
+    });
+  } else if (userCookie) {
+    username = userCookie.name;
+  } else {
+    console.log("JWT Cookie not found");
+  }
+  const response = await Transaction.find({ userName: username });
+  res.json(response[0].trades);
+});
+
 app.listen(process.env.PORT);
 
 // Alpha vantage Api key:DRVJFKCLK82Z4BOZ.

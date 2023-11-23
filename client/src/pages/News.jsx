@@ -11,7 +11,6 @@ import {
 
 export function News() {
   const data = useLoaderData();
-  console.log(data);
   return (
     <div className="bg-news bg-no-repeat bg-cover bg-center">
       <div className="grid grid-cols-3 gap-8 p-10">
@@ -26,16 +25,13 @@ export function News() {
                   variant="h6"
                   className="mb-4 text-blue-gray-50 text-opacity-40 font-Outfit font-normal"
                 >
-                  {news.date}
+                  {news.site}
                 </Typography>
                 <Typography
                   variant="h4"
                   className="mb-4 text-blue-gray-50 font-Outfit font-medium"
                 >
                   {news.title}
-                </Typography>
-                <Typography className="text-blue-gray-50 text-opacity-60 font-Outfit font-medium">
-                  {news.description.slice(0, 200)}...
                 </Typography>
               </CardBody>
               {/* <CardHeader

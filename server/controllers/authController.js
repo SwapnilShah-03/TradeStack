@@ -95,7 +95,7 @@ const getProfile = async (req, res) => {
   const cookie = req.cookies.token;
   const userCookie = req.cookies.userinfo;
   if (cookie) {
-    jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
+    jwt.verify(cookie, process.env.JWT_SECRET, {}, (err, user) => {
       if (err) throw err;
       res.json(user);
     });
