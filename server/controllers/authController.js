@@ -114,11 +114,23 @@ const authUser = async (req, res) => {
   const { e } = req.body;
   try {
     console.log(e);
-    const u = await User.findOne({ email: e }).maxTimeMS(30000);
-    console.log(u);
-    if (u) {
-      const user = u.username;
-      res.json(user);
+    const user = await User.findOne({ email: e }).maxTimeMS(30000);
+    console.log(user);
+    if (user) {
+      jwt.sign(
+        { id: user._id, username: user.username, email: user.email },
+        process.env.JWT_SECRET,
+        {},
+        (err, token) => {
+          if (err) throw err;
+          res
+            .cookie("token", token, {
+              httpOnly: true,
+              maxAge: 1000 * 60 * 60 * 24,
+            })
+            .json({ status: true, user });
+        }
+      );
     } else {
       res.json("False");
     }

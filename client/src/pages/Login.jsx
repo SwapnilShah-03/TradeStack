@@ -20,7 +20,10 @@ export default function Login() {
   });
 
   const login = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
+    onSuccess: async (tokenResponse, event) => {
+      if (event) {
+        event.preventDefault();
+      }
       const userInfoResponse = await fetch(
         import.meta.env.VITE_GOOGLE_AUTH_URL,
         {
@@ -35,7 +38,6 @@ export default function Login() {
       )}; expires=${new Date(Date.now() + 1000 * 60 * 60 * 24)}; path=/`;
 
       const e = userInfo.email;
-      console.log(userInfo.email);
       const verification = await axios.post("/authLogin", { e });
       console.log(verification);
       if (verification.data == "False") {
@@ -43,8 +45,9 @@ export default function Login() {
         navigate("/register");
       } else {
         toast.success("Login Successful");
-        const name = verification.data;
-        setUser(name);
+        const name = verification.data.user;
+        setUser(verification.data.user);
+        console.log(name);
         navigate("/market");
       }
     },
@@ -75,6 +78,7 @@ export default function Login() {
             password: "",
           });
           setUser(data.user);
+
           navigate("/market");
         } else {
           toast.error(data.message);
