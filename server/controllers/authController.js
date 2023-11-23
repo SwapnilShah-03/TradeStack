@@ -110,13 +110,21 @@ const logoutUser = async (req, res) => {
 };
 
 const authUser = async (req, res) => {
-  const { email } = req.body;
-  const user = await User.findOne({ email });
-  console.log(user);
-  if (user) {
-    res.json("True");
-  } else {
-    res.json("False");
+  mongoose.connect(process.env.MONGO_URL);
+  const { e } = req.body;
+  try {
+    console.log(e);
+    const u = await User.findOne({ email: e }).maxTimeMS(30000);
+    console.log(u);
+    if (u) {
+      const user = u.username;
+      res.json(user);
+    } else {
+      res.json("False");
+    }
+  } catch (error) {
+    console.log(error);
+    res.json(error);
   }
 };
 

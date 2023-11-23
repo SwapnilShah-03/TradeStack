@@ -39,13 +39,14 @@ export default function Login() {
       const verification = await axios.post("/authLogin", { e });
       console.log(verification);
       if (verification.data == "False") {
-        toast.error(verification.data.message);
-        return;
+        toast.error("Email is not registered yet!!");
+        navigate("/register");
       } else {
         toast.success("Login Successful");
+        const name = verification.data;
+        setUser(name);
+        navigate("/market");
       }
-      setUser(userInfo);
-      navigate("/market");
     },
   });
 

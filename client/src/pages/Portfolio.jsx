@@ -280,7 +280,7 @@ export function Portfolio() {
                   className="text-blue-gray-900 font-Outfit font-normal col-span-2"
                   style={{ color: stock.profitLoss >= 0 ? "green" : "red" }}
                 >
-                  {stock.profitLoss.toFixed(2)}
+                  {(stock.profitLoss * stock.quantity).toFixed(2)}
                 </Typography>
                 <Link
                   to={`/purchase/${stock.symbol}`}
