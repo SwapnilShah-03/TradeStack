@@ -48,7 +48,7 @@ export default function Login() {
         const name = verification.data.user;
         setUser(verification.data.user);
         console.log(name);
-        navigate("/market");
+        navigate("/dashboard");
       }
     },
   });
