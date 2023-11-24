@@ -18,7 +18,7 @@ export function News() {
           <Link to={news.href}>
             <Card
               variant="gradient"
-              className="flex-row min-h-auto bg-blue-gray-900/70 hover:shadow-md hover:shadow-blue-gray-600/70 ease-in transition duration-150"
+              className="flex-row h-[12rem] bg-blue-gray-900/70 hover:shadow-md hover:shadow-blue-gray-600/70 ease-in transition duration-150"
             >
               <CardBody>
                 <Typography
