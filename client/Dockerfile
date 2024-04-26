@@ -22,3 +22,6 @@ EXPOSE 5173
 # Start the React application
 CMD ["npm", "run","dev"]
 
+
+
+

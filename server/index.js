@@ -210,6 +210,7 @@ app.post("/portfolio/prices", async (req, res) => {
     prices.push(closePrices[l - 1]);
   }
   res.json(prices);
+  console.log(prices);
 });
 
 app.post("/portfolio/sellUpdate", async (req, res) => {
